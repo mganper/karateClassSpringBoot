@@ -1,15 +1,30 @@
 package es.upo.tfg.manuelgandul.appkarate.model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 public class Alumno {
+
+    @NotNull
+    @Size(min = 9, max = 9)
     private String dni;
+
+    @NotNull
     private String nombre;
+
+    @NotNull
     private String apellidos;
+
     private boolean sexo;
+
     private Date fechaNac;
+
+    @Size(min = 9, max = 9)
     private String tlf;
+
     private String dir;
+
     private String cint;
 
     public Alumno() {
