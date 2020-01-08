@@ -12,6 +12,9 @@ public class Alumno {
     private String dir;
     private String cint;
 
+    public Alumno() {
+    }
+
     public Alumno(String dni, String nombre, String apellidos, boolean sexo, Date fechaNac, String tlf, String dir, String cint) {
         this.dni = dni;
         this.nombre = nombre;
