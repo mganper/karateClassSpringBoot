@@ -198,7 +198,11 @@
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <div class="col-sm-9">
-                                                <button type="submit" class="btn btn-primary btn-fw">Crear</button>
+                                                <form class="form-sample" action="#" th:action="@{/alumno/addAlumno}"
+                                                      method="get">
+                                                    <button type="submit" class="btn btn-primary btn-fw">Crear
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -221,12 +225,12 @@
                                         <td><span th:text="${alumno.nombre}">Alumno1</span> <span
                                                 th:text="${alumno.apellidos}">Apellido1</span></td>
                                         <td th:text="${alumno.dni}">11111111A</td>
-                                        <td class="py-1" th:text="${alumno.sexo}"><img
-                                                src="../../assets/images/faces-clipart/pic-1.png" alt="image"/></td>
-                                        <td th:text="${alumno.tlf}">954111111</td>
+                                        <td class="py-1" ><img
+                                                src="../../assets/images/faces-clipart/pic-1.png" alt="image"/></td> <!-- th:text="${alumno.sexo}" -->
+                                        <td th:text="${alumno.telefono_contacto}">954111111</td>
                                         <td>11</td>
-                                        <td th:text="${alumno.fechaNac}">2008/11/28</td>
-                                        <td th:text="${alumno.cint}">Blanco</td>
+                                        <td >2008/11/28</td> <!-- th:text="${alumno.fechaNac}" -->
+                                        <td >Blanco</td> <!-- th:text="${alumno.cint}" -->
                                         <td>Activo</td>
                                     </tr>
                                     </tbody>

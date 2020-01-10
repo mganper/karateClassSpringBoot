@@ -4,7 +4,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
-public class Alumno {
+public class AlumnoModel {
 
     @NotNull
     @Size(min = 9, max = 9)
@@ -16,7 +16,7 @@ public class Alumno {
     @NotNull
     private String apellidos;
 
-    private boolean sexo;
+    private String sexo;
 
     private Date fechaNac;
 
@@ -27,10 +27,10 @@ public class Alumno {
 
     private String cint;
 
-    public Alumno() {
+    public AlumnoModel() {
     }
 
-    public Alumno(String dni, String nombre, String apellidos, boolean sexo, Date fechaNac, String tlf, String dir, String cint) {
+    public AlumnoModel(String dni, String nombre, String apellidos, String sexo, Date fechaNac, String tlf, String dir, String cint) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -65,11 +65,11 @@ public class Alumno {
         this.apellidos = apellidos;
     }
 
-    public boolean isSexo() {
+    public String getSexo() {
         return sexo;
     }
 
-    public void setSexo(boolean sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
 
