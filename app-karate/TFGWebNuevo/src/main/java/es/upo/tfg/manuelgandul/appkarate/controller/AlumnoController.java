@@ -1,7 +1,7 @@
 package es.upo.tfg.manuelgandul.appkarate.controller;
 
-import es.upo.tfg.manuelgandul.appkarate.model.AlumnoModel;
-import es.upo.tfg.manuelgandul.appkarate.service.AlumnoService;
+import es.upo.tfg.manuelgandul.appkarate.model.alumno.AlumnoDto;
+import es.upo.tfg.manuelgandul.appkarate.service.alumno.AlumnoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -20,7 +20,7 @@ import javax.validation.Valid;
 public class AlumnoController {
 
     @Autowired
-    @Qualifier("AlumnoService")
+    @Qualifier("alumnoService")
     private AlumnoService alumnoService;
 
     @GetMapping("/")
@@ -29,11 +29,11 @@ public class AlumnoController {
     }
 
     @PostMapping("/alumno")
-    public ModelAndView getAlumno(@Valid @ModelAttribute("alumno") AlumnoModel alumnoModel, BindingResult bindingResult) {
+    public ModelAndView getAlumno(@Valid @ModelAttribute("alumno") AlumnoDto alumnoDto, BindingResult bindingResult) {
         ModelAndView mav = new ModelAndView("alumno/alumno");
-        mav.addObject(alumnoModel);
+        mav.addObject(alumnoDto);
 
-        alumnoService.addAlumno(alumnoModel);
+        alumnoService.addAlumno(alumnoDto);
 
         return mav;
     }
@@ -46,7 +46,7 @@ public class AlumnoController {
 
     @GetMapping("/addAlumno")
     public String addAlumno(Model model) {
-        model.addAttribute("alumno", new AlumnoModel());
+        model.addAttribute("alumno", new AlumnoDto());
         return "alumno/crearAlumno";
     }
 }

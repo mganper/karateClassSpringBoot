@@ -1,0 +1,116 @@
+<ul class="nav">
+  <li class="nav-item nav-profile">
+    <a href="#" class="nav-link">
+      <!--<div class="profile-image">
+          <img class="img-xs rounded-circle" src="../../static/images/faces/face8.jpg" alt="profile image">
+          <div class="dot-indicator bg-success"></div>
+        </div>-->
+      <div class="profile-image">
+        <img class="img-xs rounded-circle" alt="profile image"
+             th:src="@{/images/faces-clipart/pic-3.png}"/>
+        <div class="dot-indicator bg-success"></div>
+      </div>
+      <div class="text-wrapper">
+        <p class="profile-name">Allen Moreno</p>
+        <p class="designation">Premium user</p>
+      </div>
+    </a>
+  </li>
+  <li class="nav-item nav-category">Men&uacute; Principal</li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html">
+      <i class="menu-icon typcn typcn-document-text"></i>
+      <span class="menu-title">Página Principal</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="collapse" href="#ui-alumno" aria-expanded="false"
+       aria-controls="ui-alumno">
+      <i class="menu-icon typcn typcn-coffee"></i>
+      <span class="menu-title">Gestión Alumnos</span>
+      <i class="menu-arrow"></i>
+    </a>
+    <div class="collapse" id="ui-alumno">
+      <ul class="nav flex-column sub-menu">
+        <li class="nav-item">
+          <a class="nav-link" href="/alumno/addAlumno">Crear Alumno</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/alumno/alumnos">Listar Alumnos</a>
+        </li>
+      </ul>
+    </div>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="collapse" href="#ui-clase" aria-expanded="false"
+       aria-controls="ui-clase">
+      <i class="menu-icon typcn typcn-coffee"></i>
+      <span class="menu-title">Gestión Clases</span>
+      <i class="menu-arrow"></i>
+    </a>
+    <div class="collapse" id="ui-clase">
+      <ul class="nav flex-column sub-menu">
+        <li class="nav-item">
+          <a class="nav-link" href="../../pages/ui-features/buttons.html">Crear Clase</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../../pages/ui-features/dropdowns.html">Listar Clases</a>
+        </li>
+      </ul>
+    </div>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="collapse" href="#ui-centro" aria-expanded="false"
+       aria-controls="ui-centro">
+      <i class="menu-icon typcn typcn-coffee"></i>
+      <span class="menu-title">Gestión Centros</span>
+      <i class="menu-arrow"></i>
+    </a>
+    <div class="collapse" id="ui-centro">
+      <ul class="nav flex-column sub-menu">
+        <li class="nav-item">
+          <a class="nav-link" href="../../pages/ui-features/buttons.html">Crear Centro</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../../pages/ui-features/dropdowns.html">Listar Centros</a>
+        </li>
+      </ul>
+    </div>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="collapse" href="#ui-profesor" aria-expanded="false"
+       aria-controls="ui-profesor">
+      <i class="menu-icon typcn typcn-coffee"></i>
+      <span class="menu-title">Gestión Profesores</span>
+      <i class="menu-arrow"></i>
+    </a>
+    <div class="collapse" id="ui-profesor">
+      <ul class="nav flex-column sub-menu">
+        <li class="nav-item">
+          <a class="nav-link" href="../../pages/ui-features/buttons.html">Crear Profesor</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../../pages/ui-features/dropdowns.html">Listar Profesores</a>
+        </li>
+      </ul>
+    </div>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="collapse" href="#ui-empleado" aria-expanded="false"
+       aria-controls="ui-empleado">
+      <i class="menu-icon typcn typcn-coffee"></i>
+      <span class="menu-title">Gestión Empleados</span>
+      <i class="menu-arrow"></i>
+    </a>
+    <div class="collapse" id="ui-empleado">
+      <ul class="nav flex-column sub-menu">
+        <li class="nav-item">
+          <a class="nav-link" href="../../pages/ui-features/buttons.html">Crear Empleado</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../../pages/ui-features/dropdowns.html">Listar Empleados</a>
+        </li>
+      </ul>
+    </div>
+  </li>
+</ul>

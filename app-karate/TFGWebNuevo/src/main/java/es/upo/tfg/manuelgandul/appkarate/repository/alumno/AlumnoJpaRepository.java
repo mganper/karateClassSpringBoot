@@ -1,6 +1,6 @@
-package es.upo.tfg.manuelgandul.appkarate.repository;
+package es.upo.tfg.manuelgandul.appkarate.repository.alumno;
 
-import es.upo.tfg.manuelgandul.appkarate.entity.Alumno;
+import es.upo.tfg.manuelgandul.appkarate.entity.alumno.Alumno;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
