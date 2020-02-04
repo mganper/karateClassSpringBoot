@@ -1,12 +1,9 @@
 package es.upo.tfg.manuelgandul.appkarate.entity.alumno;
 
+import es.upo.tfg.manuelgandul.appkarate.entity.common.Cinturon;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Table;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -40,8 +37,8 @@ public class Alumno {
     @Column(name = "telefono_contacto")
     private String telefono_contacto;
 
-    @Column(name = "cinturon")
-    private String cinturon;
+    @ManyToOne
+    private Cinturon cinturon;
 
     @Column(name = "activo")
     private boolean activo;
@@ -113,11 +110,11 @@ public class Alumno {
         this.telefono_contacto = telefono_contacto;
     }
 
-    public String getCinturon() {
+    public Cinturon getCinturon() {
         return cinturon;
     }
 
-    public void setCinturon(String cinturon) {
+    public void setCinturon(Cinturon cinturon) {
         this.cinturon = cinturon;
     }
 

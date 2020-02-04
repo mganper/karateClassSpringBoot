@@ -1,5 +1,6 @@
 package es.upo.tfg.manuelgandul.appkarate.model.alumno;
 
+import es.upo.tfg.manuelgandul.appkarate.model.common.CinturonDto;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
@@ -37,24 +38,11 @@ public class AlumnoDto {
 
     private String dir;
 
-    private String cint;
+    private CinturonDto cint;
 
     private String activo;
 
     public AlumnoDto() {
-    }
-
-    public AlumnoDto(int id, String dni, String nombre, String apellidos, String sexo, LocalDate fechaNac, String tlf, String dir, String cint, String activo) {
-        this.id = id;
-        this.dni = dni;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.sexo = sexo;
-        this.setFechaNac(fechaNac);
-        this.tlf = tlf;
-        this.dir = dir;
-        this.cint = cint;
-        this.activo = activo;
     }
 
     public int getId() {
@@ -140,11 +128,11 @@ public class AlumnoDto {
         this.dir = dir;
     }
 
-    public String getCint() {
+    public CinturonDto getCint() {
         return cint;
     }
 
-    public void setCint(String cint) {
+    public void setCint(CinturonDto cint) {
         this.cint = cint;
     }
 

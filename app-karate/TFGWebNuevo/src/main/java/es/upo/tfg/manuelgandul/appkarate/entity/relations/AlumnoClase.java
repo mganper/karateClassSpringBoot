@@ -1,6 +1,8 @@
-package es.upo.tfg.manuelgandul.appkarate.entity.clase;
+package es.upo.tfg.manuelgandul.appkarate.entity.relations;
 
 import es.upo.tfg.manuelgandul.appkarate.entity.alumno.Alumno;
+import es.upo.tfg.manuelgandul.appkarate.entity.clase.Clase;
+import es.upo.tfg.manuelgandul.appkarate.entity.clase.CompositeKey;
 
 import javax.persistence.*;
 
