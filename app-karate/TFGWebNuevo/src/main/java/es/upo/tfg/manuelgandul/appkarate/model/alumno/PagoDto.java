@@ -17,6 +17,8 @@ public class PagoDto {
     @DateTimeFormat(pattern = "MM/yyyy")
     private LocalDate mesPagado;
 
+    private double cantidad;
+
     public PagoDto() {
     }
 
@@ -52,4 +54,11 @@ public class PagoDto {
         this.mesPagado = mes_pagado;
     }
 
+    public double getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(double cantidad) {
+        this.cantidad = cantidad;
+    }
 }

@@ -36,11 +36,6 @@ public class AlumnoServiceImpl implements AlumnoService {
         return listAlumnoDto;
     }
 
-    /**
-     *
-     * @param alumno
-     * @return
-     */
     @Override
     public AlumnoDto addAlumno(AlumnoDto alumno) {
         alumnoJpaRepository.save(alumnoConverter.model2Entity(alumno));
@@ -56,5 +51,10 @@ public class AlumnoServiceImpl implements AlumnoService {
     public AlumnoDto updateAlumno(AlumnoDto alumno) {
         alumnoJpaRepository.save(alumnoConverter.model2Entity(alumno));
         return alumno;
+    }
+
+    @Override
+    public AlumnoDto getAlumnoById(int id) {
+        return alumnoConverter.entity2Model(alumnoJpaRepository.findById(id));
     }
 }

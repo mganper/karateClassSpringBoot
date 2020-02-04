@@ -1,6 +1,7 @@
 package es.upo.tfg.manuelgandul.appkarate.service.alumno.impl;
 
 import es.upo.tfg.manuelgandul.appkarate.converter.alumno.PagoConverter;
+import es.upo.tfg.manuelgandul.appkarate.entity.alumno.Pago;
 import es.upo.tfg.manuelgandul.appkarate.model.alumno.AlumnoDto;
 import es.upo.tfg.manuelgandul.appkarate.model.alumno.PagoDto;
 import es.upo.tfg.manuelgandul.appkarate.repository.alumno.PagoJpaRepository;
@@ -37,5 +38,12 @@ public class PagoServiceImpl implements PagoService {
     @Override
     public void removePago(PagoDto pagoDto) {
         pagoJpaRepository.delete(pagoConverter.model2Entity(pagoDto));
+    }
+
+    @Override
+    public PagoDto getPagoById(int id) {
+        Pago pago = pagoJpaRepository.findById(id);
+
+        return pagoConverter.entity2Model(pago);
     }
 }

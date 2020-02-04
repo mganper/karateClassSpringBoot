@@ -30,7 +30,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <h2 class="card-title">Crear Alumno</h2>
-                                <form class="form-sample" action="#" th:action="@{/alumno/alumno}" th:object="${alumno}"
+                                <form class="form-sample" action="#" th:action="@{/alumno/saveAlumno}"
+                                      th:object="${alumno}"
                                       method="post">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -76,8 +77,9 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Fecha de Nacimiento</label>
                                                 <div class="col-sm-9">
-                                                    <input type="date"  class="form-control" placeholder="dd/mm/yyyy"
-                                                           th:name="*{fechaString}" /> <!-- th:value="${#calendars.format(f,'yyyy-MM-dd')}" -->
+                                                    <input type="date" class="form-control" placeholder="dd/mm/yyyy"
+                                                           th:name="*{fechaString}"/>
+                                                    <!-- th:value="${#calendars.format(f,'yyyy-MM-dd')}" -->
                                                 </div>
                                             </div>
                                         </div>

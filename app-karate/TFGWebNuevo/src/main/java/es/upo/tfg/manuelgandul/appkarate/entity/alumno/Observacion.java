@@ -2,11 +2,7 @@ package es.upo.tfg.manuelgandul.appkarate.entity.alumno;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Table;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -17,7 +13,7 @@ public class Observacion {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "alumno")
+    @ManyToOne
     private Alumno alumno;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")

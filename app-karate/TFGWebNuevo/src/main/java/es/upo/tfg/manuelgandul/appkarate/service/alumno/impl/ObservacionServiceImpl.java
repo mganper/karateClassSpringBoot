@@ -1,6 +1,7 @@
 package es.upo.tfg.manuelgandul.appkarate.service.alumno.impl;
 
 import es.upo.tfg.manuelgandul.appkarate.converter.alumno.ObservacionConverter;
+import es.upo.tfg.manuelgandul.appkarate.entity.alumno.Observacion;
 import es.upo.tfg.manuelgandul.appkarate.model.alumno.AlumnoDto;
 import es.upo.tfg.manuelgandul.appkarate.model.alumno.ObservacionDto;
 import es.upo.tfg.manuelgandul.appkarate.repository.alumno.ObservacionJpaRepository;
@@ -24,7 +25,6 @@ public class ObservacionServiceImpl implements ObservacionService {
     private ObservacionConverter observacionConverter;
 
     /**
-     * Este metodo
      * @param alumnoDto
      * @return
      */
@@ -54,5 +54,12 @@ public class ObservacionServiceImpl implements ObservacionService {
     public ObservacionDto updateObservacion(ObservacionDto observacionDto) {
         observacionJpaRepository.save((observacionConverter.model2Entity(observacionDto)));
         return observacionDto;
+    }
+
+    @Override
+    public ObservacionDto getObservacionById(int id) {
+        Observacion observacion = observacionJpaRepository.findById(id);
+
+        return observacionConverter.entity2Model(observacion);
     }
 }

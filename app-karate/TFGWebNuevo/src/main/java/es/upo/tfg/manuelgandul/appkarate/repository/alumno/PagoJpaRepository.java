@@ -10,4 +10,5 @@ import java.util.List;
 @Repository("pagoJpaRepository")
 public interface PagoJpaRepository extends JpaRepository<Pago, Serializable> {
     public List<Pago> findAllByAlumno_IdOrderByFecha(int id);
+    public Pago findById(int id);
 }

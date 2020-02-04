@@ -9,4 +9,6 @@ public interface PagoService {
     public List<PagoDto> listPagosAlumno(AlumnoDto alumnoDto);
 
     public void removePago(PagoDto pagoDto);
+
+    public PagoDto getPagoById(int id);
 }

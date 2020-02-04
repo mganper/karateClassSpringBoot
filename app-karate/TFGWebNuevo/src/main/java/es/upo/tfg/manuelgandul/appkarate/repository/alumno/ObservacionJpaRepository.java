@@ -10,4 +10,5 @@ import java.util.List;
 @Repository("observacionJpaRepository")
 public interface ObservacionJpaRepository extends JpaRepository<Observacion, Serializable> {
     public List<Observacion> findAllByAlumno_IdOrderByFecha(int id);
+    public Observacion findById(int id);
 }

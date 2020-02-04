@@ -13,4 +13,6 @@ public interface ObservacionService {
     public void removeObservacion(ObservacionDto observacionDto);
 
     public ObservacionDto updateObservacion(ObservacionDto observacionDto);
+
+    public ObservacionDto getObservacionById(int id);
 }

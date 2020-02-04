@@ -120,10 +120,20 @@
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <div class="col-sm-9">
-                                                    <button type="submit" class="btn btn-primary btn-fw">Editar</button>
-                                                    <button type="reset" class="btn btn-success btn-fw">Dar Alta
-                                                    </button>
-                                                    <button type="reset" class="btn btn-danger btn-fw">Dar Baja</button>
+                                                    <a>
+                                                        <button type="button" class="btn btn-primary btn-fw">Editar
+                                                        </button>
+                                                    </a>
+                                                    <span th:switch="${alumno.activo}">
+                                                        <a th:case="'0'">
+                                                        <button type="button"
+                                                                class="btn btn-success btn-fw">Dar Alta</button>
+                                                    </a>
+                                                    <a th:case="'1'">
+                                                        <button type="button"
+                                                                class="btn btn-danger btn-fw">Dar Baja</button>
+                                                    </a>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -142,7 +152,9 @@
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <div class="col-sm-9">
-                                                <button type="submit" class="btn btn-primary btn-fw">Crear</button>
+                                                <a th:href="@{/addObservacion(id=${alumno.id})}">
+                                                    <button type="submit" class="btn btn-primary btn-fw">Crear</button>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -156,24 +168,17 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>1/1/1977</td>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum at dolor
+                                    <tr th:each="observacion : ${listaObservaciones}">
+                                        <td th:text="${observacion.fecha}">1/1/1977</td>
+                                        <td th:text="${observacion.dato}">Lorem ipsum dolor sit amet, consectetur
+                                            adipiscing elit. Vestibulum at dolor
                                             venenatis,
                                             laoreet arcu eget.
                                         </td>
                                         <td>
-                                            <button type="reset" class="btn btn-danger btn-fw">Eliminar</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2/1/1977<br></td>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum at dolor
-                                            venenatis,
-                                            laoreet arcu eget.
-                                        </td>
-                                        <td>
-                                            <button type="reset" class="btn btn-danger btn-fw">Eliminar</button>
+                                            <a th:href="@{/removeObs(id=${observacion.id})}">
+                                                <button type="reset" class="btn btn-danger btn-fw">Eliminar</button>
+                                            </a>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -197,20 +202,14 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>1/1/1977</td>
-                                        <td>20€</td>
-                                        <td>1/77</td>
+                                    <tr th:each="pago : ${listaPagos}">
+                                        <td th:text="${pago.fecha}">1/1/1977</td>
+                                        <td th:text="${pago.cantidad}">20€</td>
+                                        <td th:text="${pago.mesPagado}">1/77</td>
                                         <td>
-                                            <button type="reset" class="btn btn-danger btn-fw">Eliminar</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2/2/1977<br></td>
-                                        <td>20€</td>
-                                        <td>2/77</td>
-                                        <td>
-                                            <button type="reset" class="btn btn-danger btn-fw">Eliminar</button>
+                                            <a th:href="@{/removePag(id=${pago.id})}"> <!--  -->
+                                                <button type="reset" class="btn btn-danger btn-fw">Eliminar</button>
+                                            </a>
                                         </td>
                                     </tr>
                                     </tbody>

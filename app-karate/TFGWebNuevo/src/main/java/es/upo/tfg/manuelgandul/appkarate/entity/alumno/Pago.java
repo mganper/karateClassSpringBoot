@@ -2,11 +2,7 @@ package es.upo.tfg.manuelgandul.appkarate.entity.alumno;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Table;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -18,7 +14,7 @@ public class Pago {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "alumno")
+    @ManyToOne
     private Alumno alumno;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -28,6 +24,9 @@ public class Pago {
     @DateTimeFormat(pattern = "MM/yyyy")
     @Column(name = "mes_pagado")
     private LocalDate mes_pagado;
+
+    @Column(name="cantidad")
+    private double cantidad;
 
     public Pago() {
     }
@@ -62,5 +61,13 @@ public class Pago {
 
     public void setMes_pagado(LocalDate mes_pagado) {
         this.mes_pagado = mes_pagado;
+    }
+
+    public double getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(double cantidad) {
+        this.cantidad = cantidad;
     }
 }

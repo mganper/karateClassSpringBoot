@@ -26,7 +26,7 @@ public class AlumnoDto {
 
     int edad;
 
-    @NotNull
+//    @NotNull
     private String fechaString;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -118,8 +118,10 @@ public class AlumnoDto {
     }
 
     public void setFechaNac(LocalDate fechaNac) {
-        this.edad = calculateAge(fechaNac);
-        this.fechaNac = fechaNac;
+        if(fechaNac != null){
+            this.edad = calculateAge(fechaNac);
+            this.fechaNac = fechaNac;
+        }
     }
 
     public String getTlf() {

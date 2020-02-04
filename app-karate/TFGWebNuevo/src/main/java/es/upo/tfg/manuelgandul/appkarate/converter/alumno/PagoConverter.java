@@ -14,6 +14,7 @@ public class PagoConverter {
         pagoDto.setAlumno(pago.getAlumno());
         pagoDto.setFecha(pago.getFecha());
         pagoDto.setMesPagado(pago.getMes_pagado());
+        pagoDto.setCantidad(pago.getCantidad());
 
         return pagoDto;
     }
@@ -25,6 +26,7 @@ public class PagoConverter {
         pago.setAlumno(pagoDto.getAlumno());
         pago.setFecha(pagoDto.getFecha());
         pago.setMes_pagado(pagoDto.getMesPagado());
+        pago.setCantidad(pagoDto.getCantidad());
 
         return pago;
     }

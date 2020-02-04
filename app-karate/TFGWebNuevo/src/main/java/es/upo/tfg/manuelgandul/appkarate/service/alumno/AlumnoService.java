@@ -12,4 +12,6 @@ public interface AlumnoService {
     public void removeAlumno(AlumnoDto alumno);
 
     public AlumnoDto updateAlumno(AlumnoDto alumno);
+
+    public AlumnoDto getAlumnoById(int id);
 }
