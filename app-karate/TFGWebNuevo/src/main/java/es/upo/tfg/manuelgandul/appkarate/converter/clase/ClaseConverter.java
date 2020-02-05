@@ -1,6 +1,7 @@
 package es.upo.tfg.manuelgandul.appkarate.converter.clase;
 
 import es.upo.tfg.manuelgandul.appkarate.converter.centro.CentroConverter;
+import es.upo.tfg.manuelgandul.appkarate.converter.empleado.EmpleadoConverter;
 import es.upo.tfg.manuelgandul.appkarate.entity.clase.Clase;
 import es.upo.tfg.manuelgandul.appkarate.model.clase.ClaseDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,10 @@ public class ClaseConverter {
     @Qualifier("centroConverter")
     private CentroConverter centroConverter;
 
+    @Autowired
+    @Qualifier("empleadoConverter")
+    private EmpleadoConverter empleadoConverter;
+
     public ClaseDto entity2model(Clase clase){
         ClaseDto claseDto = new ClaseDto();
 
@@ -25,7 +30,7 @@ public class ClaseConverter {
         claseDto.setMaxAlumnos(clase.getMax_alumnos());
         claseDto.setPrecio(clase.getPrecio());
         claseDto.setActivo(clase.isActivo());
-        claseDto.setProfesor(clase.getProfesor());
+        claseDto.setProfesor(empleadoConverter.entity2model(clase.getProfesor()));
         claseDto.setCentro(centroConverter.entity2model(clase.getCentro()));
 
         return claseDto;
@@ -36,13 +41,13 @@ public class ClaseConverter {
 
         clase.setId(claseDto.getId());
         clase.setHora_inicio(claseDto.getHoraInicio());
-        clase.setHora_fin(claseDto.getHoraFin()););
+        clase.setHora_fin(claseDto.getHoraFin());
         clase.setEdad_maxima(claseDto.getEdadMaxima());
         clase.setEdad_minima(claseDto.getEdadMinima());
         clase.setMax_alumnos(claseDto.getMaxAlumnos());
         clase.setPrecio(claseDto.getPrecio());
         clase.setActivo(claseDto.isActivo());
-        clase.setProfesor(claseDto.getProfesor());
+        clase.setProfesor(empleadoConverter.model2entity(claseDto.getProfesor()));
         clase.setCentro(centroConverter.model2entity(claseDto.getCentro()));
 
         return clase;

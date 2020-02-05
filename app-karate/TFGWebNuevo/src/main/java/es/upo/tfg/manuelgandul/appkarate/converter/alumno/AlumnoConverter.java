@@ -1,11 +1,18 @@
 package es.upo.tfg.manuelgandul.appkarate.converter.alumno;
 
+import es.upo.tfg.manuelgandul.appkarate.converter.common.CinturonConverter;
 import es.upo.tfg.manuelgandul.appkarate.entity.alumno.Alumno;
 import es.upo.tfg.manuelgandul.appkarate.model.alumno.AlumnoDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component("alumnoConverter")
 public class AlumnoConverter {
+
+    @Autowired
+    @Qualifier("cinturonConverter")
+    private CinturonConverter cinturonConverter;
 
     public AlumnoDto entity2Model(Alumno alumno) {
         AlumnoDto alumnoDto = new AlumnoDto();
@@ -18,7 +25,7 @@ public class AlumnoConverter {
         alumnoDto.setSexo(alumno.getSexo());
         alumnoDto.setDir(alumno.getDireccion());
         alumnoDto.setFechaNac(alumno.getFecha_nacimiento());
-        alumnoDto.setCint(alumno.getCinturon());
+        alumnoDto.setCint(cinturonConverter.entity2model(alumno.getCinturon()));
 
         String activo = (alumno.isActivo()) ? "Activo" : "Inactivo";
 
@@ -37,7 +44,7 @@ public class AlumnoConverter {
         alumno.setTelefono_contacto(alumnoDto.getTlf());
         alumno.setSexo(alumnoDto.getSexo());
         alumno.setDireccion(alumnoDto.getDir());
-        alumno.setCinturon(alumnoDto.getCint());
+        alumno.setCinturon(cinturonConverter.model2entity(alumnoDto.getCint()));
 
         Boolean activo = (alumnoDto.getActivo() == null || alumnoDto.getActivo().equals("Activo")) ? true : false;
 

@@ -1,5 +1,7 @@
 package es.upo.tfg.manuelgandul.appkarate.entity.empleado;
 
+import es.upo.tfg.manuelgandul.appkarate.entity.common.Cinturon;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -30,8 +32,8 @@ public class Empleado {
     @Column(name = "sueldo")
     private double sueldo;
 
-    @Column(name = "cinturon")
-    private String cinturon;
+    @ManyToOne
+    private Cinturon cinturon;
 
     @Column(name = "grado_instructor")
     private int grado_instructor;
@@ -107,11 +109,11 @@ public class Empleado {
         this.sueldo = sueldo;
     }
 
-    public String getCinturon() {
+    public Cinturon getCinturon() {
         return cinturon;
     }
 
-    public void setCinturon(String cinturon) {
+    public void setCinturon(Cinturon cinturon) {
         this.cinturon = cinturon;
     }
 

@@ -1,5 +1,7 @@
 package es.upo.tfg.manuelgandul.appkarate.model.empleado;
 
+import es.upo.tfg.manuelgandul.appkarate.model.common.CinturonDto;
+
 import java.time.LocalDate;
 
 public class EmpleadoDto {
@@ -17,7 +19,7 @@ public class EmpleadoDto {
 
     private double sueldo;
 
-    private String cinturon;
+    private CinturonDto cinturon;
 
     private int gradoInstructor;
 
@@ -88,11 +90,11 @@ public class EmpleadoDto {
         this.sueldo = sueldo;
     }
 
-    public String getCinturon() {
+    public CinturonDto getCinturon() {
         return cinturon;
     }
 
-    public void setCinturon(String cinturon) {
+    public void setCinturon(CinturonDto cinturon) {
         this.cinturon = cinturon;
     }
 
