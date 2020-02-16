@@ -8,4 +8,5 @@ import java.io.Serializable;
 
 @Repository("cinturonJpaRepository")
 public interface CinturonJpaRepository extends JpaRepository<Cinturon, Serializable> {
+    public Cinturon findById(int id);
 }

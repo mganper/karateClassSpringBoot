@@ -8,4 +8,6 @@ import java.io.Serializable;
 
 @Repository("centroJpaRepository")
 public interface CentroJpaRepository extends JpaRepository<Centro, Serializable> {
+
+    public Centro findById(int id);
 }

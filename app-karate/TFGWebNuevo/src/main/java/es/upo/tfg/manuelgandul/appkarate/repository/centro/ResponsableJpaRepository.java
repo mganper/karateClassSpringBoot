@@ -8,4 +8,5 @@ import java.io.Serializable;
 
 @Repository("responsableJpaRepository")
 public interface ResponsableJpaRepository extends JpaRepository<Responsable, Serializable> {
+    public Responsable findById(int id);
 }

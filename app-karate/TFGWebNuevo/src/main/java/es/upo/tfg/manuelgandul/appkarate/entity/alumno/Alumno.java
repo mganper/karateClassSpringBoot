@@ -27,7 +27,7 @@ public class Alumno {
     @Column(name = "sexo")
     private String sexo;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+//    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name = "fecha_nacimiento")
     private LocalDate fecha_nacimiento;
 

@@ -44,6 +44,7 @@ public class AlumnoConverter {
         alumno.setTelefono_contacto(alumnoDto.getTlf());
         alumno.setSexo(alumnoDto.getSexo());
         alumno.setDireccion(alumnoDto.getDir());
+        alumno.setFecha_nacimiento(alumnoDto.getFechaNac());
         alumno.setCinturon(cinturonConverter.model2entity(alumnoDto.getCint()));
 
         Boolean activo = (alumnoDto.getActivo() == null || alumnoDto.getActivo().equals("Activo")) ? true : false;

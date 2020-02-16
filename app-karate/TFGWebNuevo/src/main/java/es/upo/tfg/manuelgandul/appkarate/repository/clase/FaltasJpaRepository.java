@@ -1,11 +1,16 @@
 package es.upo.tfg.manuelgandul.appkarate.repository.clase;
 
+import es.upo.tfg.manuelgandul.appkarate.entity.alumno.Alumno;
 import es.upo.tfg.manuelgandul.appkarate.entity.clase.Faltas;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Repository("faltasJpaRepository")
 public interface FaltasJpaRepository extends JpaRepository<Faltas, Serializable> {
+    public List<Faltas> findByAlumnoClase_Alumno(Alumno alumno);
+
+    public Faltas findById(int id);
 }

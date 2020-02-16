@@ -101,7 +101,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Cinturón</label>
                                                 <div class="col-sm-9">
-                                                    <label class="col-sm-3 col-form-label" th:text="${alumno.cint}">Marron</label>
+                                                    <label class="col-sm-3 col-form-label" th:text="${alumno.cint.getNomnbre()}">Marron</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -120,7 +120,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <div class="col-sm-9">
-                                                    <a>
+                                                    <a th:href="@{/alumno/editAlumno(id=${alumno.id})}">
                                                         <button type="button" class="btn btn-primary btn-fw">Editar
                                                         </button>
                                                     </a>

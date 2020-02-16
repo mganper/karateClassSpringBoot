@@ -6,6 +6,7 @@ import es.upo.tfg.manuelgandul.appkarate.model.alumno.PagoDto;
 import es.upo.tfg.manuelgandul.appkarate.service.alumno.AlumnoService;
 import es.upo.tfg.manuelgandul.appkarate.service.alumno.ObservacionService;
 import es.upo.tfg.manuelgandul.appkarate.service.alumno.PagoService;
+import es.upo.tfg.manuelgandul.appkarate.service.common.CinturonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,10 @@ public class AlumnoController {
     @Autowired
     @Qualifier("pagoService")
     private PagoService pagoService;
+
+    @Autowired
+    @Qualifier("cinturonService")
+    private CinturonService cinturonService;
 
     @GetMapping("/")
     public String redirect(){
@@ -86,13 +91,21 @@ public class AlumnoController {
 
     @GetMapping("/alumnos")
     public String getAlumnos(Model model) {
+        cinturonService.comprobarCinturones();
+
         model.addAttribute("alumnos", alumnoService.listAllAlumnos());
         return "alumno/alumnos";
     }
 
     @GetMapping("/addAlumno")
-    public String addAlumno(Model model) {
-        model.addAttribute("alumno", new AlumnoDto());
-        return "alumno/crearAlumno";
+    public ModelAndView addAlumno() {
+        cinturonService.comprobarCinturones();
+
+        ModelAndView mav = new ModelAndView("alumno/crearAlumno");
+
+        mav.addObject("alumno", new AlumnoDto());
+        mav.addObject("cinturones", cinturonService.listCinturon());
+
+        return mav;
     }
 }
