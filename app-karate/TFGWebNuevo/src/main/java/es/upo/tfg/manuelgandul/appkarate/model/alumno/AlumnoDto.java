@@ -1,10 +1,12 @@
 package es.upo.tfg.manuelgandul.appkarate.model.alumno;
 
 import es.upo.tfg.manuelgandul.appkarate.model.common.CinturonDto;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.time.Period;
 
 public class AlumnoDto {
 
@@ -27,7 +29,7 @@ public class AlumnoDto {
 //    @NotNull
     private String fechaString;
 
-//    @LocalDateFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate fechaNac;
 
     @Size(min = 9, max = 9)
@@ -104,7 +106,7 @@ public class AlumnoDto {
 
     public void setFechaNac(LocalDate fechaNac) {
         if(fechaNac != null){
-//            this.edad = calculateAge(fechaNac);
+            this.edad = calculateAge(fechaNac);
             this.fechaNac = fechaNac;
         }
     }
@@ -141,12 +143,11 @@ public class AlumnoDto {
         this.activo = activo;
     }
 
-//    private int calculateAge(LocalDate fechaNac){
-//        LocalDateFormatter fmt = LocalDateFormatter.ofPattern("dd/MM/yyyy");
-//        fechaNac = LocalDate.parse(fechaNac.toString(), fmt);
-//        LocalDate ahora = LocalDate.now();
-//        ahora = LocalDate.parse(ahora.toString(), fmt);
-//
-//        return Period.between(fechaNac, ahora).getYears();
-//    }
+    private int calculateAge(LocalDate fechaNac){
+        fechaNac = LocalDate.parse(fechaNac.toString());
+        LocalDate ahora = LocalDate.now();
+        ahora = LocalDate.parse(ahora.toString());
+
+        return Period.between(fechaNac, ahora).getYears();
+    }
 }
