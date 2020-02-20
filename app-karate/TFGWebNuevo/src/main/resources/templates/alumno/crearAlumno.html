@@ -78,7 +78,7 @@
                                                 <label class="col-sm-3 col-form-label">Fecha de Nacimiento</label>
                                                 <div class="col-sm-9">
                                                     <input type="date" class="form-control" placeholder="dd/mm/yyyy"
-                                                           th:name="*{fechaString}"/>
+                                                           th:field="*{fechaString}"/>
                                                     <!-- th:value="${#calendars.format(f,'yyyy-MM-dd')}" -->
                                                 </div>
                                             </div>
@@ -105,10 +105,12 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Cinturón</label>
                                                 <div class="col-sm-9">
-                                                    <select class="form-control" th:field="*{cint}">
-                                                        <option th:value="'Blanco'"
+                                                    <select class="form-control" th:field="*{cint.id}">
+                                                        <option th:value="${cinturones.get(0).id}"
                                                                 th:text="'Seleccione Cinturón'"></option>
-                                                        <option th:value="'Blanco'" th:text="'Blanco'"></option>
+                                                        <span th:each="cinturon : ${cinturones}">
+                                                            <option th:value="${cinturon.id}" th:text="${cinturon.nomnbre}"></option>
+                                                        </span>
                                                     </select>
                                                 </div>
                                             </div>
@@ -120,11 +122,17 @@
                                                 <label class="col-sm-3 col-form-label">Clase</label>
                                                 <div class="col-sm-9">
                                                     <select class="form-control">
-                                                        <option>Seleccione Classe</option>
-                                                        <option>Clase 1; Centro 1</option>
-                                                        <option>CLase 2; Centro 1</option>
-                                                        <option>Clase 1; Centro 2</option>
-                                                        <option>Clase 1; Centro 1</option>
+<!--                                                        th:field="*{cint.id}"-->
+                                                        <option
+                                                                th:text="'Seleccione Clase'">
+<!--                                                            th:value="${clases.get(0).id}"-->
+                                                        </option>
+                                                        <span th:each="clase : ${clases}">
+                                                            <option th:value="${clase.id}">
+                                                                <span th:text="${clase.centro.nombre}"/> -
+                                                                <span th:text="${clase.horaInicio}"/>
+                                                            </option>
+                                                        </span>
                                                     </select>
                                                 </div>
                                             </div>

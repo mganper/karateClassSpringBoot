@@ -30,15 +30,15 @@
                         <div class="card">
                             <div class="card-body">
                                 <h2 class="card-title">Crear Alumno</h2>
-                                <form class="form-sample" action="#" th:action="@{/alumno/saveAlumno}"
-                                      th:object="${alumno}"
-                                      method="post">
+                                <form class="form-sample" action="#" th:action="@{/alumno/saveUpdatedAlumno}"
+                                      th:object="${alumno}" method="post">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">DNI</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" th:field="*{dni}"/>
+                                                    <input type="text" class="form-control" th:value="${alumno.dni}"
+                                                           th:field="*{dni}"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -46,7 +46,10 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Nombre</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" th:field="*{nombre}"/>
+                                                    <input type="text" class="form-control" th:value="${alumno.nombre}"
+                                                           th:field="*{nombre}"/>
+                                                    <input type="hidden" class="form-control" th:value="${alumno.id}"
+                                                           th:field="*{id}"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -56,7 +59,8 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Apellidos</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" th:field="*{apellidos}"/>
+                                                    <input type="text" class="form-control"
+                                                           th:value="${alumno.apellidos}" th:field="*{apellidos}"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -77,9 +81,8 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Fecha de Nacimiento</label>
                                                 <div class="col-sm-9">
-                                                    <input type="date" class="form-control" placeholder="dd/mm/yyyy"
-                                                           th:name="*{fechaString}"/>
-                                                    <!-- th:value="${#calendars.format(f,'yyyy-MM-dd')}" -->
+                                                    <input type="date" class="form-control" placeholder="YYYY-MM-DD"
+                                                           th:value="${alumno.fechaString}" th:name="*{fechaString}"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -87,7 +90,8 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Teléfono de Contacto</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" th:field="*{tlf}"/>
+                                                    <input type="text" class="form-control" th:value="${alumno.tlf}"
+                                                           th:field="*{tlf}"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -97,7 +101,8 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Dirección</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" th:field="*{dir}"/>
+                                                    <input type="text" class="form-control" th:value="${alumno.dir}"
+                                                           th:field="*{dir}"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -105,25 +110,19 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Cinturón</label>
                                                 <div class="col-sm-9">
-                                                    <select class="form-control" th:field="*{cint}">
-                                                        <option th:value="'Blanco'"
+                                                    <select class="form-control" th:field="*{cint.id}">
+                                                        <option th:value="${cinturones.get(0).id}"
                                                                 th:text="'Seleccione Cinturón'"></option>
-                                                        <option th:value="'Blanco'" th:text="'Blanco'"></option>
-                                                        <option th:value="'Blanco_Amarillo'"
-                                                                th:text="'Blanco Amarillo'"></option>
-                                                        <option th:value="'Amarillo'" th:text="'Amarillo'"></option>
-                                                        <option th:value="'Amarillo_Naranja'"
-                                                                th:text="'Amarillo Naranja'"></option>
-                                                        <option th:value="'Naranja'" th:text="'Naranja'"></option>
-                                                        <option th:value="'Naranja_Verde'"
-                                                                th:text="'Naranja Verde'"></option>
-                                                        <option th:value="'Verde'" th:text="'Verde'"></option>
-                                                        <option th:value="'Verde_Azul'" th:text="'Verde Azul'"></option>
-                                                        <option th:value="'Azul'" th:text="'Azul'"></option>
-                                                        <option th:value="'Azul_Marron'"
-                                                                th:text="'Azul Marron'"></option>
-                                                        <option th:value="'Marron'" th:text="'Marron'"></option>
-                                                        <option th:value="'Negro'" th:text="'Negro'"></option>
+                                                        <span th:each="cinturon : ${cinturones}">
+                                                            <span th:if="${alumno.cint.id == cinturon.id}">
+                                                                <option th:value="${cinturon.id}"
+                                                                        th:text="${cinturon.nomnbre}" selected="true"></option>
+                                                            </span>
+                                                            <span th:unless="${alumno.cint.id == cinturon.id}">
+                                                                <option th:value="${cinturon.id}"
+                                                                        th:text="${cinturon.nomnbre}"></option>
+                                                            </span>
+                                                        </span>
                                                     </select>
                                                 </div>
                                             </div>

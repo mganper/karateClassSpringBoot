@@ -19,7 +19,7 @@ public class ClaseDto {
 
     private double precio;
 
-    private boolean activo;
+    private String activo;
 
     private EmpleadoDto profesor;
 
@@ -84,11 +84,11 @@ public class ClaseDto {
         this.precio = precio;
     }
 
-    public boolean isActivo() {
+    public String getActivo() {
         return activo;
     }
 
-    public void setActivo(boolean activo) {
+    public void setActivo(String activo) {
         this.activo = activo;
     }
 

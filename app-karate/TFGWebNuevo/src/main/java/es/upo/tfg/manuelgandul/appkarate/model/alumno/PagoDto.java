@@ -9,7 +9,7 @@ public class PagoDto {
 
     private int id;
 
-    private Alumno alumno;
+    private AlumnoDto alumno;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate fecha;
@@ -30,11 +30,11 @@ public class PagoDto {
         this.id = id;
     }
 
-    public Alumno getAlumno() {
+    public AlumnoDto getAlumno() {
         return alumno;
     }
 
-    public void setAlumno(Alumno alumno) {
+    public void setAlumno(AlumnoDto alumno) {
         this.alumno = alumno;
     }
 

@@ -28,8 +28,11 @@ public class EmpleadoConverter {
         empleadoDto.setGradoInstructor(empleado.getGrado_instructor());
         empleadoDto.setCargo(empleado.getCargo());
         empleadoDto.setTipoUsuario(empleado.isTipo_usuario());
-        empleadoDto.setActivo(empleado.isActivo());
         empleadoDto.setContrasenya(empleado.getContrasenya());
+
+        String activo = (empleado.isActivo()) ? "Activo" : "Inactivo";
+
+        empleadoDto.setActivo(activo);
 
         return empleadoDto;
     }
@@ -48,8 +51,11 @@ public class EmpleadoConverter {
         empleado.setGrado_instructor(empleadoDto.getGradoInstructor());
         empleado.setCargo(empleadoDto.getCargo());
         empleado.setTipo_usuario(empleadoDto.isTipoUsuario());
-        empleado.setActivo(empleadoDto.isActivo());
         empleado.setContrasenya(empleadoDto.getContrasenya());
+
+        Boolean activo = (empleadoDto.getActivo() == null || empleadoDto.getActivo().equals("Activo")) ? true : false;
+
+        empleado.setActivo(activo);
 
         return empleado;
     }

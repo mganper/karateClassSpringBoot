@@ -1,6 +1,5 @@
 package es.upo.tfg.manuelgandul.appkarate.model.alumno;
 
-import es.upo.tfg.manuelgandul.appkarate.entity.alumno.Alumno;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -9,7 +8,11 @@ public class ObservacionDto {
 
     private int id;
 
-    private Alumno alumno;
+    private AlumnoDto alumno;
+
+    private String fechaString;
+
+    private int idAlumno;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate fecha;
@@ -17,13 +20,6 @@ public class ObservacionDto {
     private String dato;
 
     public ObservacionDto() {
-    }
-
-    public ObservacionDto(int id, Alumno alumno, LocalDate fecha, String dato) {
-        this.id = id;
-        this.alumno = alumno;
-        this.fecha = fecha;
-        this.dato = dato;
     }
 
     public int getId() {
@@ -34,11 +30,11 @@ public class ObservacionDto {
         this.id = id;
     }
 
-    public Alumno getAlumno() {
+    public AlumnoDto getAlumno() {
         return alumno;
     }
 
-    public void setAlumno(Alumno alumno) {
+    public void setAlumno(AlumnoDto alumno) {
         this.alumno = alumno;
     }
 
@@ -56,5 +52,29 @@ public class ObservacionDto {
 
     public void setDato(String dato) {
         this.dato = dato;
+    }
+
+    public String getFechaString() {
+        return fechaString;
+    }
+
+    public void setFechaString(String fechaString) {
+        this.fechaString = fechaString;
+    }
+
+    public int getIdAlumno() {
+        return idAlumno;
+    }
+
+    public void setIdAlumno(int idAlumno) {
+        this.idAlumno = idAlumno;
+    }
+
+    public void fechaStringToLocalDate(){
+        int anyo = Integer.parseInt(fechaString.substring(0,4));
+        int mes = Integer.parseInt(fechaString.substring(5,7));
+        int dia = Integer.parseInt(fechaString.substring(8));
+
+        fecha = LocalDate.of(anyo, mes, dia);
     }
 }

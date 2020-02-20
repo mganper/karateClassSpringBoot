@@ -23,8 +23,11 @@ public class CentroConverter {
         centroDto.setHoraMaximaFin(centro.getHora_maxima_fin());
         centroDto.setMaxClases(centro.getMax_clases());
         centroDto.setPrecioMes(centro.getPrecio_mes());
-        centroDto.setActivo(centro.isActivo());
         centroDto.setResponsable(responsableConverter.entity2model(centro.getResponsable()));
+
+        String activo = (centro.isActivo()) ? "Activo" : "Inactivo";
+
+        centroDto.setActivo(activo);
 
         return  centroDto;
     }
@@ -39,8 +42,11 @@ public class CentroConverter {
         centro.setHora_maxima_inicio(centroDto.getHoraMaximaFin());
         centro.setMax_clases(centroDto.getMaxClases());
         centro.setPrecio_mes(centroDto.getPrecioMes());
-        centro.setActivo(centroDto.isActivo());
         centro.setResponsable(responsableConverter.model2entity(centroDto.getResponsable()));
+
+        Boolean activo = (centroDto.getActivo() == null || centroDto.getActivo().equals("Activo")) ? true : false;
+
+        centro.setActivo(activo);
 
         return centro;
     }

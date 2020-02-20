@@ -29,9 +29,12 @@ public class ClaseConverter {
         claseDto.setEdadMinima(clase.getEdad_minima());
         claseDto.setMaxAlumnos(clase.getMax_alumnos());
         claseDto.setPrecio(clase.getPrecio());
-        claseDto.setActivo(clase.isActivo());
         claseDto.setProfesor(empleadoConverter.entity2model(clase.getProfesor()));
         claseDto.setCentro(centroConverter.entity2model(clase.getCentro()));
+
+        String activo = (clase.isActivo()) ? "Activo" : "Inactivo";
+
+        claseDto.setActivo(activo);
 
         return claseDto;
     }
@@ -46,9 +49,12 @@ public class ClaseConverter {
         clase.setEdad_minima(claseDto.getEdadMinima());
         clase.setMax_alumnos(claseDto.getMaxAlumnos());
         clase.setPrecio(claseDto.getPrecio());
-        clase.setActivo(claseDto.isActivo());
         clase.setProfesor(empleadoConverter.model2entity(claseDto.getProfesor()));
         clase.setCentro(centroConverter.model2entity(claseDto.getCentro()));
+
+        Boolean activo = (claseDto.getActivo() == null || claseDto.getActivo().equals("Activo")) ? true : false;
+
+        clase.setActivo(activo);
 
         return clase;
     }

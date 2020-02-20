@@ -101,7 +101,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Cinturón</label>
                                                 <div class="col-sm-9">
-                                                    <label class="col-sm-3 col-form-label" th:text="${alumno.cint.getNomnbre()}">Marron</label>
+                                                    <label class="col-sm-9 col-form-label" th:text="${alumno.cint.getNomnbre()}">Marron</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -124,12 +124,14 @@
                                                         <button type="button" class="btn btn-primary btn-fw">Editar
                                                         </button>
                                                     </a>
-                                                    <span th:switch="${alumno.activo}">
-                                                        <a th:case="'0'">
+                                                    <span th:if="${alumno.activo.equals('Inactivo')}">
+                                                        <a th:href="@{/alumno/altaAlumno(id=${alumno.id})}">
                                                         <button type="button"
                                                                 class="btn btn-success btn-fw">Dar Alta</button>
                                                     </a>
-                                                    <a th:case="'1'">
+                                                    </span>
+                                                    <span th:unless="${alumno.activo.equals('Inactivo')}">
+                                                    <a th:href="@{/alumno/bajaAlumno(id=${alumno.id})}">
                                                         <button type="button"
                                                                 class="btn btn-danger btn-fw">Dar Baja</button>
                                                     </a>
@@ -152,7 +154,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <div class="col-sm-9">
-                                                <a th:href="@{/addObservacion(id=${alumno.id})}">
+                                                <a th:href="@{/alumno/addObservacion(id=${alumno.id})}">
                                                     <button type="submit" class="btn btn-primary btn-fw">Crear</button>
                                                 </a>
                                             </div>
@@ -176,7 +178,7 @@
                                             laoreet arcu eget.
                                         </td>
                                         <td>
-                                            <a th:href="@{/removeObs(id=${observacion.id})}">
+                                            <a th:href="@{/alumno/removeObs(id=${observacion.id})}">
                                                 <button type="reset" class="btn btn-danger btn-fw">Eliminar</button>
                                             </a>
                                         </td>
@@ -207,7 +209,7 @@
                                         <td th:text="${pago.cantidad}">20€</td>
                                         <td th:text="${pago.mesPagado}">1/77</td>
                                         <td>
-                                            <a th:href="@{/removePag(id=${pago.id})}"> <!--  -->
+                                            <a th:href="@{/alumno/removePag(id=${pago.id})}"> <!--  -->
                                                 <button type="reset" class="btn btn-danger btn-fw">Eliminar</button>
                                             </a>
                                         </td>

@@ -16,7 +16,7 @@ public class CentroDto {
 
     private double precioMes;
 
-    private boolean activo;
+    private String activo;
 
     private ResponsableDto responsable;
 
@@ -79,11 +79,11 @@ public class CentroDto {
         this.precioMes = precioMes;
     }
 
-    public boolean isActivo() {
+    public String getActivo() {
         return activo;
     }
 
-    public void setActivo(boolean activo) {
+    public void setActivo(String activo) {
         this.activo = activo;
     }
 

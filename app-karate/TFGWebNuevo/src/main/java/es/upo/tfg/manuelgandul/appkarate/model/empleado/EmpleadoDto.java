@@ -27,7 +27,7 @@ public class EmpleadoDto {
 
     private boolean tipoUsuario;
 
-    private boolean activo;
+    private String activo;
 
     private String contrasenya;
 
@@ -122,11 +122,11 @@ public class EmpleadoDto {
         this.tipoUsuario = tipoUsuario;
     }
 
-    public boolean isActivo() {
+    public String getActivo() {
         return activo;
     }
 
-    public void setActivo(boolean activo) {
+    public void setActivo(String activo) {
         this.activo = activo;
     }
 
