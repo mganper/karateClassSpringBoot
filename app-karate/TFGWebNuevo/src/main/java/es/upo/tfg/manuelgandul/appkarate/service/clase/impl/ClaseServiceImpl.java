@@ -35,7 +35,7 @@ public class ClaseServiceImpl implements ClaseService {
 
     @Override
     public ClaseDto addClase(ClaseDto claseDto) {
-        claseJpaRepository.save(claseConverter.model2entity(claseDto));
+        claseDto = claseConverter.entity2model(claseJpaRepository.save(claseConverter.model2entity(claseDto)));
 
         return claseDto;
     }
@@ -47,7 +47,7 @@ public class ClaseServiceImpl implements ClaseService {
 
     @Override
     public ClaseDto updateClase(ClaseDto claseDto) {
-        claseJpaRepository.save(claseConverter.model2entity(claseDto));
+        claseDto = claseConverter.entity2model(claseJpaRepository.save(claseConverter.model2entity(claseDto)));
 
         return claseDto;
     }

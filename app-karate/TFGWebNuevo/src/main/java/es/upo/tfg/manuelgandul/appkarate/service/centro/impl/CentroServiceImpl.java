@@ -1,6 +1,7 @@
 package es.upo.tfg.manuelgandul.appkarate.service.centro.impl;
 
 import es.upo.tfg.manuelgandul.appkarate.converter.centro.CentroConverter;
+import es.upo.tfg.manuelgandul.appkarate.entity.centro.Centro;
 import es.upo.tfg.manuelgandul.appkarate.model.centro.CentroDto;
 import es.upo.tfg.manuelgandul.appkarate.repository.centro.CentroJpaRepository;
 import es.upo.tfg.manuelgandul.appkarate.service.centro.CentroService;
@@ -35,8 +36,9 @@ public class CentroServiceImpl implements CentroService {
 
     @Override
     public CentroDto addCentro(CentroDto centroDto) {
-
-        centroJpaRepository.save(centroConverter.model2entity(centroDto));
+        Centro centro = centroConverter.model2entity(centroDto);
+        centro = centroJpaRepository.save(centro);
+        centroDto = centroConverter.entity2model(centro);
 
         return centroDto;
     }
@@ -48,7 +50,7 @@ public class CentroServiceImpl implements CentroService {
 
     @Override
     public CentroDto updateCentro(CentroDto centroDto) {
-        centroJpaRepository.save(centroConverter.model2entity(centroDto));
+        centroDto = centroConverter.entity2model(centroJpaRepository.save(centroConverter.model2entity(centroDto)));
 
         return centroDto;
     }

@@ -14,7 +14,7 @@ public class Centro {
     @Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "direccion", unique = true)
+    @Column(name = "direccion") //, unique = true
     private String direccion;
 
     @Column(name = "horma_maxima_inicio")
@@ -32,7 +32,7 @@ public class Centro {
     @Column(name = "activo")
     private boolean activo;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private Responsable responsable;
 
     public Centro() {

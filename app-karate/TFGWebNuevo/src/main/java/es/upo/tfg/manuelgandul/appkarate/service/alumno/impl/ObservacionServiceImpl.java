@@ -41,7 +41,7 @@ public class ObservacionServiceImpl implements ObservacionService {
 
     @Override
     public ObservacionDto addObservacion(ObservacionDto observacionDto) {
-        observacionJpaRepository.save((observacionConverter.model2Entity(observacionDto)));
+        observacionDto = observacionConverter.entity2Model(observacionJpaRepository.save((observacionConverter.model2Entity(observacionDto))));
         return observacionDto;
     }
 
@@ -52,7 +52,7 @@ public class ObservacionServiceImpl implements ObservacionService {
 
     @Override
     public ObservacionDto updateObservacion(ObservacionDto observacionDto) {
-        observacionJpaRepository.save((observacionConverter.model2Entity(observacionDto)));
+        observacionDto = observacionConverter.entity2Model(observacionJpaRepository.save((observacionConverter.model2Entity(observacionDto))));
         return observacionDto;
     }
 

@@ -48,7 +48,7 @@ public class AlumnoServiceImpl implements AlumnoService {
 
     @Override
     public AlumnoDto updateAlumno(AlumnoDto alumno) {
-        alumnoJpaRepository.save(alumnoConverter.model2Entity(alumno));
+        alumno = alumnoConverter.entity2Model(alumnoJpaRepository.save(alumnoConverter.model2Entity(alumno)));
         return alumno;
     }
 

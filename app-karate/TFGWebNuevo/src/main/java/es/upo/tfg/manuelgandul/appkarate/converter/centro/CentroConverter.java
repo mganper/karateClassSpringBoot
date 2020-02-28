@@ -13,7 +13,7 @@ public class CentroConverter {
     @Qualifier("responsableConverter")
     private ResponsableConverter responsableConverter;
 
-    public CentroDto entity2model(Centro centro){
+    public CentroDto entity2model(Centro centro) {
         CentroDto centroDto = new CentroDto();
 
         centroDto.setId(centro.getId());
@@ -23,26 +23,30 @@ public class CentroConverter {
         centroDto.setHoraMaximaFin(centro.getHora_maxima_fin());
         centroDto.setMaxClases(centro.getMax_clases());
         centroDto.setPrecioMes(centro.getPrecio_mes());
-        centroDto.setResponsable(responsableConverter.entity2model(centro.getResponsable()));
+
+        if (centro.getResponsable() != null)
+            centroDto.setResponsable(responsableConverter.entity2model(centro.getResponsable()));
 
         String activo = (centro.isActivo()) ? "Activo" : "Inactivo";
 
         centroDto.setActivo(activo);
 
-        return  centroDto;
+        return centroDto;
     }
 
-    public Centro model2entity(CentroDto centroDto){
+    public Centro model2entity(CentroDto centroDto) {
         Centro centro = new Centro();
 
         centro.setId(centroDto.getId());
         centro.setNombre(centroDto.getNombre());
         centro.setDireccion(centroDto.getDireccion());
         centro.setHora_maxima_inicio(centroDto.getHoraMaximaInicio());
-        centro.setHora_maxima_inicio(centroDto.getHoraMaximaFin());
+        centro.setHora_maxima_fin(centroDto.getHoraMaximaFin());
         centro.setMax_clases(centroDto.getMaxClases());
         centro.setPrecio_mes(centroDto.getPrecioMes());
-        centro.setResponsable(responsableConverter.model2entity(centroDto.getResponsable()));
+
+        if (centroDto.getResponsable() != null)
+            centro.setResponsable(responsableConverter.model2entity(centroDto.getResponsable()));
 
         Boolean activo = (centroDto.getActivo() == null || centroDto.getActivo().equals("Activo")) ? true : false;
 

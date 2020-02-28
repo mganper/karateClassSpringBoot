@@ -35,7 +35,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
     @Override
     public EmpleadoDto addEmpleado(EmpleadoDto empleadoDto) {
-        empleadoJpaRepository.save(empleadoConverter.model2entity(empleadoDto));
+        empleadoDto = empleadoConverter.entity2model(empleadoJpaRepository.save(empleadoConverter.model2entity(empleadoDto)));
 
         return empleadoDto;
     }
@@ -47,7 +47,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
     @Override
     public EmpleadoDto updateEmpleado(EmpleadoDto empleadoDto) {
-        empleadoJpaRepository.save(empleadoConverter.model2entity(empleadoDto));
+        empleadoDto = empleadoConverter.entity2model(empleadoJpaRepository.save(empleadoConverter.model2entity(empleadoDto)));
 
         return empleadoDto;
     }

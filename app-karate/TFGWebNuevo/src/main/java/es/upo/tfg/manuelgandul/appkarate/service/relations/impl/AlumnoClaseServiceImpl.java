@@ -47,7 +47,7 @@ public class AlumnoClaseServiceImpl implements AlumnoClaseService {
         alumnoClaseDto.setAlumno(alumnoDto);
         alumnoClaseDto.setClase(claseDto);
 
-        alumnoClaseJpaRepository.save(alumnoClaseConverter.model2entity(alumnoClaseDto));
+        alumnoClaseDto = alumnoClaseConverter.entity2model(alumnoClaseJpaRepository.save(alumnoClaseConverter.model2entity(alumnoClaseDto)));
 
         return alumnoClaseDto;
     }

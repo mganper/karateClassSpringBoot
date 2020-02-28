@@ -14,8 +14,6 @@ public class ResponsableDto {
 
     private String telefono;
 
-    private CentroDto centro;
-
     public ResponsableDto() {
     }
 
@@ -65,13 +63,5 @@ public class ResponsableDto {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
-    }
-
-    public CentroDto getCentro() {
-        return centro;
-    }
-
-    public void setCentro(CentroDto centro) {
-        this.centro = centro;
     }
 }

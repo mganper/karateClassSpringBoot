@@ -52,7 +52,7 @@ public class FaltasServiceImpl implements FaltasService {
 
     @Override
     public FaltasDto addFalta(FaltasDto faltasDto) {
-        faltasJpaRepository.save(faltasConverter.model2entity(faltasDto));
+        faltasDto = faltasConverter.entity2model(faltasJpaRepository.save(faltasConverter.model2entity(faltasDto)));
 
         return faltasDto;
     }
@@ -64,7 +64,7 @@ public class FaltasServiceImpl implements FaltasService {
 
     @Override
     public FaltasDto updateFalta(FaltasDto faltasDto) {
-        faltasJpaRepository.save(faltasConverter.model2entity(faltasDto));
+        faltasDto = faltasConverter.entity2model(faltasJpaRepository.save(faltasConverter.model2entity(faltasDto)));
 
         return faltasDto;
     }

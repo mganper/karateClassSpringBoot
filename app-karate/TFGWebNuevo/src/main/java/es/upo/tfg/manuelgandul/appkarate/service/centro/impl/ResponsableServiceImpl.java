@@ -35,7 +35,7 @@ public class ResponsableServiceImpl implements ResponsableService {
 
     @Override
     public ResponsableDto addResponsable(ResponsableDto responsableDto) {
-        responsableJpaRepository.save(responsableConverter.model2entity(responsableDto));
+        responsableDto = responsableConverter.entity2model(responsableJpaRepository.save(responsableConverter.model2entity(responsableDto)));
 
         return  responsableDto;
     }
@@ -47,7 +47,7 @@ public class ResponsableServiceImpl implements ResponsableService {
 
     @Override
     public ResponsableDto updateResponsable(ResponsableDto responsableDto) {
-        responsableJpaRepository.save(responsableConverter.model2entity(responsableDto));
+        responsableDto = responsableConverter.entity2model(responsableJpaRepository.save(responsableConverter.model2entity(responsableDto)));
 
         return responsableDto;
     }

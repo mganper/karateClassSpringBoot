@@ -26,9 +26,6 @@ public class Responsable {
     @Column(name = "telefono")
     private String telefono;
 
-    @OneToOne
-    private Centro centro;
-
     public Responsable() {
     }
 
@@ -78,13 +75,5 @@ public class Responsable {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
-    }
-
-    public Centro getCentro() {
-        return centro;
-    }
-
-    public void setCentro(Centro centro) {
-        this.centro = centro;
     }
 }

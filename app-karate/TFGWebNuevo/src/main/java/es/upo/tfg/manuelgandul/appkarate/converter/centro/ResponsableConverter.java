@@ -13,7 +13,7 @@ public class ResponsableConverter {
     @Qualifier("centroConverter")
     private CentroConverter centroConverter;
 
-    public ResponsableDto entity2model(Responsable responsable){
+    public ResponsableDto entity2model(Responsable responsable) {
         ResponsableDto responsableDto = new ResponsableDto();
 
         responsableDto.setId(responsable.getId());
@@ -22,12 +22,11 @@ public class ResponsableConverter {
         responsableDto.setCargo(responsable.getCargo());
         responsableDto.setCorreo(responsable.getCorreo());
         responsableDto.setTelefono(responsable.getTelefono());
-        responsableDto.setCentro(centroConverter.entity2model(responsable.getCentro()));
 
         return responsableDto;
     }
 
-    public Responsable model2entity(ResponsableDto responsableDto){
+    public Responsable model2entity(ResponsableDto responsableDto) {
         Responsable responsable = new Responsable();
 
         responsable.setId(responsableDto.getId());
@@ -36,7 +35,6 @@ public class ResponsableConverter {
         responsable.setCargo(responsableDto.getCargo());
         responsable.setCorreo(responsableDto.getCorreo());
         responsable.setTelefono(responsableDto.getTelefono());
-        responsable.setCentro(centroConverter.model2entity(responsableDto.getCentro()));
 
         return responsable;
     }

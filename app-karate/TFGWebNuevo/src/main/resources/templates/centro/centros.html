@@ -2,81 +2,83 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-  <title>Lista Centros :: Application</title>
-  <link rel="stylesheet" th:href="@{/vendors/iconfonts/mdi/css/materialdesignicons.min.css}"/>
-  <link rel="stylesheet" th:href="@{/vendors/iconfonts/ionicons/css/ionicons.css}"/>
-  <link rel="stylesheet" th:href="@{/vendors/iconfonts/typicons/src/font/typicons.css}"/>
-  <link rel="stylesheet" th:href="@{/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css}"/>
-  <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.base.css}"/>
-  <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.addons.css}"/>
-  <link rel="stylesheet" th:href="@{/css/shared/style.css}"/>
-  <link rel="stylesheet" th:href="@{/css/demo_1/style.css}"/>
-  <link rel="shortcut icon" th:href="@{/images/favicon.png}"/>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>Lista Centros :: Application</title>
+    <link rel="stylesheet" th:href="@{/vendors/iconfonts/mdi/css/materialdesignicons.min.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/iconfonts/ionicons/css/ionicons.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/iconfonts/typicons/src/font/typicons.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.base.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.addons.css}"/>
+    <link rel="stylesheet" th:href="@{/css/shared/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/demo_1/style.css}"/>
+    <link rel="shortcut icon" th:href="@{/images/favicon.png}"/>
 </head>
 <body>
 <div class="container-scroller">
-  <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row" th:insert="fragments/_navbar">
-  </nav>
-  <div class="container-fluid page-body-wrapper">
-    <nav class="sidebar sidebar-offcanvas" id="sidebar" th:insert="fragments/_sidebar">
+    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row" th:insert="fragments/_navbar">
     </nav>
-      <div class="main-panel">
-        <div class="content-wrapper">
-          <div class="row">
-            <div class="col-lg-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Lista Centros</h4>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group row">
-                        <div class="col-sm-9">
-                          <a th:href="@{/centro/addCentro}">
-                            <button type="submit" class="btn btn-primary btn-fw">Crear
-                            </button>
-                          </a>
+    <div class="container-fluid page-body-wrapper">
+        <nav class="sidebar sidebar-offcanvas" id="sidebar" th:insert="fragments/_sidebar">
+        </nav>
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-lg-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Lista Centros</h4>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <div class="col-sm-9">
+                                                <a th:href="@{/centro/addCentro}">
+                                                    <button type="submit" class="btn btn-primary btn-fw">Crear
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Dirección</th>
+                                        <th>Hora Inicio</th>
+                                        <th>Hora Fin</th>
+                                        <th>Num. Clases</th>
+                                        <th>Máx. Clases</th>
+                                        <th>Precio</th>
+                                        <th>Responsable</th>
+                                        <th>Activo</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="centro : ${centros}">
+                                        <td><a th:href="@{/centro/centro(id=${centro.id})}"><span
+                                                th:text="${centro.nombre}">Centro1</span></a></td>
+                                        <td th:text="${centro.direccion}">Calle 1</td>
+                                        <td th:text="${centro.horaMaximaInicio}">16:30</td>
+                                        <td th:text="${centro.horaMaximaFin}">17:30</td>
+                                        <td th:text="${centro.maxClases}">2</td>
+                                        <td th:text="${centro.maxClases}">3</td>
+                                        <td th:text="${centro.precioMes}">250€</td>
+                                        <td><span th:text="${centro.responsable.nombre}">Nombre1</span>
+                                            <span th:text="${centro.responsable.apellidos}">Apellido1</span></td>
+                                        <td th:text="${centro.activo}">Activo</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                      </div>
                     </div>
-                  </div>
-                  <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>Nombre</th>
-                        <th>Dirección</th>
-                        <th>Hora Inicio</th>
-                        <th>Hora Fin</th>
-                        <th>Num. Clases</th>
-                        <th>Máx. Clases</th>
-                        <th>Precio</th>
-                        <th>Responsable</th>
-                        <th>Activo</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr th:each="centro : ${centros}">
-                        <td th:text="${centro.nombre}">Centro1</td>
-                        <td th:text="${centro.direccion}">Calle 1</td>
-                        <td th:text="${centro.horaMaximaInicio}">16:30</td>
-                        <td th:text="${centro.horaMaximaFin}">17:30</td>
-                        <td th:text="${centro.maxClases}">2</td>
-                        <td th:text="${centro.maxClases}">3</td>
-                        <td th:text="${centro.precioMes}">250€</td>
-                        <td th:text="${centro.responsable.nombre}">Nombre1</td>
-                        <td th:text="${centro.activo}">Activo</td>
-                      </tr>
-                    </tbody>
-                  </table>
                 </div>
-              </div>
             </div>
-          </div>
+            <footer class="footer" th:insert="fragments/_footer"></footer>
         </div>
-        <footer class="footer" th:insert="fragments/_footer"></footer>
-      </div>
-  </div>
+    </div>
 </div>
 <script th:src="@{/vendors/js/vendor.bundle.base.js}"></script>
 <script th:src="@{/vendors/js/vendor.bundle.addons.js}"></script>

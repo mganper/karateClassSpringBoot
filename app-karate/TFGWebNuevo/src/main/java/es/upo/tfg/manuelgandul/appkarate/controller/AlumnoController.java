@@ -3,7 +3,6 @@ package es.upo.tfg.manuelgandul.appkarate.controller;
 import es.upo.tfg.manuelgandul.appkarate.model.alumno.AlumnoDto;
 import es.upo.tfg.manuelgandul.appkarate.model.alumno.ObservacionDto;
 import es.upo.tfg.manuelgandul.appkarate.model.alumno.PagoDto;
-import es.upo.tfg.manuelgandul.appkarate.model.common.CinturonDto;
 import es.upo.tfg.manuelgandul.appkarate.service.alumno.AlumnoService;
 import es.upo.tfg.manuelgandul.appkarate.service.alumno.ObservacionService;
 import es.upo.tfg.manuelgandul.appkarate.service.alumno.PagoService;
@@ -50,7 +49,7 @@ public class AlumnoController {
     }
 
     @GetMapping("/alumnos")
-    public String getAlumnos(Model model) {
+    public String getAlumnosMethod(Model model) {
         cinturonService.comprobarCinturones();
 
         model.addAttribute("alumnos", alumnoService.listAllAlumnos());
@@ -58,7 +57,7 @@ public class AlumnoController {
     }
 
     @GetMapping("/alumno")
-    public ModelAndView viewAlumno(@RequestParam(value = "id") int id) {
+    public ModelAndView viewAlumnoMethod(@RequestParam(value = "id") int id) {
         ModelAndView mav = new ModelAndView("alumno/alumno");
 
         AlumnoDto alumnoDto = alumnoService.getAlumnoById(id);
@@ -73,7 +72,7 @@ public class AlumnoController {
     }
 
     @GetMapping("/addAlumno")
-    public ModelAndView addAlumno() {
+    public ModelAndView addAlumnoMethod() {
         cinturonService.comprobarCinturones();
 
         ModelAndView mav = new ModelAndView("alumno/crearAlumno");
@@ -95,7 +94,7 @@ public class AlumnoController {
     }
 
     @GetMapping("/editAlumno")
-    public ModelAndView updateAlumno(@RequestParam(value = "id") int id) {
+    public ModelAndView updateAlumnoMethod(@RequestParam(value = "id") int id) {
         ModelAndView mav = new ModelAndView("alumno/modificarAlumno");
 
         mav.addObject("alumno", alumnoService.getAlumnoById(id));
@@ -120,7 +119,7 @@ public class AlumnoController {
     }
 
     @GetMapping("/altaAlumno")
-    public String altaAlumno(@RequestParam(value = "id") int id) {
+    public String altaAlumnoMethod(@RequestParam(value = "id") int id) {
         AlumnoDto alumnoDto = alumnoService.getAlumnoById(id);
 
         alumnoDto.setActivo("Activo");
@@ -130,7 +129,7 @@ public class AlumnoController {
     }
 
     @GetMapping("/bajaAlumno")
-    public String bajaAlumno(@RequestParam(value = "id") int id) {
+    public String bajaAlumnoMethod(@RequestParam(value = "id") int id) {
         AlumnoDto alumnoDto = alumnoService.getAlumnoById(id);
 
         alumnoDto.setActivo("Inactivo");
@@ -140,7 +139,7 @@ public class AlumnoController {
     }
 
     @GetMapping("/addObservacion")
-    public ModelAndView addObservacion(@RequestParam(value = "id") int id) {
+    public ModelAndView addObservacionMethod(@RequestParam(value = "id") int id) {
         ModelAndView mav = new ModelAndView("/alumno/crearObservacion");
         ObservacionDto observacionDto = new ObservacionDto();
         AlumnoDto alumnoDto = alumnoService.getAlumnoById(id);
@@ -157,7 +156,7 @@ public class AlumnoController {
     }
 
     @PostMapping("/saveObservacion")
-    public String saveAObservacion(@Valid @ModelAttribute("observacion") ObservacionDto observacionDto) {
+    public String saveAObservacionMethod(@Valid @ModelAttribute("observacion") ObservacionDto observacionDto) {
         observacionDto.setFecha(LocalDate.now());
         observacionDto.setAlumno(alumnoService.getAlumnoById(observacionDto.getIdAlumno()));
 
@@ -166,7 +165,7 @@ public class AlumnoController {
     }
 
     @GetMapping("/removeObservacion")
-    public String removeObservacion(@RequestParam(value = "id") int id) {
+    public String removeObservacionMethod(@RequestParam(value = "id") int id) {
         ObservacionDto observacionDto = observacionService.getObservacionById(id);
         observacionService.removeObservacion(observacionDto);
 
@@ -174,7 +173,7 @@ public class AlumnoController {
     }
 
     @GetMapping("/removePago")
-    public String removePago(@RequestParam(value = "id") int id) {
+    public String removePagoMethod(@RequestParam(value = "id") int id) {
         PagoDto pagoDto = pagoService.getPagoById(id);
         pagoService.removePago(pagoDto);
 
@@ -182,7 +181,7 @@ public class AlumnoController {
     }
 
     @GetMapping("/removeObs")
-    public String removeObs(@RequestParam(value = "id") int id) {
+    public String removeObsMethod(@RequestParam(value = "id") int id) {
         ObservacionDto observacionDto = observacionService.getObservacionById(id);
 
         observacionService.removeObservacion(observacionDto);
@@ -191,7 +190,7 @@ public class AlumnoController {
     }
 
     @GetMapping("/removePag")
-    public String removePag(@RequestParam(value = "id") int id) {
+    public String removePagMethod(@RequestParam(value = "id") int id) {
         PagoDto pagoDto = pagoService.getPagoById(id);
 
         pagoService.removePago(pagoDto);

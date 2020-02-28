@@ -2,162 +2,188 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-  <title>Información Centro :: Application</title>
-  <link rel="stylesheet" th:href="@{/vendors/iconfonts/mdi/css/materialdesignicons.min.css}"/>
-  <link rel="stylesheet" th:href="@{/vendors/iconfonts/ionicons/css/ionicons.css}"/>
-  <link rel="stylesheet" th:href="@{/vendors/iconfonts/typicons/src/font/typicons.css}"/>
-  <link rel="stylesheet" th:href="@{/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css}"/>
-  <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.base.css}"/>
-  <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.addons.css}"/>
-  <link rel="stylesheet" th:href="@{/css/shared/style.css}"/>
-  <link rel="stylesheet" th:href="@{/css/demo_1/style.css}"/>
-  <link rel="shortcut icon" th:href="@{/images/favicon.png}"/>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>Información Centro :: Application</title>
+    <link rel="stylesheet" th:href="@{/vendors/iconfonts/mdi/css/materialdesignicons.min.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/iconfonts/ionicons/css/ionicons.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/iconfonts/typicons/src/font/typicons.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.base.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.addons.css}"/>
+    <link rel="stylesheet" th:href="@{/css/shared/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/demo_1/style.css}"/>
+    <link rel="shortcut icon" th:href="@{/images/favicon.png}"/>
 </head>
 
 <body>
-  <div class="container-scroller">
+<div class="container-scroller">
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row" th:insert="fragments/_navbar">
     </nav>
     <div class="container-fluid page-body-wrapper">
-      <nav class="sidebar sidebar-offcanvas" id="sidebar" th:insert="fragments/_sidebar">
-      </nav>
-      <div class="main-panel">
-        <div class="content-wrapper">
-          <div class="row">
-            <div class="col-lg-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Información Centro</h4>
-                  <form class="form-sample">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Nombre</label>
-                          <div class="col-sm-9">
-                            <label class="col-sm-9 col-form-label">Colegio 1</label>
-                          </div>
+        <nav class="sidebar sidebar-offcanvas" id="sidebar" th:insert="fragments/_sidebar">
+        </nav>
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-lg-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Información Centro</h4>
+                                <form class="form-sample">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Nombre</label>
+                                                <div class="col-sm-9">
+                                                    <label class="col-sm-9 col-form-label" th:text="${centro.nombre}">
+                                                        Colegio 1</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Dirección</label>
+                                                <div class="col-sm-9">
+                                                    <label class="col-sm-9 col-form-label"
+                                                           th:text="${centro.direccion}">Calle 1, número 1</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Hora Inicio</label>
+                                                <div class="col-sm-9">
+                                                    <label class="col-sm-9 col-form-label"
+                                                           th:text="${centro.horaMaximaInicio}">16:00</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Hora Fin</label>
+                                                <div class="col-sm-9">
+                                                    <label class="col-sm-9 col-form-label"
+                                                           th:text="${centro.horaMaximaFin}">20:00</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Máximo de clases</label>
+                                                <div class="col-sm-9">
+                                                    <label class="col-sm-9 col-form-label"
+                                                           th:text="${centro.maxClases}">4</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Precio alquiler al mes</label>
+                                                <div class="col-sm-9">
+                                                    <label class="col-sm-9 col-form-label"
+                                                           th:text="${centro.precioMes}">250€</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <h4 class="card-title">Datos Responsable Centro</h4>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Nombre</label>
+                                                <div class="col-sm-9">
+                                                    <label class="col-sm-9 col-form-label"
+                                                           th:text="${centro.responsable.nombre}">Nombre1</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Apellidos</label>
+                                                <div class="col-sm-9">
+                                                    <label class="col-sm-9 col-form-label"
+                                                           th:text="${centro.responsable.apellidos}">Apellido1
+                                                        Apellido2</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Cargo</label>
+                                                <div class="col-sm-9">
+                                                    <label class="col-sm-9 col-form-label"
+                                                           th:text="${centro.responsable.cargo}">Coordinador de
+                                                        Actividades</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Correo</label>
+                                                <div class="col-sm-9">
+                                                    <label class="col-sm-9 col-form-label"
+                                                           th:text="${centro.responsable.correo}">correo@correo.com</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Teléfono</label>
+                                                <div class="col-sm-9">
+                                                    <label class="col-sm-9 col-form-label"
+                                                           th:text="${centro.responsable.telefono}">955111111</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <div class="col-sm-9">
+                                                  <a th:href="@{/centro/editCentro(id=${centro.id})}">
+                                                    <button type="button" class="btn btn-primary btn-fw">Editar
+                                                    </button>
+                                                  </a>
+                                                  <span th:if="${centro.activo.equals('Inactivo')}">
+                                                        <a th:href="@{/centro/altaCentro(id=${centro.id})}">
+                                                        <button type="button"
+                                                                class="btn btn-success btn-fw">Dar Alta</button>
+                                                    </a>
+                                                    </span>
+                                                  <span th:unless="${centro.activo.equals('Inactivo')}">
+                                                    <a th:href="@{/centro/bajaCentro(id=${centro.id})}">
+                                                        <button type="button"
+                                                                class="btn btn-danger btn-fw">Dar Baja</button>
+                                                    </a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Dirección</label>
-                          <div class="col-sm-9">
-                            <label class="col-sm-9 col-form-label">Calle 1, número 1</label>
-                          </div>
-                        </div>
-                      </div>
                     </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Hora Inicio</label>
-                          <div class="col-sm-9">
-                            <label class="col-sm-9 col-form-label">16:00</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Hora Fin</label>
-                          <div class="col-sm-9">
-                            <label class="col-sm-9 col-form-label">20:00</label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Máximo de clases</label>
-                          <div class="col-sm-9">
-                            <label class="col-sm-9 col-form-label">4</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Precio alquiler al mes</label>
-                          <div class="col-sm-9">
-                            <label class="col-sm-9 col-form-label">250€</label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <br />
-                    <h4 class="card-title">Datos Responsable Centro</h4>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Nombre</label>
-                          <div class="col-sm-9">
-                            <label class="col-sm-9 col-form-label">Nombre1</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Apellidos</label>
-                          <div class="col-sm-9">
-                            <label class="col-sm-9 col-form-label">Apellido1 Apellido2</label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Cargo</label>
-                          <div class="col-sm-9">
-                            <label class="col-sm-9 col-form-label">Coordinador de Actividades</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Correo</label>
-                          <div class="col-sm-9">
-                            <label class="col-sm-9 col-form-label">correo@correo.com</label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Teléfono</label>
-                          <div class="col-sm-9">
-                            <label class="col-sm-9 col-form-label">955111111</label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <div class="col-sm-9">
-                            <button type="submit" class="btn btn-primary btn-fw">Editar</button>
-                            <button type="reset" class="btn btn-success btn-fw">Dar Alta</button>
-                            <button type="reset" class="btn btn-danger btn-fw">Dar Baja</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
                 </div>
-              </div>
             </div>
-          </div>
+            <footer class="footer" th:insert="fragments/_footer"></footer>
         </div>
-        <footer class="footer" th:insert="fragments/_footer"></footer>
-      </div>
     </div>
-  </div>
-  <script th:src="@{/vendors/js/vendor.bundle.base.js}"></script>
-  <script th:src="@{/vendors/js/vendor.bundle.addons.js}"></script>
-  <script th:src="@{/js/shared/off-canvas.js}"></script>
-  <script th:src="@{/js/shared/misc.js}"></script>
+</div>
+<script th:src="@{/vendors/js/vendor.bundle.base.js}"></script>
+<script th:src="@{/vendors/js/vendor.bundle.addons.js}"></script>
+<script th:src="@{/js/shared/off-canvas.js}"></script>
+<script th:src="@{/js/shared/misc.js}"></script>
 </body>
 
 </html>
