@@ -13,9 +13,15 @@ public class EmpleadoDto {
 
     private String apellidos;
 
+    private String sexo;
+
     private LocalDate fechaNacimiento;
 
+    private String fechaString;
+
     private String direccion;
+
+    private String telefono;
 
     private double sueldo;
 
@@ -25,7 +31,7 @@ public class EmpleadoDto {
 
     private String cargo;
 
-    private boolean tipoUsuario;
+    private String tipoUsuario;
 
     private String activo;
 
@@ -66,6 +72,14 @@ public class EmpleadoDto {
         this.apellidos = apellidos;
     }
 
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
     public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
@@ -74,12 +88,28 @@ public class EmpleadoDto {
         this.fechaNacimiento = fechaNacimiento;
     }
 
+    public String getFechaString() {
+        return fechaString;
+    }
+
+    public void setFechaString(String fechaString) {
+        this.fechaString = fechaString;
+    }
+
     public String getDireccion() {
         return direccion;
     }
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public double getSueldo() {
@@ -114,11 +144,11 @@ public class EmpleadoDto {
         this.cargo = cargo;
     }
 
-    public boolean isTipoUsuario() {
+    public String getTipoUsuario() {
         return tipoUsuario;
     }
 
-    public void setTipoUsuario(boolean tipoUsuario) {
+    public void setTipoUsuario(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
 

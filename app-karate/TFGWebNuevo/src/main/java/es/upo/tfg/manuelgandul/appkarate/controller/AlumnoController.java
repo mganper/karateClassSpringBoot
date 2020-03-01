@@ -8,6 +8,7 @@ import es.upo.tfg.manuelgandul.appkarate.service.alumno.ObservacionService;
 import es.upo.tfg.manuelgandul.appkarate.service.alumno.PagoService;
 import es.upo.tfg.manuelgandul.appkarate.service.clase.ClaseService;
 import es.upo.tfg.manuelgandul.appkarate.service.common.CinturonService;
+import es.upo.tfg.manuelgandul.appkarate.utility.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -86,7 +87,7 @@ public class AlumnoController {
 
     @PostMapping("/saveAlumno")
     public String addAlumnoMethod(@Valid @ModelAttribute("alumno") AlumnoDto alumnoDto) {
-        alumnoDto.fechaStringToDate();
+        alumnoDto.setFechaNac(Utility.stringToDate(alumnoDto.getFechaString()));
 
         alumnoDto = alumnoService.addAlumno(alumnoDto);
 
@@ -110,7 +111,7 @@ public class AlumnoController {
         if (alumnoDto.getFechaString() == null) {
             alumnoDto.setFechaNac(alumnoService.getAlumnoById(alumnoDto.getId()).getFechaNac());
         } else {
-            alumnoDto.fechaStringToDate();
+            alumnoDto.setFechaNac(Utility.stringToDate(alumnoDto.getFechaString()));
         }
 
         alumnoDto = alumnoService.addAlumno(alumnoDto);

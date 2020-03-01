@@ -143,14 +143,6 @@ public class AlumnoDto {
         this.activo = activo;
     }
 
-    public void fechaStringToDate(){
-        int anyo = Integer.parseInt(fechaString.substring(0,4));
-        int mes = Integer.parseInt(fechaString.substring(5,7));
-        int dia = Integer.parseInt(fechaString.substring(8));
-
-        fechaNac = LocalDate.of(anyo, mes, dia);
-    }
-
     private int calculateAge(LocalDate fechaNac){
         fechaNac = LocalDate.parse(fechaNac.toString());
         LocalDate ahora = LocalDate.now();

@@ -123,9 +123,9 @@
                                                 <div class="col-sm-9">
                                                     <select class="form-control">
 <!--                                                        th:field="*{cint.id}"-->
-                                                        <option
+                                                        <option th:value="${clases.get(0).id}"
                                                                 th:text="'Seleccione Clase'">
-<!--                                                            th:value="${clases.get(0).id}"-->
+<!--                                                            -->
                                                         </option>
                                                         <span th:each="clase : ${clases}">
                                                             <option th:value="${clase.id}">

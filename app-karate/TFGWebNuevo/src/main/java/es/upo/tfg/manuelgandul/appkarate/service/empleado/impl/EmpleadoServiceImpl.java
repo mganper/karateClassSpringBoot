@@ -27,7 +27,22 @@ public class EmpleadoServiceImpl implements EmpleadoService {
         List<EmpleadoDto> empleadoDtoList = new ArrayList<>();
 
         empleadoJpaRepository.findAll().stream().forEach((empleado) -> {
-            empleadoDtoList.add(empleadoConverter.entity2model(empleado));
+            if(empleado.isTipo_usuario() == false){
+                empleadoDtoList.add(empleadoConverter.entity2model(empleado));
+            }
+        });
+
+        return empleadoDtoList;
+    }
+
+    @Override
+    public List<EmpleadoDto> listProfesores() {
+        List<EmpleadoDto> empleadoDtoList = new ArrayList<>();
+
+        empleadoJpaRepository.findAll().stream().forEach((empleado) -> {
+            if(empleado.isTipo_usuario() == true) {
+                empleadoDtoList.add(empleadoConverter.entity2model(empleado));
+            }
         });
 
         return empleadoDtoList;

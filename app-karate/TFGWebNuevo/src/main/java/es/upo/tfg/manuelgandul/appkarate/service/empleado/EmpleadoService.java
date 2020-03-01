@@ -10,6 +10,8 @@ public interface EmpleadoService {
 
     public List<EmpleadoDto> listEmpleados();
 
+    public List<EmpleadoDto> listProfesores();
+
     public EmpleadoDto addEmpleado(EmpleadoDto empleadoDto);
 
     public void removeEmpleado(EmpleadoDto empleadoDto);

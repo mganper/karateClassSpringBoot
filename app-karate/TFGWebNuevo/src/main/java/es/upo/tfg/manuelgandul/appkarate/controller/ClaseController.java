@@ -39,9 +39,8 @@ public class ClaseController {
     @GetMapping("/clase")
     public ModelAndView viewClaseMethod(@RequestParam(value = "id") int id) {
         ModelAndView mav = new ModelAndView("clase/clase");
-        ClaseDto claseDto = claseService.getClaseById(id);
 
-        mav.addObject("clase", claseDto);
+        mav.addObject("clase", claseService.getClaseById(id));
 
         return mav;
     }
@@ -102,5 +101,5 @@ public class ClaseController {
 
     // TODO: Hacer las cosas de lista aquí.
 
-    
+
 }

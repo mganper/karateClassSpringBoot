@@ -26,8 +26,14 @@ public class Empleado {
     @Column(name = "fecha_nacimiento")
     private LocalDate fecha_nacimiento;
 
+    @Column(name = "sexo")
+    private String sexo;
+
     @Column(name = "direccion")
     private String direccion;
+
+    @Column(name = "telefono")
+    private String telefono;
 
     @Column(name = "sueldo")
     private double sueldo;
@@ -93,12 +99,28 @@ public class Empleado {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
     public String getDireccion() {
         return direccion;
     }
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public double getSueldo() {
