@@ -6,14 +6,13 @@ import java.util.List;
 
 public interface CentroService {
 
-    public List<CentroDto> listCentros();
+    List<CentroDto> listCentros();
 
-    public CentroDto addCentro(CentroDto centroDto);
+    CentroDto addCentro(CentroDto centroDto);
 
-    public void removeCentro(CentroDto centroDto);
+    void removeCentro(CentroDto centroDto);
 
-    public CentroDto updateCentro(CentroDto centroDto);
+    CentroDto updateCentro(CentroDto centroDto);
 
-    public CentroDto getCentroById(int id);
-
+    CentroDto getCentroById(int id);
 }

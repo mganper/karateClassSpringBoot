@@ -3,11 +3,13 @@ package es.upo.tfg.manuelgandul.appkarate.controller;
 import es.upo.tfg.manuelgandul.appkarate.model.alumno.AlumnoDto;
 import es.upo.tfg.manuelgandul.appkarate.model.alumno.ObservacionDto;
 import es.upo.tfg.manuelgandul.appkarate.model.alumno.PagoDto;
+import es.upo.tfg.manuelgandul.appkarate.model.clase.ClaseDto;
 import es.upo.tfg.manuelgandul.appkarate.service.alumno.AlumnoService;
 import es.upo.tfg.manuelgandul.appkarate.service.alumno.ObservacionService;
 import es.upo.tfg.manuelgandul.appkarate.service.alumno.PagoService;
 import es.upo.tfg.manuelgandul.appkarate.service.clase.ClaseService;
 import es.upo.tfg.manuelgandul.appkarate.service.common.CinturonService;
+import es.upo.tfg.manuelgandul.appkarate.service.relations.AlumnoClaseService;
 import es.upo.tfg.manuelgandul.appkarate.utility.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -44,6 +46,10 @@ public class AlumnoController {
     @Qualifier("claseService")
     private ClaseService claseService;
 
+    @Autowired
+    @Qualifier("alumnoClaseService")
+    private AlumnoClaseService alumnoClaseService;
+
     @GetMapping("/")
     public String redirect() {
         return "redirect:/alumno/alumnos";
@@ -65,6 +71,9 @@ public class AlumnoController {
         List<ObservacionDto> observacionDtoList = observacionService.listObservacionAlumno(alumnoDto);
         List<PagoDto> pagoDtoList = pagoService.listPagosAlumno(alumnoDto);
 
+        ClaseDto claseDto = alumnoClaseService.getClaseByAlumno(alumnoDto);
+        alumnoDto.setClaseDto(claseDto);
+
         mav.addObject("alumno", alumnoDto);
         mav.addObject("listaObservaciones", observacionDtoList);
         mav.addObject("listaPagos", pagoDtoList);
@@ -77,8 +86,11 @@ public class AlumnoController {
         cinturonService.comprobarCinturones();
 
         ModelAndView mav = new ModelAndView("alumno/crearAlumno");
+        AlumnoDto alumnoDto = new AlumnoDto();
 
-        mav.addObject("alumno", new AlumnoDto());
+        alumnoDto.setClaseDto(new ClaseDto());
+
+        mav.addObject("alumno", alumnoDto);
         mav.addObject("cinturones", cinturonService.listCinturon());
         mav.addObject("clases", claseService.listClases());
 
@@ -86,10 +98,13 @@ public class AlumnoController {
     }
 
     @PostMapping("/saveAlumno")
-    public String addAlumnoMethod(@Valid @ModelAttribute("alumno") AlumnoDto alumnoDto) {
-        alumnoDto.setFechaNac(Utility.stringToDate(alumnoDto.getFechaString()));
+    public String saveAlumnoMethod(@Valid @ModelAttribute("alumno") AlumnoDto alumnoDto) {
+        ClaseDto claseDto = claseService.getClaseById(alumnoDto.getClaseDto().getId());
 
+        alumnoDto.setFechaNac(Utility.stringToDate(alumnoDto.getFechaString()));
         alumnoDto = alumnoService.addAlumno(alumnoDto);
+
+        alumnoClaseService.addAlumnoLista(alumnoDto, claseDto);
 
         return "redirect:/alumno/alumno?id=" + alumnoDto.getId();
     }
@@ -107,6 +122,10 @@ public class AlumnoController {
 
     @PostMapping("/saveUpdatedAlumno")
     public String saveUpdatedAlumnoMethod(@Valid @ModelAttribute("alumno") AlumnoDto alumnoDto) {
+        ClaseDto claseDto = claseService.getClaseById(alumnoDto.getClaseDto().getId());
+
+        alumnoClaseService.removeAlumnoCentro(alumnoDto);
+        alumnoClaseService.addAlumnoLista(alumnoDto, claseDto);
 
         if (alumnoDto.getFechaString() == null) {
             alumnoDto.setFechaNac(alumnoService.getAlumnoById(alumnoDto.getId()).getFechaNac());
@@ -135,6 +154,8 @@ public class AlumnoController {
 
         alumnoDto.setActivo("Inactivo");
         alumnoService.updateAlumno(alumnoDto);
+
+        alumnoClaseService.removeAlumnoCentro(alumnoDto);
 
         return "redirect:/alumno/alumno?id=" + alumnoDto.getId();
     }
@@ -181,21 +202,21 @@ public class AlumnoController {
         return "redirect:/alumno/alumno?id=" + pagoDto.getAlumno().getId();
     }
 
-    @GetMapping("/removeObs")
-    public String removeObsMethod(@RequestParam(value = "id") int id) {
-        ObservacionDto observacionDto = observacionService.getObservacionById(id);
-
-        observacionService.removeObservacion(observacionDto);
-
-        return "redirect:/alumno/alumno?id=" + observacionDto.getAlumno().getId();
-    }
-
-    @GetMapping("/removePag")
-    public String removePagMethod(@RequestParam(value = "id") int id) {
-        PagoDto pagoDto = pagoService.getPagoById(id);
-
-        pagoService.removePago(pagoDto);
-
-        return "redirect:/alumno/alumno?id=" + pagoDto.getAlumno().getId();
-    }
+//    @GetMapping("/removeObs")
+//    public String removeObsMethod(@RequestParam(value = "id") int id) {
+//        ObservacionDto observacionDto = observacionService.getObservacionById(id);
+//
+//        observacionService.removeObservacion(observacionDto);
+//
+//        return "redirect:/alumno/alumno?id=" + observacionDto.getAlumno().getId();
+//    }
+//
+//    @GetMapping("/removePag")
+//    public String removePagMethod(@RequestParam(value = "id") int id) {
+//        PagoDto pagoDto = pagoService.getPagoById(id);
+//
+//        pagoService.removePago(pagoDto);
+//
+//        return "redirect:/alumno/alumno?id=" + pagoDto.getAlumno().getId();
+//    }
 }

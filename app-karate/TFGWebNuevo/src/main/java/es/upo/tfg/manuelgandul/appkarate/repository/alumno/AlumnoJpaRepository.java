@@ -8,5 +8,5 @@ import java.io.Serializable;
 
 @Repository("alumnoJpaRepository")
 public interface AlumnoJpaRepository extends JpaRepository<Alumno, Serializable> {
-    public Alumno findById(int id);
+    Alumno findById(int id);
 }

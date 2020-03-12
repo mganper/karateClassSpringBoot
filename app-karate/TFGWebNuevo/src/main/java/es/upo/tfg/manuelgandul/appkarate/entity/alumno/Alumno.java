@@ -4,11 +4,12 @@ import es.upo.tfg.manuelgandul.appkarate.entity.common.Cinturon;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "alumno")
-public class Alumno {
+public class Alumno implements Serializable {
 
     @Id
     @GeneratedValue

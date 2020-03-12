@@ -4,6 +4,7 @@ import es.upo.tfg.manuelgandul.appkarate.model.centro.CentroDto;
 import es.upo.tfg.manuelgandul.appkarate.model.centro.ResponsableDto;
 import es.upo.tfg.manuelgandul.appkarate.service.centro.CentroService;
 import es.upo.tfg.manuelgandul.appkarate.service.centro.ResponsableService;
+import es.upo.tfg.manuelgandul.appkarate.service.relations.AlumnoClaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,10 @@ public class CentroController {
     @Autowired
     @Qualifier("centroService")
     private CentroService centroService;
+
+    @Autowired
+    @Qualifier("alumnoClaseService")
+    private AlumnoClaseService alumnoClaseService;
 
     @GetMapping("/")
     public String redirect(){
@@ -95,6 +100,8 @@ public class CentroController {
 
         centroDto.setActivo("Inactivo");
         centroService.updateCentro(centroDto);
+
+        alumnoClaseService.removeAllAlumnosByCentro(centroDto);
 
         return "redirect:/centro/centro?id=" + centroDto.getId();
     }

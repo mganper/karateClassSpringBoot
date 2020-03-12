@@ -3,6 +3,7 @@ package es.upo.tfg.manuelgandul.appkarate.model.alumno;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class ObservacionDto {
 
@@ -70,11 +71,16 @@ public class ObservacionDto {
         this.idAlumno = idAlumno;
     }
 
-    public void fechaStringToLocalDate(){
-        int anyo = Integer.parseInt(fechaString.substring(0,4));
-        int mes = Integer.parseInt(fechaString.substring(5,7));
-        int dia = Integer.parseInt(fechaString.substring(8));
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ObservacionDto that = (ObservacionDto) o;
+        return id == that.id;
+    }
 
-        fecha = LocalDate.of(anyo, mes, dia);
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

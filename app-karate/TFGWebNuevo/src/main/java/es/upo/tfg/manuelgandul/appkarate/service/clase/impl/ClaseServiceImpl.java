@@ -1,6 +1,8 @@
 package es.upo.tfg.manuelgandul.appkarate.service.clase.impl;
 
+import es.upo.tfg.manuelgandul.appkarate.converter.centro.CentroConverter;
 import es.upo.tfg.manuelgandul.appkarate.converter.clase.ClaseConverter;
+import es.upo.tfg.manuelgandul.appkarate.model.centro.CentroDto;
 import es.upo.tfg.manuelgandul.appkarate.model.clase.ClaseDto;
 import es.upo.tfg.manuelgandul.appkarate.repository.clase.ClaseJpaRepository;
 import es.upo.tfg.manuelgandul.appkarate.service.clase.ClaseService;
@@ -8,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 @Service("claseService")
 public class ClaseServiceImpl implements ClaseService {
 
@@ -21,6 +25,10 @@ public class ClaseServiceImpl implements ClaseService {
     @Autowired
     @Qualifier("claseConverter")
     private ClaseConverter claseConverter;
+
+    @Autowired
+    @Qualifier("centroConverter")
+    private CentroConverter centroConverter;
 
     @Override
     public List<ClaseDto> listClases() {
@@ -55,5 +63,10 @@ public class ClaseServiceImpl implements ClaseService {
     @Override
     public ClaseDto getClaseById(int id) {
         return claseConverter.entity2model(claseJpaRepository.findById(id));
+    }
+
+    @Override
+    public int getNumeroClasesByCentro(CentroDto centroDto) {
+        return claseJpaRepository.findAllByCentro(centroConverter.model2entity(centroDto)).size();
     }
 }

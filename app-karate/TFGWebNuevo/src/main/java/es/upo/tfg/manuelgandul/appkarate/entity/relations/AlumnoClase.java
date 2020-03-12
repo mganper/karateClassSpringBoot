@@ -7,32 +7,21 @@ import es.upo.tfg.manuelgandul.appkarate.entity.clase.CompositeKey;
 import javax.persistence.*;
 
 @Entity
-@IdClass(CompositeKey.class)
+//@IdClass(CompositeKey.class)
 @Table(name = "alumnoclase")
 public class AlumnoClase {
 
     @Id
     @GeneratedValue
-    @Column(name = "id")
-    private int id;
+    private Long id;
 
-    @Id
     @ManyToOne
     private Alumno alumno;
 
-    @Id
     @ManyToOne
     private Clase clase;
 
     public AlumnoClase() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public Alumno getAlumno() {

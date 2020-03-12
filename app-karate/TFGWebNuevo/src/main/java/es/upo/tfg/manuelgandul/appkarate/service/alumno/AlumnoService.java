@@ -1,17 +1,19 @@
 package es.upo.tfg.manuelgandul.appkarate.service.alumno;
 
 import es.upo.tfg.manuelgandul.appkarate.model.alumno.AlumnoDto;
+import es.upo.tfg.manuelgandul.appkarate.model.clase.ClaseDto;
 
 import java.util.List;
 
 public interface AlumnoService {
-    public List<AlumnoDto> listAllAlumnos();
+    List<AlumnoDto> listAllAlumnos();
 
-    public AlumnoDto addAlumno(AlumnoDto alumno);
+    AlumnoDto addAlumno(AlumnoDto alumno);
 
-    public void removeAlumno(AlumnoDto alumno);
+    void removeAlumno(AlumnoDto alumno);
 
-    public AlumnoDto updateAlumno(AlumnoDto alumno);
+    AlumnoDto updateAlumno(AlumnoDto alumno);
 
-    public AlumnoDto getAlumnoById(int id);
+    AlumnoDto getAlumnoById(int id);
+
 }

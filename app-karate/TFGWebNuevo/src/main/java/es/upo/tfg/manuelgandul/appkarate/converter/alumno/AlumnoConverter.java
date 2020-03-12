@@ -1,5 +1,6 @@
 package es.upo.tfg.manuelgandul.appkarate.converter.alumno;
 
+
 import es.upo.tfg.manuelgandul.appkarate.converter.common.CinturonConverter;
 import es.upo.tfg.manuelgandul.appkarate.entity.alumno.Alumno;
 import es.upo.tfg.manuelgandul.appkarate.model.alumno.AlumnoDto;

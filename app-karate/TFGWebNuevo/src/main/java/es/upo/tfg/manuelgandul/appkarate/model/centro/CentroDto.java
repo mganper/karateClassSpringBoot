@@ -1,5 +1,7 @@
 package es.upo.tfg.manuelgandul.appkarate.model.centro;
 
+import java.util.Objects;
+
 public class CentroDto {
 
     private int id;
@@ -93,5 +95,18 @@ public class CentroDto {
 
     public void setResponsable(ResponsableDto responsable) {
         this.responsable = responsable;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CentroDto centroDto = (CentroDto) o;
+        return id == centroDto.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

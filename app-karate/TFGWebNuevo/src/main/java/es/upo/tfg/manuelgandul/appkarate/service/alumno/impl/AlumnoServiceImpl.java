@@ -8,22 +8,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * En esta clase va la lógica de alumno, y se llama desde el controller.
  */
+@Transactional
 @Service("alumnoService")
 public class AlumnoServiceImpl implements AlumnoService {
 
-    @Autowired
-    @Qualifier("alumnoJpaRepository")
-    private AlumnoJpaRepository alumnoJpaRepository;
+    private final AlumnoJpaRepository alumnoJpaRepository;
 
-    @Autowired
-    @Qualifier("alumnoConverter")
-    private AlumnoConverter alumnoConverter;
+    private final AlumnoConverter alumnoConverter;
+
+    public AlumnoServiceImpl(@Qualifier("alumnoJpaRepository") AlumnoJpaRepository alumnoJpaRepository, @Qualifier("alumnoConverter") AlumnoConverter alumnoConverter) {
+        this.alumnoJpaRepository = alumnoJpaRepository;
+        this.alumnoConverter = alumnoConverter;
+    }
 
     @Override
     public List<AlumnoDto> listAllAlumnos() {

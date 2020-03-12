@@ -5,12 +5,13 @@ import javax.persistence.*;
 import es.upo.tfg.manuelgandul.appkarate.entity.centro.Centro;
 import es.upo.tfg.manuelgandul.appkarate.entity.empleado.Empleado;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "clase")
-public class Clase {
+public class Clase implements Serializable {
 
     @Id
-    @GeneratedValue
     @Column(name = "id")
     private int id;
 

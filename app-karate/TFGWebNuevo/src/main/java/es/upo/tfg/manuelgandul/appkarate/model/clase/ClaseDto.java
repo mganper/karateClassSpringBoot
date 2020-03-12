@@ -3,6 +3,8 @@ package es.upo.tfg.manuelgandul.appkarate.model.clase;
 import es.upo.tfg.manuelgandul.appkarate.model.centro.CentroDto;
 import es.upo.tfg.manuelgandul.appkarate.model.empleado.EmpleadoDto;
 
+import java.util.Objects;
+
 public class ClaseDto {
 
     private int id;
@@ -24,6 +26,8 @@ public class ClaseDto {
     private EmpleadoDto profesor;
 
     private CentroDto centro;
+
+    private int numAlumnos;
 
     public ClaseDto() {
     }
@@ -106,5 +110,26 @@ public class ClaseDto {
 
     public void setCentro(CentroDto centro) {
         this.centro = centro;
+    }
+
+    public int getNumAlumnos() {
+        return numAlumnos;
+    }
+
+    public void setNumAlumnos(int numAlumnos) {
+        this.numAlumnos = numAlumnos;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ClaseDto claseDto = (ClaseDto) o;
+        return id == claseDto.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

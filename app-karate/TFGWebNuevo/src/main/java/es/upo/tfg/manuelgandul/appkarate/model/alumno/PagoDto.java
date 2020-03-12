@@ -4,6 +4,7 @@ import es.upo.tfg.manuelgandul.appkarate.entity.alumno.Alumno;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class PagoDto {
 
@@ -60,5 +61,18 @@ public class PagoDto {
 
     public void setCantidad(double cantidad) {
         this.cantidad = cantidad;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PagoDto pagoDto = (PagoDto) o;
+        return id == pagoDto.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

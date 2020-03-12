@@ -101,7 +101,8 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Cinturón</label>
                                                 <div class="col-sm-9">
-                                                    <label class="col-sm-9 col-form-label" th:text="${alumno.cint.getNomnbre()}">Marron</label>
+                                                    <label class="col-sm-9 col-form-label"
+                                                           th:text="${alumno.cint.getNomnbre()}">Marron</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -111,7 +112,10 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Clase</label>
                                                 <div class="col-sm-9">
-                                                    <label class="col-sm-9 col-form-label">Clase 1 de Centro 1</label>
+                                                    <label class="col-sm-9 col-form-label">
+                                                        <span th:text="${alumno.claseDto.centro.nombre}">centro 1</span>
+                                                        - <span th:text="${alumno.claseDto.horaInicio}">16:00</span>
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
@@ -178,7 +182,7 @@
                                             laoreet arcu eget.
                                         </td>
                                         <td>
-                                            <a th:href="@{/alumno/removeObs(id=${observacion.id})}">
+                                            <a th:href="@{/alumno/removeObservacion(id=${observacion.id})}">
                                                 <button type="reset" class="btn btn-danger btn-fw">Eliminar</button>
                                             </a>
                                         </td>
@@ -209,7 +213,7 @@
                                         <td th:text="${pago.cantidad}">20€</td>
                                         <td th:text="${pago.mesPagado}">1/77</td>
                                         <td>
-                                            <a th:href="@{/alumno/removePag(id=${pago.id})}"> <!--  -->
+                                            <a th:href="@{/alumno/removePago(id=${pago.id})}"> <!--  -->
                                                 <button type="reset" class="btn btn-danger btn-fw">Eliminar</button>
                                             </a>
                                         </td>

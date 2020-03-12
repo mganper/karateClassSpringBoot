@@ -3,6 +3,7 @@ package es.upo.tfg.manuelgandul.appkarate.model.empleado;
 import es.upo.tfg.manuelgandul.appkarate.model.common.CinturonDto;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class EmpleadoDto {
     private int id;
@@ -166,5 +167,18 @@ public class EmpleadoDto {
 
     public void setContrasenya(String contrasenya) {
         this.contrasenya = contrasenya;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EmpleadoDto that = (EmpleadoDto) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

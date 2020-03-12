@@ -109,7 +109,8 @@
                                                         <option th:value="${cinturones.get(0).id}"
                                                                 th:text="'Seleccione Cinturón'"></option>
                                                         <span th:each="cinturon : ${cinturones}">
-                                                            <option th:value="${cinturon.id}" th:text="${cinturon.nomnbre}"></option>
+                                                            <option th:value="${cinturon.id}"
+                                                                    th:text="${cinturon.nomnbre}"></option>
                                                         </span>
                                                     </select>
                                                 </div>
@@ -121,12 +122,10 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Clase</label>
                                                 <div class="col-sm-9">
-                                                    <select class="form-control">
-<!--                                                        th:field="*{cint.id}"-->
-                                                        <option th:value="${clases.get(0).id}"
-                                                                th:text="'Seleccione Clase'">
-<!--                                                            -->
-                                                        </option>
+                                                    <select class="form-control" th:field="*{claseDto.id}">
+<!--                                                        <option th:value="${clases.get(0).id}"-->
+<!--                                                                th:text="'Seleccione Clase'">-->
+<!--                                                        </option>-->
                                                         <span th:each="clase : ${clases}">
                                                             <option th:value="${clase.id}">
                                                                 <span th:text="${clase.centro.nombre}"/> -

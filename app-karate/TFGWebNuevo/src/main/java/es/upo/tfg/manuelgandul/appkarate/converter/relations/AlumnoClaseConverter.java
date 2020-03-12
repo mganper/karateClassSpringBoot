@@ -11,18 +11,19 @@ import org.springframework.stereotype.Component;
 @Component("alumnoClaseConverter")
 public class AlumnoClaseConverter {
 
-    @Autowired
-    @Qualifier("alumnoConverter")
-    private AlumnoConverter alumnoConverter;
+    private final AlumnoConverter alumnoConverter;
 
-    @Autowired
-    @Qualifier("claseConverter")
-    private ClaseConverter claseConverter;
+    private final ClaseConverter claseConverter;
+
+    public AlumnoClaseConverter(@Qualifier("alumnoConverter") AlumnoConverter alumnoConverter, @Qualifier("claseConverter") ClaseConverter claseConverter) {
+        this.alumnoConverter = alumnoConverter;
+        this.claseConverter = claseConverter;
+    }
 
     public AlumnoClaseDto entity2model(AlumnoClase alumnoClase){
         AlumnoClaseDto alumnoClaseDto = new AlumnoClaseDto();
 
-        alumnoClaseDto.setId(alumnoClase.getId());
+        //alumnoClaseDto.setId(alumnoClase.getId());
         alumnoClaseDto.setAlumno(alumnoConverter.entity2Model(alumnoClase.getAlumno()));
         alumnoClaseDto.setClase(claseConverter.entity2model(alumnoClase.getClase()));
 
@@ -32,7 +33,7 @@ public class AlumnoClaseConverter {
     public AlumnoClase model2entity(AlumnoClaseDto alumnoClaseDto){
         AlumnoClase alumnoClase = new AlumnoClase();
 
-        alumnoClase.setId(alumnoClaseDto.getId());
+        //alumnoClase.setId(alumnoClaseDto.getId());
         alumnoClase.setAlumno(alumnoConverter.model2Entity(alumnoClaseDto.getAlumno()));
         alumnoClase.setClase(claseConverter.model2entity(alumnoClaseDto.getClase()));
 

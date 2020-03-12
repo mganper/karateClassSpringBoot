@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <title>Lista Clases :: Application</title>
+    <title>Lista de Clase :: Application</title>
     <link rel="stylesheet" th:href="@{/vendors/iconfonts/mdi/css/materialdesignicons.min.css}"/>
     <link rel="stylesheet" th:href="@{/vendors/iconfonts/ionicons/css/ionicons.css}"/>
     <link rel="stylesheet" th:href="@{/vendors/iconfonts/typicons/src/font/typicons.css}"/>
@@ -28,13 +28,13 @@
                     <div class="col-lg-12 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Lista clases</h4>
+                                <h4 class="card-title">Lista de clase</h4>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <div class="col-sm-9">
-                                                <a th:href="@{/clase/addClase}">
-                                                    <button type="submit" class="btn btn-primary btn-fw">Crear</button>
+                                                <a th:href="@{/clase/editListaClase(id=${clase.id})}">
+                                                    <button type="submit" class="btn btn-primary btn-fw">Editar</button>
                                                 </a>
                                             </div>
                                         </div>
@@ -43,29 +43,18 @@
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th>Identificador</th>
-                                        <th>Centro</th>
-                                        <th>Hora Inicio</th>
-                                        <th>Hora Fin</th>
-                                        <th>Máx. Alumnos</th>
-                                        <th>Inter. Edad</th>
-                                        <th>Precio</th>
-                                        <th>Activo</th>
+                                        <th>Nombre</th>
+                                        <th>Fecha de Nacimiento</th>
+                                        <th>Edad</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="clase : ${clases}">
-                                        <td><a th:href="@{/clase/clase(id=${clase.id})}"><span
-                                                th:text="${clase.id}">001</span></a></td>
-                                        <td><a th:href="@{/centro/centro(id=${clase.centro.id})}"><span
-                                                th:text="${clase.centro.nombre}">Centro1</span></a></td>
-                                        <td th:text="${clase.horaInicio}">16:30</td>
-                                        <td th:text="${clase.horaFin}">17:30</td>
-                                        <td th:text="${clase.maxAlumnos}">20</td>
-                                        <td><span th:text="${clase.edadMinima}">4</span> a
-                                            <span th:text="${clase.edadMaxima}">6</span></td>
-                                        <td th:text="${clase.precio}">15€</td>
-                                        <td th:text="${clase.activo}">Activo</td>
+                                    <tr th:each="alumno : ${alumnos}">
+                                        <td><a th:href="@{/alumno/alumno(id=${alumno.id})}"><span
+                                                th:text="${alumno.nombre}">Alumno1</span>
+                                            <span th:text="${alumno.apellidos}">Apellido1</span></a></td>
+                                        <td th:text="${alumno.fechaNac.toString()}">2008/11/28</td>
+                                        <td><span th:text="${alumno.edad}">11</span> años</td>
                                     </tr>
                                     </tbody>
                                 </table>

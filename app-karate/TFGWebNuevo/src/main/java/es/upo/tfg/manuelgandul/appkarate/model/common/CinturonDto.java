@@ -1,6 +1,8 @@
 package es.upo.tfg.manuelgandul.appkarate.model.common;
 
 
+import java.util.Objects;
+
 public class CinturonDto {
 
     private int id;
@@ -24,5 +26,19 @@ public class CinturonDto {
 
     public void setNomnbre(String nomnbre) {
         this.nomnbre = nomnbre;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CinturonDto that = (CinturonDto) o;
+        return id == that.id &&
+                nomnbre.equals(that.nomnbre);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nomnbre);
     }
 }

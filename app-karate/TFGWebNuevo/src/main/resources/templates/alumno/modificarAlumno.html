@@ -142,19 +142,18 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Clase</label>
                                                 <div class="col-sm-9">
-                                                    <select class="form-control">
-                                                        <!--th:field="*{cint.id}"-->
-                                                        <option th:value="${clases.get(0).id}"
+                                                    <select class="form-control" th:field="*{claseDto.id}">
+                                                        <option th:value="-1"
                                                                 th:text="'Seleccione Clase'">
                                                         </option>
                                                         <span th:each="clase : ${clases}">
-                                                            <span th:if="${alumno.clase.id == clase.id}">
+                                                            <span th:if="${alumno.claseDto.id == clase.id}">
                                                                 <option th:value="${clase.id}">
                                                                     <span th:text="${clase.centro.nombre}"/> -
                                                                     <span th:text="${clase.horaInicio}"/>
                                                                 </option>
                                                             </span>
-                                                            <span th:if="${alumno.clase.id == clase.id}">
+                                                            <span th:if="${alumno.claseDto.id == clase.id}">
                                                                 <option th:value="${clase.id}">
                                                                     <span th:text="${clase.centro.nombre}"/> -
                                                                     <span th:text="${clase.horaInicio}"/>

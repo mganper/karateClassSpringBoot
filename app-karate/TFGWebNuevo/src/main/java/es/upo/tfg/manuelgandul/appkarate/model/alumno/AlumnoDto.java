@@ -1,5 +1,6 @@
 package es.upo.tfg.manuelgandul.appkarate.model.alumno;
 
+import es.upo.tfg.manuelgandul.appkarate.model.clase.ClaseDto;
 import es.upo.tfg.manuelgandul.appkarate.model.common.CinturonDto;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -7,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Objects;
 
 public class AlumnoDto {
 
@@ -38,6 +40,8 @@ public class AlumnoDto {
     private String dir;
 
     private CinturonDto cint;
+
+    private ClaseDto claseDto;
 
     private String activo;
 
@@ -135,12 +139,33 @@ public class AlumnoDto {
         this.cint = cint;
     }
 
+    public ClaseDto getClaseDto() {
+        return claseDto;
+    }
+
+    public void setClaseDto(ClaseDto claseDto) {
+        this.claseDto = claseDto;
+    }
+
     public String getActivo() {
         return activo;
     }
 
     public void setActivo(String activo) {
         this.activo = activo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AlumnoDto alumnoDto = (AlumnoDto) o;
+        return id == alumnoDto.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     private int calculateAge(LocalDate fechaNac){
