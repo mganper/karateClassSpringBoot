@@ -34,7 +34,7 @@ public class ClaseServiceImpl implements ClaseService {
     public List<ClaseDto> listClases() {
         List<ClaseDto> claseDtoList = new ArrayList<>();
 
-        claseJpaRepository.findAll().stream().forEach((clase)->{
+        claseJpaRepository.findAll().stream().forEach((clase) -> {
             claseDtoList.add(claseConverter.entity2model(clase));
         });
 
@@ -63,6 +63,14 @@ public class ClaseServiceImpl implements ClaseService {
     @Override
     public ClaseDto getClaseById(int id) {
         return claseConverter.entity2model(claseJpaRepository.findById(id));
+    }
+
+    @Override
+    public void setBajaAllClasesByCentro(CentroDto centroDto) {
+        claseJpaRepository.findAllByCentro(centroConverter.model2entity(centroDto)).stream().forEach(clase -> {
+            clase.setActivo(false);
+            claseJpaRepository.save(clase);
+        });
     }
 
     @Override

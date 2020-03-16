@@ -5,8 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Repository("alumnoJpaRepository")
 public interface AlumnoJpaRepository extends JpaRepository<Alumno, Serializable> {
     Alumno findById(int id);
+
+    List<Alumno> findAllByActivo(boolean b);
 }

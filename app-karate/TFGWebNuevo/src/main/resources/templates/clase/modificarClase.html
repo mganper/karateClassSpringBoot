@@ -129,10 +129,19 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Profesor</label>
                                                 <div class="col-sm-9">
-                                                    <select class="form-control">
-                                                        <option>Seleccione Profesor</option>
-                                                        <option>Nombre1 Apellido1</option>
-                                                        <option>Nombre2 Apellido2</option>
+                                                    <select class="form-control" th:field="*{profesor.id}">
+                                                        <option th:value="-1">Seleccione Profesor</option>
+                                                        <span th:each="profesor : ${profesores}">
+                                                            <span th:if="${clase.profesor.id == profesor.id}">
+                                                                <option th:value="${profesor.id}"
+                                                                        th:text="${profesor.nombre}"
+                                                                        selected="true"></option>
+                                                            </span>
+                                                            <span th:unless="${clase.profesor.id == profesor.id}">
+                                                                <option th:value="${profesor.id}"
+                                                                        th:text="${profesor.nombre}"></option>
+                                                            </span>
+                                                        </span>
                                                     </select>
                                                 </div>
                                             </div>
@@ -144,7 +153,9 @@
                                                 <div class="col-sm-9">
                                                     <button type="submit" class="btn btn-success btn-fw">Enviar</button>
                                                     <button type="reset" class="btn btn-primary btn-fw">Limpiar</button>
-                                                    <button type="reset" class="btn btn-danger btn-fw">Cancelar</button>
+                                                    <a th:href="@{/clase/clase(id=${clase.id})}">
+                                                        <button type="reset" class="btn btn-danger btn-fw">Cancelar</button>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>

@@ -17,5 +17,7 @@ public interface ClaseService {
 
     ClaseDto getClaseById(int id);
 
+    void setBajaAllClasesByCentro(CentroDto centroDto);
+
     int getNumeroClasesByCentro(CentroDto centroDto);
 }

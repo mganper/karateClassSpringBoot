@@ -40,6 +40,17 @@ public class AlumnoServiceImpl implements AlumnoService {
     }
 
     @Override
+    public List<AlumnoDto> listAllAlumnosActivos() {
+        List<AlumnoDto> listAlumnoDto = new ArrayList<>();
+
+        alumnoJpaRepository.findAllByActivo(true).stream().forEach((al) ->{
+            listAlumnoDto.add(alumnoConverter.entity2Model(al));
+        });
+
+        return listAlumnoDto;
+    }
+
+    @Override
     public AlumnoDto addAlumno(AlumnoDto alumno) {
         return alumnoConverter.entity2Model(alumnoJpaRepository.save(alumnoConverter.model2Entity(alumno)));
     }

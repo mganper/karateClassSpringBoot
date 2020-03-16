@@ -1,8 +1,10 @@
 package es.upo.tfg.manuelgandul.appkarate.service.clase.impl;
 
 import es.upo.tfg.manuelgandul.appkarate.converter.alumno.AlumnoConverter;
+import es.upo.tfg.manuelgandul.appkarate.converter.clase.ClaseConverter;
 import es.upo.tfg.manuelgandul.appkarate.converter.clase.FaltasConverter;
 import es.upo.tfg.manuelgandul.appkarate.model.alumno.AlumnoDto;
+import es.upo.tfg.manuelgandul.appkarate.model.clase.ClaseDto;
 import es.upo.tfg.manuelgandul.appkarate.model.clase.FaltasDto;
 import es.upo.tfg.manuelgandul.appkarate.repository.clase.FaltasJpaRepository;
 import es.upo.tfg.manuelgandul.appkarate.service.clase.FaltasService;
@@ -30,6 +32,10 @@ public class FaltasServiceImpl implements FaltasService {
     @Qualifier("alumnoConverter")
     private AlumnoConverter alumnoConverter;
 
+    @Autowired
+    @Qualifier("claseConverter")
+    private ClaseConverter claseConverter;
+
     @Override
     public List<FaltasDto> listFaltas() {
         List<FaltasDto> faltasDtoList = new ArrayList<>();
@@ -45,7 +51,18 @@ public class FaltasServiceImpl implements FaltasService {
     public List<FaltasDto> listFaltasByAlumno(AlumnoDto alumnoDto) {
         List<FaltasDto> faltasDtoList = new ArrayList<>();
 
-        faltasJpaRepository.findByAlumnoClase_Alumno(alumnoConverter.model2Entity(alumnoDto)).stream().forEach((falta) -> {
+        faltasJpaRepository.findAllByAlumnoClase_AlumnoOrderByFecha(alumnoConverter.model2Entity(alumnoDto)).stream().forEach((falta) -> {
+            faltasDtoList.add(faltasConverter.entity2model(falta));
+        });
+
+        return faltasDtoList;
+    }
+
+    @Override
+    public List<FaltasDto> listFaltasByClase(ClaseDto claseDto) {
+        List<FaltasDto> faltasDtoList = new ArrayList<>();
+
+        faltasJpaRepository.findAllByAlumnoClase_ClaseOrderByFecha(claseConverter.model2entity(claseDto)).stream().forEach((falta) -> {
             faltasDtoList.add(faltasConverter.entity2model(falta));
         });
 

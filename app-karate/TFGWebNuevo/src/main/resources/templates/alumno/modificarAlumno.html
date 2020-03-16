@@ -30,7 +30,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h2 class="card-title">Crear Alumno</h2>
-                                <form class="form-sample" action="#" th:action="@{/alumno/saveUpdatedAlumno}"
+                                <form class="form-sample" id="saveForm" action="#" th:action="@{/alumno/saveUpdatedAlumno}"
                                       th:object="${alumno}" method="post">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -147,17 +147,25 @@
                                                                 th:text="'Seleccione Clase'">
                                                         </option>
                                                         <span th:each="clase : ${clases}">
-                                                            <span th:if="${alumno.claseDto.id == clase.id}">
+                                                            <span th:if="${alumno.claseDto == null}">
                                                                 <option th:value="${clase.id}">
-                                                                    <span th:text="${clase.centro.nombre}"/> -
-                                                                    <span th:text="${clase.horaInicio}"/>
+                                                                        <span th:text="${clase.centro.nombre}"/> -
+                                                                        <span th:text="${clase.horaInicio}"/>
                                                                 </option>
                                                             </span>
-                                                            <span th:if="${alumno.claseDto.id == clase.id}">
-                                                                <option th:value="${clase.id}">
-                                                                    <span th:text="${clase.centro.nombre}"/> -
-                                                                    <span th:text="${clase.horaInicio}"/>
-                                                                </option>
+                                                            <span>
+                                                                <span th:if="${alumno.claseDto.id == clase.id}">
+                                                                    <option th:value="${clase.id}" selected="true">
+                                                                        <span th:text="${clase.centro.nombre}"/> -
+                                                                        <span th:text="${clase.horaInicio}"/>
+                                                                    </option>
+                                                                </span>
+                                                                <span th:unless="${alumno.claseDto.id == clase.id}">
+                                                                    <option th:value="${clase.id}">
+                                                                        <span th:text="${clase.centro.nombre}"/> -
+                                                                        <span th:text="${clase.horaInicio}"/>
+                                                                    </option>
+                                                                </span>
                                                             </span>
                                                         </span>
                                                     </select>
@@ -165,18 +173,19 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <div class="col-sm-9">
-                                                    <button type="submit" class="btn btn-success btn-fw">Enviar</button>
-                                                    <button type="reset" class="btn btn-primary btn-fw">Limpiar</button>
+                                </form>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <div class="col-sm-9">
+                                                <button type="submit" form="saveForm" class="btn btn-success btn-fw">Enviar</button>
+                                                <a th:href="@{/alumno/alumno(id=${alumno.id})}">
                                                     <button type="reset" class="btn btn-danger btn-fw">Cancelar</button>
-                                                </div>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>

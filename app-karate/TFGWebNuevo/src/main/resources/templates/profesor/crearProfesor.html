@@ -29,7 +29,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Crear profesor</h4>
-                                <form class="form-sample" th:object="${profesor}" th:action="@{/profesor/saveProfesor}"
+                                <form class="form-sample" id="saveForm" th:object="${profesor}" th:action="@{/profesor/saveProfesor}"
                                       method="post">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -147,24 +147,24 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <div class="col-sm-9">
-                                                    <button type="submit"
-                                                            class="btn btn-success btn-fw">Enviar
-                                                    </button>
-                                                    <button type="reset"
-                                                            class="btn btn-primary btn-fw">Limpiar
-                                                    </button>
-                                                    <button type="reset"
-                                                            class="btn btn-danger btn-fw">Cancelar
-                                                    </button>
-                                                </div>
+                                </form>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <div class="col-sm-9">
+                                                <button form="saveForm" type="submit"
+                                                        class="btn btn-success btn-fw">Enviar
+                                                </button>
+                                                <button form="saveForm" type="reset"
+                                                        class="btn btn-primary btn-fw">Limpiar
+                                                </button>
+                                                <a th:href="@{/profesor/profesores}">
+                                                    <button type="reset" class="btn btn-danger btn-fw">Cancelar</button>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>

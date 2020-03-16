@@ -2,20 +2,23 @@ package es.upo.tfg.manuelgandul.appkarate.service.clase;
 
 
 import es.upo.tfg.manuelgandul.appkarate.model.alumno.AlumnoDto;
+import es.upo.tfg.manuelgandul.appkarate.model.clase.ClaseDto;
 import es.upo.tfg.manuelgandul.appkarate.model.clase.FaltasDto;
 
 import java.util.List;
 
 public interface FaltasService {
-    public List<FaltasDto> listFaltas();
+    List<FaltasDto> listFaltas();
 
-    public List<FaltasDto> listFaltasByAlumno(AlumnoDto alumnoDto);
+    List<FaltasDto> listFaltasByAlumno(AlumnoDto alumnoDto);
 
-    public FaltasDto addFalta(FaltasDto faltasDto);
+    List<FaltasDto> listFaltasByClase(ClaseDto claseDto);
 
-    public void removeFalta(FaltasDto faltasDto);
+    FaltasDto addFalta(FaltasDto faltasDto);
 
-    public FaltasDto updateFalta(FaltasDto faltasDto);
+    void removeFalta(FaltasDto faltasDto);
 
-    public FaltasDto getFaltaById(int id);
+    FaltasDto updateFalta(FaltasDto faltasDto);
+
+    FaltasDto getFaltaById(int id);
 }

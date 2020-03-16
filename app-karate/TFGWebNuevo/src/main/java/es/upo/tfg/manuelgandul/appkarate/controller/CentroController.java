@@ -4,6 +4,7 @@ import es.upo.tfg.manuelgandul.appkarate.model.centro.CentroDto;
 import es.upo.tfg.manuelgandul.appkarate.model.centro.ResponsableDto;
 import es.upo.tfg.manuelgandul.appkarate.service.centro.CentroService;
 import es.upo.tfg.manuelgandul.appkarate.service.centro.ResponsableService;
+import es.upo.tfg.manuelgandul.appkarate.service.clase.ClaseService;
 import es.upo.tfg.manuelgandul.appkarate.service.relations.AlumnoClaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,6 +25,10 @@ public class CentroController {
     private CentroService centroService;
 
     @Autowired
+    @Qualifier("claseService")
+    private ClaseService claseService;
+
+    @Autowired
     @Qualifier("alumnoClaseService")
     private AlumnoClaseService alumnoClaseService;
 
@@ -34,7 +39,13 @@ public class CentroController {
 
     @GetMapping("/centros")
     public String getCentrosMethod(Model model) {
-        model.addAttribute("centros", centroService.listCentros());
+        List<CentroDto> centroDtoList = centroService.listCentros();
+
+        centroDtoList.stream().forEach(centroDto -> {
+            centroDto.setNumClases(claseService.getNumeroClasesByCentro(centroDto));
+        });
+
+        model.addAttribute("centros", centroDtoList);
 
         return "centro/centros";
     }
@@ -100,7 +111,7 @@ public class CentroController {
 
         centroDto.setActivo("Inactivo");
         centroService.updateCentro(centroDto);
-
+        claseService.setBajaAllClasesByCentro(centroDto);
         alumnoClaseService.removeAllAlumnosByCentro(centroDto);
 
         return "redirect:/centro/centro?id=" + centroDto.getId();

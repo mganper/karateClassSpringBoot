@@ -113,8 +113,13 @@
                                                 <label class="col-sm-3 col-form-label">Clase</label>
                                                 <div class="col-sm-9">
                                                     <label class="col-sm-9 col-form-label">
-                                                        <span th:text="${alumno.claseDto.centro.nombre}">centro 1</span>
-                                                        - <span th:text="${alumno.claseDto.horaInicio}">16:00</span>
+                                                        <span th:if="${alumno.claseDto != null}">
+                                                            <span th:text="${alumno.claseDto.centro.nombre}">centro 1</span>
+                                                            - <span th:text="${alumno.claseDto.horaInicio}">16:00</span>
+                                                        </span>
+                                                        <span th:unless="${alumno.claseDto != null}">
+                                                            Sin asignar
+                                                        </span>
                                                     </label>
                                                 </div>
                                             </div>
@@ -124,10 +129,6 @@
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <div class="col-sm-9">
-                                                    <a th:href="@{/alumno/editAlumno(id=${alumno.id})}">
-                                                        <button type="button" class="btn btn-primary btn-fw">Editar
-                                                        </button>
-                                                    </a>
                                                     <span th:if="${alumno.activo.equals('Inactivo')}">
                                                         <a th:href="@{/alumno/altaAlumno(id=${alumno.id})}">
                                                         <button type="button"
@@ -135,10 +136,18 @@
                                                     </a>
                                                     </span>
                                                     <span th:unless="${alumno.activo.equals('Inactivo')}">
-                                                    <a th:href="@{/alumno/bajaAlumno(id=${alumno.id})}">
-                                                        <button type="button"
-                                                                class="btn btn-danger btn-fw">Dar Baja</button>
-                                                    </a>
+                                                        <a th:href="@{/alumno/editAlumno(id=${alumno.id})}">
+                                                            <button type="button" class="btn btn-primary btn-fw">Editar
+                                                            </button>
+                                                        </a>
+                                                        <a th:href="@{/alumno/faltasAlumno(id=${alumno.id})}">
+                                                            <button type="button" class="btn btn-primary btn-fw">Faltas
+                                                            </button>
+                                                        </a>
+                                                        <a th:href="@{/alumno/bajaAlumno(id=${alumno.id})}">
+                                                            <button type="button"
+                                                                    class="btn btn-danger btn-fw">Dar Baja</button>
+                                                        </a>
                                                     </span>
                                                 </div>
                                             </div>

@@ -78,7 +78,7 @@ public class ProfesorController {
 
     @PostMapping("/saveUpdatedProfesor")
     public String saveUpdatedProfesorMethod(@Valid @ModelAttribute("profesor") EmpleadoDto empleadoDto){
-        if (empleadoDto.getFechaString() == null) {
+        if (empleadoDto.getFechaString().equals("")) {
             empleadoDto.setFechaNacimiento(empleadoService.getEmpleadoById(empleadoDto.getId()).getFechaNacimiento());
         } else {
             empleadoDto.setFechaNacimiento(Utility.stringToDate(empleadoDto.getFechaString()));

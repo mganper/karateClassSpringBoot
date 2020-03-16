@@ -29,7 +29,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Crear empleado</h4>
-                                <form class="form-sample" th:object="${empleado}" th:action="@{/empleado/saveEmpleado}"
+                                <form class="form-sample" id="saveForm" th:object="${empleado}" th:action="@{/empleado/saveEmpleado}"
                                       method="post">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -127,24 +127,25 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <div class="col-sm-9">
-                                                    <button type="submit"
-                                                            class="btn btn-success btn-fw">Enviar
+                                </form>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <div class="col-sm-9">
+                                                <button form="saveForm" type="submit"
+                                                        class="btn btn-success btn-fw">Enviar
+                                                </button>
+                                                <button form="saveForm" type="reset"
+                                                        class="btn btn-primary btn-fw">Limpiar
+                                                </button>
+                                                <a th:href="@{/empleado/empleado(id=${empleado.id})}">
+                                                    <button type="reset" class="btn btn-danger btn-fw">Cancelar
                                                     </button>
-                                                    <button type="reset"
-                                                            class="btn btn-primary btn-fw">Limpiar
-                                                    </button>
-                                                    <button type="reset"
-                                                            class="btn btn-danger btn-fw">Cancelar
-                                                    </button>
-                                                </div>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>

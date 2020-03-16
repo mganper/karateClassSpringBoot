@@ -4,10 +4,12 @@ import es.upo.tfg.manuelgandul.appkarate.model.alumno.AlumnoDto;
 import es.upo.tfg.manuelgandul.appkarate.model.alumno.ObservacionDto;
 import es.upo.tfg.manuelgandul.appkarate.model.alumno.PagoDto;
 import es.upo.tfg.manuelgandul.appkarate.model.clase.ClaseDto;
+import es.upo.tfg.manuelgandul.appkarate.model.clase.FaltasDto;
 import es.upo.tfg.manuelgandul.appkarate.service.alumno.AlumnoService;
 import es.upo.tfg.manuelgandul.appkarate.service.alumno.ObservacionService;
 import es.upo.tfg.manuelgandul.appkarate.service.alumno.PagoService;
 import es.upo.tfg.manuelgandul.appkarate.service.clase.ClaseService;
+import es.upo.tfg.manuelgandul.appkarate.service.clase.FaltasService;
 import es.upo.tfg.manuelgandul.appkarate.service.common.CinturonService;
 import es.upo.tfg.manuelgandul.appkarate.service.relations.AlumnoClaseService;
 import es.upo.tfg.manuelgandul.appkarate.utility.Utility;
@@ -49,6 +51,10 @@ public class AlumnoController {
     @Autowired
     @Qualifier("alumnoClaseService")
     private AlumnoClaseService alumnoClaseService;
+
+    @Autowired
+    @Qualifier("faltasService")
+    private FaltasService faltasService;
 
     @GetMapping("/")
     public String redirect() {
@@ -99,12 +105,16 @@ public class AlumnoController {
 
     @PostMapping("/saveAlumno")
     public String saveAlumnoMethod(@Valid @ModelAttribute("alumno") AlumnoDto alumnoDto) {
-        ClaseDto claseDto = claseService.getClaseById(alumnoDto.getClaseDto().getId());
+        ClaseDto claseDto = null;
+
+        if (alumnoDto.getClaseDto().getId() != -1)
+            claseDto = claseService.getClaseById(alumnoDto.getClaseDto().getId());
 
         alumnoDto.setFechaNac(Utility.stringToDate(alumnoDto.getFechaString()));
         alumnoDto = alumnoService.addAlumno(alumnoDto);
 
-        alumnoClaseService.addAlumnoLista(alumnoDto, claseDto);
+        if (claseDto != null)
+            alumnoClaseService.addAlumnoLista(alumnoDto, claseDto);
 
         return "redirect:/alumno/alumno?id=" + alumnoDto.getId();
     }
@@ -113,19 +123,27 @@ public class AlumnoController {
     public ModelAndView updateAlumnoMethod(@RequestParam(value = "id") int id) {
         ModelAndView mav = new ModelAndView("alumno/modificarAlumno");
 
-        mav.addObject("alumno", alumnoService.getAlumnoById(id));
+        List<ClaseDto> claseDtoList = claseService.listClases();
+        AlumnoDto alumnoDto = alumnoService.getAlumnoById(id);
+
+        mav.addObject("alumno", alumnoDto);
         mav.addObject("cinturones", cinturonService.listCinturon());
-        mav.addObject("clases", claseService.listClases());
+        mav.addObject("clases", claseDtoList);
 
         return mav;
     }
 
     @PostMapping("/saveUpdatedAlumno")
     public String saveUpdatedAlumnoMethod(@Valid @ModelAttribute("alumno") AlumnoDto alumnoDto) {
-        ClaseDto claseDto = claseService.getClaseById(alumnoDto.getClaseDto().getId());
+        ClaseDto claseDto = null;
 
-        alumnoClaseService.removeAlumnoCentro(alumnoDto);
-        alumnoClaseService.addAlumnoLista(alumnoDto, claseDto);
+        if (alumnoDto.getClaseDto().getId() != -1)
+            claseDto = claseService.getClaseById(alumnoDto.getClaseDto().getId());
+
+        if (claseDto != null) {
+            alumnoClaseService.removeAlumnoCentro(alumnoDto);
+            alumnoClaseService.addAlumnoLista(alumnoDto, claseDto);
+        }
 
         if (alumnoDto.getFechaString() == null) {
             alumnoDto.setFechaNac(alumnoService.getAlumnoById(alumnoDto.getId()).getFechaNac());
@@ -202,21 +220,17 @@ public class AlumnoController {
         return "redirect:/alumno/alumno?id=" + pagoDto.getAlumno().getId();
     }
 
-//    @GetMapping("/removeObs")
-//    public String removeObsMethod(@RequestParam(value = "id") int id) {
-//        ObservacionDto observacionDto = observacionService.getObservacionById(id);
-//
-//        observacionService.removeObservacion(observacionDto);
-//
-//        return "redirect:/alumno/alumno?id=" + observacionDto.getAlumno().getId();
-//    }
-//
-//    @GetMapping("/removePag")
-//    public String removePagMethod(@RequestParam(value = "id") int id) {
-//        PagoDto pagoDto = pagoService.getPagoById(id);
-//
-//        pagoService.removePago(pagoDto);
-//
-//        return "redirect:/alumno/alumno?id=" + pagoDto.getAlumno().getId();
-//    }
+    @GetMapping("/faltasAlumno")
+    public ModelAndView viewFaltasMethod(@RequestParam(value = "id") int id) {
+        ModelAndView mav = new ModelAndView("alumno/faltasAlumno");
+
+        AlumnoDto alumnoDto = alumnoService.getAlumnoById(id);
+        List<FaltasDto> faltasDtoList = faltasService.listFaltasByAlumno(alumnoDto);
+
+        mav.addObject("faltas", faltasDtoList);
+        mav.addObject("alumno", alumnoDto);
+
+        return mav;
+    }
+
 }

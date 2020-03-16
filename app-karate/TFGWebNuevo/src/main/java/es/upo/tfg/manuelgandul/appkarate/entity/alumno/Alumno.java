@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
 import java.time.LocalDate;
 
 @Entity
@@ -30,7 +31,7 @@ public class Alumno implements Serializable {
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name = "fecha_nacimiento")
-    private LocalDate fecha_nacimiento;
+    private Date fecha_nacimiento;
 
     @Column(name = "direccion")
     private String direccion;
@@ -87,11 +88,11 @@ public class Alumno implements Serializable {
         this.sexo = sexo;
     }
 
-    public LocalDate getFecha_nacimiento() {
+    public Date getFecha_nacimiento() {
         return fecha_nacimiento;
     }
 
-    public void setFecha_nacimiento(LocalDate fecha_nacimiento) {
+    public void setFecha_nacimiento(Date fecha_nacimiento) {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 

@@ -75,8 +75,14 @@ public class AlumnoClaseServiceImpl implements AlumnoClaseService {
 
     @Override
     public ClaseDto getClaseByAlumno(AlumnoDto alumnoDto) {
+        ClaseDto claseDto = null;
         AlumnoClase alumnoClase = alumnoClaseJpaRepository.findByAlumno_Id(alumnoDto.getId());
-        return claseConverter.entity2model(alumnoClase.getClase());
+
+        if(alumnoClase != null){
+            claseDto = claseConverter.entity2model(alumnoClase.getClase());
+        }
+
+        return claseDto;
     }
 
     @Override

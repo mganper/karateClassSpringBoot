@@ -29,7 +29,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Crear Centro</h4>
-                                <form class="form-sample" th:object="${centro}" th:action="@{/centro/saveCentro}"
+                                <form class="form-sample" id="saveForm" th:object="${centro}" th:action="@{/centro/saveCentro}"
                                       method="post">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -156,18 +156,19 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <div class="col-sm-9">
-                                                    <button type="submit" class="btn btn-success btn-fw">Enviar</button>
-                                                    <button type="reset" class="btn btn-primary btn-fw">Limpiar</button>
+                                </form>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <div class="col-sm-9">
+                                                <button type="submit" form="saveForm" class="btn btn-success btn-fw">Enviar</button>
+                                                <a th:href="@{/centro/centro(id=${centro.id})}">
                                                     <button type="reset" class="btn btn-danger btn-fw">Cancelar</button>
-                                                </div>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>

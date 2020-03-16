@@ -150,21 +150,21 @@
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <div class="col-sm-9">
-                                                  <a th:href="@{/centro/editCentro(id=${centro.id})}">
-                                                    <button type="button" class="btn btn-primary btn-fw">Editar
-                                                    </button>
-                                                  </a>
-                                                  <span th:if="${centro.activo.equals('Inactivo')}">
+                                                    <span th:if="${centro.activo.equals('Inactivo')}">
                                                         <a th:href="@{/centro/altaCentro(id=${centro.id})}">
-                                                        <button type="button"
-                                                                class="btn btn-success btn-fw">Dar Alta</button>
-                                                    </a>
+                                                            <button type="button"
+                                                                    class="btn btn-success btn-fw">Dar Alta</button>
+                                                        </a>
                                                     </span>
-                                                  <span th:unless="${centro.activo.equals('Inactivo')}">
-                                                    <a th:href="@{/centro/bajaCentro(id=${centro.id})}">
-                                                        <button type="button"
-                                                                class="btn btn-danger btn-fw">Dar Baja</button>
-                                                    </a>
+                                                    <span th:unless="${centro.activo.equals('Inactivo')}">
+                                                        <a th:href="@{/centro/editCentro(id=${centro.id})}">
+                                                            <button type="button" class="btn btn-primary btn-fw">Editar
+                                                            </button>
+                                                          </a>
+                                                        <a th:href="@{/centro/bajaCentro(id=${centro.id})}">
+                                                            <button type="button"
+                                                                    class="btn btn-danger btn-fw">Dar Baja</button>
+                                                        </a>
                                                     </span>
                                                 </div>
                                             </div>

@@ -2,11 +2,14 @@ package es.upo.tfg.manuelgandul.appkarate.controller;
 
 import es.upo.tfg.manuelgandul.appkarate.model.alumno.AlumnoDto;
 import es.upo.tfg.manuelgandul.appkarate.model.clase.ClaseDto;
+import es.upo.tfg.manuelgandul.appkarate.model.clase.FaltasDto;
 import es.upo.tfg.manuelgandul.appkarate.model.clase.ListaClaseDto;
 import es.upo.tfg.manuelgandul.appkarate.model.relations.AlumnoClaseDto;
 import es.upo.tfg.manuelgandul.appkarate.service.alumno.AlumnoService;
 import es.upo.tfg.manuelgandul.appkarate.service.centro.CentroService;
 import es.upo.tfg.manuelgandul.appkarate.service.clase.ClaseService;
+import es.upo.tfg.manuelgandul.appkarate.service.clase.FaltasService;
+import es.upo.tfg.manuelgandul.appkarate.service.empleado.EmpleadoService;
 import es.upo.tfg.manuelgandul.appkarate.service.relations.AlumnoClaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -36,8 +39,16 @@ public class ClaseController {
     private AlumnoService alumnoService;
 
     @Autowired
+    @Qualifier("empleadoService")
+    private EmpleadoService empleadoService;
+
+    @Autowired
     @Qualifier("alumnoClaseService")
     private AlumnoClaseService alumnoClaseService;
+
+    @Autowired
+    @Qualifier("faltasService")
+    private FaltasService faltasService;
 
     @GetMapping("/")
     public String redirect() {
@@ -71,12 +82,17 @@ public class ClaseController {
 
         mav.addObject("clase", new ClaseDto());
         mav.addObject("centros", centroService.listCentros());
+        mav.addObject("profesores", empleadoService.listProfesores());
 
         return mav;
     }
 
     @PostMapping("/saveClase")
     public String addClaseMethod(@Valid @ModelAttribute("clase") ClaseDto claseDto) {
+        if(claseDto.getProfesor().getId() == -1){
+            claseDto.setProfesor(null);
+        }
+
         claseDto = claseService.addClase(claseDto);
 
         return "redirect:/clase/clase?id=" + claseDto.getId();
@@ -88,12 +104,17 @@ public class ClaseController {
 
         mav.addObject("clase", claseService.getClaseById(id));
         mav.addObject("centros", centroService.listCentros());
+        mav.addObject("profesores", empleadoService.listProfesores());
 
         return mav;
     }
 
     @PostMapping("/saveUpdatedClase")
     public String saveUpdatedClaseMethod(@Valid @ModelAttribute("clase") ClaseDto claseDto) {
+        if(claseDto.getProfesor().getId() == -1){
+            claseDto.setProfesor(null);
+        }
+
         claseDto = claseService.addClase(claseDto);
 
         return "redirect:/clase/clase?id=" + claseDto.getId();
@@ -103,8 +124,10 @@ public class ClaseController {
     public String altaClaseMethod(@RequestParam(value = "id") int id) {
         ClaseDto claseDto = claseService.getClaseById(id);
 
-        claseDto.setActivo("Activo");
-        claseService.updateClase(claseDto);
+        if(claseDto.getCentro().getActivo().equals("Activo")){
+            claseDto.setActivo("Activo");
+            claseService.updateClase(claseDto);
+        }
 
         return "redirect:/clase/clase?id=" + claseDto.getId();
     }
@@ -120,8 +143,6 @@ public class ClaseController {
 
         return "redirect:/clase/clase?id=" + claseDto.getId();
     }
-
-    // TODO: Hacer las cosas de lista aquí.
 
     @GetMapping("/listaClase")
     public ModelAndView listaClaseMethod(@RequestParam(value = "id") int id) {
@@ -143,7 +164,7 @@ public class ClaseController {
         ClaseDto claseDto = claseService.getClaseById(id);
         ListaClaseDto listaClaseDto = new ListaClaseDto(claseDto);
         List<AlumnoDto> alumnosDtoList = new ArrayList<>();
-        List<AlumnoDto> allAlumnosDtoList = alumnoService.listAllAlumnos();
+        List<AlumnoDto> allAlumnosDtoList = alumnoService.listAllAlumnosActivos();
         List<AlumnoClaseDto> alumnoClaseDtoList = alumnoClaseService.listAllAlumnoClase();
 
         List<AlumnoDto> alumnosConClase = new ArrayList<>();
@@ -171,6 +192,19 @@ public class ClaseController {
         alumnoClaseService.updateListaAlumnos(listaClaseDto);
 
         return "redirect:/clase/listaClase?id=" + listaClaseDto.getClaseDto().getId();
+    }
+
+    @GetMapping("/faltasClase")
+    public ModelAndView viewFaltasMethod(@RequestParam(value = "id") int id) {
+        ModelAndView mav = new ModelAndView("clase/faltasClase");
+
+        ClaseDto claseDto = claseService.getClaseById(id);
+        List<FaltasDto> faltasDtoList = faltasService.listFaltasByClase(claseDto);
+
+        mav.addObject("faltas", faltasDtoList);
+        mav.addObject("clase", claseDto);
+
+        return mav;
     }
 
 }

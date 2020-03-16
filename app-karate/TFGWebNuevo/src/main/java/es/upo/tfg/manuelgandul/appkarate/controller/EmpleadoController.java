@@ -71,7 +71,7 @@ public class EmpleadoController {
 
     @PostMapping("/saveUpdatedEmpleado")
     public String saveUpdatedEmpleadoMethod(@Valid @ModelAttribute("empleado") EmpleadoDto empleadoDto){
-        if (empleadoDto.getFechaString() == null) {
+        if (empleadoDto.getFechaString().equals("")) {
             empleadoDto.setFechaNacimiento(empleadoService.getEmpleadoById(empleadoDto.getId()).getFechaNacimiento());
         } else {
             empleadoDto.setFechaNacimiento(Utility.stringToDate(empleadoDto.getFechaString()));

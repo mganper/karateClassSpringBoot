@@ -114,10 +114,15 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Profesor</label>
                                                 <div class="col-sm-9">
-                                                    <!--                                                    <label class="col-sm-9 col-form-label"><span-->
-                                                    <!--                                                            th:text="${clase.profesor.nombre}">Nombre1</span>-->
-                                                    <!--                                                        <span th:text="${clase.profesor.apellidos}">Apellido1</span>-->
-                                                    <!--                                                    </label>-->
+                                                    <label class="col-sm-9 col-form-label">
+                                                        <span th:if="${clase.profesor != null}">
+                                                            <span th:text="${clase.profesor.nombre}">Nombre1</span>
+                                                            <span th:text="${clase.profesor.apellidos}">Apellido1</span>
+                                                        </span>
+                                                        <span th:unless="${clase.profesor != null}">
+                                                            Sin asignar
+                                                        </span>
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
@@ -148,6 +153,10 @@
                                                         </a>
                                                         <a th:href="@{/clase/listaClase(id=${clase.id})}">
                                                             <button type="button" class="btn btn-primary btn-fw">Ver Lista
+                                                            </button>
+                                                        </a>
+                                                        <a th:href="@{/clase/faltasClase(id=${clase.id})}">
+                                                            <button type="button" class="btn btn-primary btn-fw">Faltas
                                                             </button>
                                                         </a>
                                                         <a th:href="@{/clase/bajaClase(id=${clase.id})}">

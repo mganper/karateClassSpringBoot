@@ -30,7 +30,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h2 class="card-title">Crear Alumno</h2>
-                                <form class="form-sample" action="#" th:action="@{/alumno/saveAlumno}"
+                                <form class="form-sample" id="saveForm" action="#" th:action="@{/alumno/saveAlumno}"
                                       th:object="${alumno}"
                                       method="post">
                                     <div class="row">
@@ -123,9 +123,9 @@
                                                 <label class="col-sm-3 col-form-label">Clase</label>
                                                 <div class="col-sm-9">
                                                     <select class="form-control" th:field="*{claseDto.id}">
-<!--                                                        <option th:value="${clases.get(0).id}"-->
-<!--                                                                th:text="'Seleccione Clase'">-->
-<!--                                                        </option>-->
+                                                        <option th:value="${-1}"
+                                                                th:text="'Seleccione Clase'">
+                                                        </option>
                                                         <span th:each="clase : ${clases}">
                                                             <option th:value="${clase.id}">
                                                                 <span th:text="${clase.centro.nombre}"/> -
@@ -137,18 +137,20 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <div class="col-sm-9">
-                                                    <button type="submit" class="btn btn-success btn-fw">Enviar</button>
-                                                    <button type="reset" class="btn btn-primary btn-fw">Limpiar</button>
+                                </form>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <div class="col-sm-9">
+                                                <button type="submit" form="saveForm" class="btn btn-success btn-fw">Enviar</button>
+                                                <button type="reset" form="saveForm" class="btn btn-primary btn-fw">Limpiar</button>
+                                                <a th:href="@{/alumno/alumnos}">
                                                     <button type="reset" class="btn btn-danger btn-fw">Cancelar</button>
-                                                </div>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>

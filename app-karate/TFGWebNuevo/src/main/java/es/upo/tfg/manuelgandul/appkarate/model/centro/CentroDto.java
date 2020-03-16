@@ -22,6 +22,8 @@ public class CentroDto {
 
     private ResponsableDto responsable;
 
+    private int numClases;
+
     public CentroDto() {
     }
 
@@ -95,6 +97,14 @@ public class CentroDto {
 
     public void setResponsable(ResponsableDto responsable) {
         this.responsable = responsable;
+    }
+
+    public int getNumClases() {
+        return numClases;
+    }
+
+    public void setNumClases(int numClases) {
+        this.numClases = numClases;
     }
 
     @Override

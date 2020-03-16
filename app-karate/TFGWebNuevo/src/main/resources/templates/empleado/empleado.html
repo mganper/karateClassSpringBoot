@@ -128,21 +128,21 @@
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <div class="col-sm-9">
-                                                    <a th:href="@{/empleado/editEmpleado(id=${empleado.id})}">
-                                                        <button type="button" class="btn btn-primary btn-fw">Editar
-                                                        </button>
-                                                    </a>
                                                     <span th:if="${empleado.activo.equals('Inactivo')}">
                                                         <a th:href="@{/empleado/altaEmpleado(id=${empleado.id})}">
-                                                        <button type="button"
-                                                                class="btn btn-success btn-fw">Dar Alta</button>
-                                                    </a>
+                                                            <button type="button"
+                                                                    class="btn btn-success btn-fw">Dar Alta</button>
+                                                        </a>
                                                     </span>
                                                     <span th:unless="${empleado.activo.equals('Inactivo')}">
-                                                    <a th:href="@{/empleado/bajaEmpleado(id=${empleado.id})}">
-                                                        <button type="button"
-                                                                class="btn btn-danger btn-fw">Dar Baja</button>
-                                                    </a>
+                                                        <a th:href="@{/empleado/editEmpleado(id=${empleado.id})}">
+                                                            <button type="button" class="btn btn-primary btn-fw">Editar
+                                                            </button>
+                                                        </a>
+                                                        <a th:href="@{/empleado/bajaEmpleado(id=${empleado.id})}">
+                                                            <button type="button"
+                                                                    class="btn btn-danger btn-fw">Dar Baja</button>
+                                                        </a>
                                                     </span>
                                                 </div>
                                             </div>

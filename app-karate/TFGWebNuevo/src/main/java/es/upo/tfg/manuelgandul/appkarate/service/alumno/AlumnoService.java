@@ -8,6 +8,8 @@ import java.util.List;
 public interface AlumnoService {
     List<AlumnoDto> listAllAlumnos();
 
+    List<AlumnoDto> listAllAlumnosActivos();
+
     AlumnoDto addAlumno(AlumnoDto alumno);
 
     void removeAlumno(AlumnoDto alumno);
