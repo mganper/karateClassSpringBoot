@@ -58,6 +58,7 @@ public class ClaseController {
     @GetMapping("/clases")
     public String getClasesMethod(Model model) {
         model.addAttribute("clases", claseService.listClases());
+        model.addAttribute("usuario", empleadoService.getUserAuthenticated());
 
         return "clase/clases";
     }
@@ -72,6 +73,7 @@ public class ClaseController {
         claseDto.setNumAlumnos(numAlumnos);
 
         mav.addObject("clase", claseDto);
+        mav.addObject("usuario", empleadoService.getUserAuthenticated());
 
         return mav;
     }
@@ -83,6 +85,7 @@ public class ClaseController {
         mav.addObject("clase", new ClaseDto());
         mav.addObject("centros", centroService.listCentros());
         mav.addObject("profesores", empleadoService.listProfesores());
+        mav.addObject("usuario", empleadoService.getUserAuthenticated());
 
         return mav;
     }
@@ -105,6 +108,7 @@ public class ClaseController {
         mav.addObject("clase", claseService.getClaseById(id));
         mav.addObject("centros", centroService.listCentros());
         mav.addObject("profesores", empleadoService.listProfesores());
+        mav.addObject("usuario", empleadoService.getUserAuthenticated());
 
         return mav;
     }
@@ -153,6 +157,7 @@ public class ClaseController {
         List<AlumnoDto> alumnoDtoList = alumnoClaseService.listAlumnosByClase(claseDto);
         mav.addObject("alumnos", alumnoDtoList);
         mav.addObject("clase", claseDto);
+        mav.addObject("usuario", empleadoService.getUserAuthenticated());
 
         return mav;
     }
@@ -182,6 +187,7 @@ public class ClaseController {
 
         mav.addObject("alumnos", alumnosDtoList);
         mav.addObject("lista", listaClaseDto);
+        mav.addObject("usuario", empleadoService.getUserAuthenticated());
 
         return mav;
     }
@@ -203,6 +209,7 @@ public class ClaseController {
 
         mav.addObject("faltas", faltasDtoList);
         mav.addObject("clase", claseDto);
+        mav.addObject("usuario", empleadoService.getUserAuthenticated());
 
         return mav;
     }

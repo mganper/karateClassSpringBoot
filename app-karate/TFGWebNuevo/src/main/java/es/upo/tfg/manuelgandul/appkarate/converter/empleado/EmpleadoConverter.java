@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 @Component("empleadoConverter")
 public class EmpleadoConverter {
 
@@ -34,19 +36,20 @@ public class EmpleadoConverter {
             empleadoDto.setCinturon(cinturonConverter.entity2model(empleado.getCinturon()));
 
         empleadoDto.setActivo((empleado.isActivo()) ? "Activo" : "Inactivo");
-        empleadoDto.setTipoUsuario((empleado.isTipo_usuario()) ? "Empleado" : "Profesor");
+        empleadoDto.setTipoUsuario((empleado.isEmpleado()) ? "Empleado" : "Profesor");
 
         return empleadoDto;
     }
 
     public Empleado model2entity(EmpleadoDto empleadoDto) {
         Empleado empleado = new Empleado();
+        LocalDate date = empleadoDto.getFechaNacimiento().plusDays(1);
 
         empleado.setId(empleadoDto.getId());
         empleado.setDni(empleadoDto.getDni());
         empleado.setNombre(empleadoDto.getNombre());
         empleado.setApellidos(empleadoDto.getApellidos());
-        empleado.setFecha_nacimiento(empleadoDto.getFechaNacimiento());
+        empleado.setFecha_nacimiento(date);
         empleado.setSexo(empleadoDto.getSexo());
         empleado.setDireccion(empleadoDto.getDireccion());
         empleado.setTelefono(empleadoDto.getTelefono());
@@ -59,7 +62,7 @@ public class EmpleadoConverter {
             empleado.setCinturon(cinturonConverter.model2entity(empleadoDto.getCinturon()));
 
         empleado.setActivo((empleadoDto.getActivo() == null || empleadoDto.getActivo().equals("Activo")) ? true : false);
-        empleado.setTipo_usuario((empleadoDto.getTipoUsuario() == null || empleadoDto.getActivo().equals("Empleado")) ? true : false);
+        empleado.setEmpleado((empleadoDto.getTipoUsuario() == null || empleadoDto.getTipoUsuario().equals("Empleado")) ? true : false);
 
         return empleado;
     }

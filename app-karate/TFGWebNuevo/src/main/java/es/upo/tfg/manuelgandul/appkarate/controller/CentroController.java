@@ -5,6 +5,7 @@ import es.upo.tfg.manuelgandul.appkarate.model.centro.ResponsableDto;
 import es.upo.tfg.manuelgandul.appkarate.service.centro.CentroService;
 import es.upo.tfg.manuelgandul.appkarate.service.centro.ResponsableService;
 import es.upo.tfg.manuelgandul.appkarate.service.clase.ClaseService;
+import es.upo.tfg.manuelgandul.appkarate.service.empleado.EmpleadoService;
 import es.upo.tfg.manuelgandul.appkarate.service.relations.AlumnoClaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -32,6 +33,10 @@ public class CentroController {
     @Qualifier("alumnoClaseService")
     private AlumnoClaseService alumnoClaseService;
 
+    @Autowired
+    @Qualifier("empleadoService")
+    private EmpleadoService empleadoService;
+
     @GetMapping("/")
     public String redirect(){
         return "redirect:/centro/centros";
@@ -46,6 +51,7 @@ public class CentroController {
         });
 
         model.addAttribute("centros", centroDtoList);
+        model.addAttribute("usuario", empleadoService.getUserAuthenticated());
 
         return "centro/centros";
     }
@@ -56,6 +62,7 @@ public class CentroController {
         CentroDto centroDto = centroService.getCentroById(id);
 
         mav.addObject("centro", centroDto);
+        mav.addObject("usuario", empleadoService.getUserAuthenticated());
 
         return mav;
     }
@@ -68,6 +75,7 @@ public class CentroController {
         centroDto.setResponsable(new ResponsableDto());
 
         mav.addObject("centro", centroDto);
+        mav.addObject("usuario", empleadoService.getUserAuthenticated());
 
         return mav;
     }
@@ -84,6 +92,7 @@ public class CentroController {
         ModelAndView mav = new ModelAndView("centro/modificarCentro");
 
         mav.addObject("centro", centroService.getCentroById(id));
+        mav.addObject("usuario", empleadoService.getUserAuthenticated());
 
         return mav;
     }

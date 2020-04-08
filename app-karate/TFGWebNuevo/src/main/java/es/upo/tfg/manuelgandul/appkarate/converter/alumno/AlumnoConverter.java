@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 @Component("alumnoConverter")
 public class AlumnoConverter {
@@ -39,6 +40,7 @@ public class AlumnoConverter {
 
     public Alumno model2Entity(AlumnoDto alumnoDto) {
         Alumno alumno = new Alumno();
+        LocalDate date = alumnoDto.getFechaNac().plusDays(1);
 
         alumno.setId(alumnoDto.getId());
         alumno.setDni(alumnoDto.getDni());
@@ -47,7 +49,7 @@ public class AlumnoConverter {
         alumno.setTelefono_contacto(alumnoDto.getTlf());
         alumno.setSexo(alumnoDto.getSexo());
         alumno.setDireccion(alumnoDto.getDir());
-        alumno.setFecha_nacimiento(Date.valueOf(alumnoDto.getFechaNac()));
+        alumno.setFecha_nacimiento(Date.valueOf(date));
         alumno.setCinturon(cinturonConverter.model2entity(alumnoDto.getCint()));
 
         Boolean activo = (alumnoDto.getActivo() == null || alumnoDto.getActivo().equals("Activo")) ? true : false;

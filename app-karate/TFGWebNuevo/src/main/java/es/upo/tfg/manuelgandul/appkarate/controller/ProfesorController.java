@@ -34,6 +34,7 @@ public class ProfesorController {
     @GetMapping("/profesores")
     public String getProfesoresMethod(Model model) {
         model.addAttribute("profesores", empleadoService.listProfesores());
+        model.addAttribute("usuario", empleadoService.getUserAuthenticated());
 
         return "profesor/profesores";
     }
@@ -43,6 +44,7 @@ public class ProfesorController {
         ModelAndView mav = new ModelAndView("profesor/profesor");
 
         mav.addObject("profesor", empleadoService.getEmpleadoById(id));
+        mav.addObject("usuario", empleadoService.getUserAuthenticated());
 
         return mav;
     }
@@ -53,14 +55,16 @@ public class ProfesorController {
 
         mav.addObject("profesor", new EmpleadoDto());
         mav.addObject("cinturones", cinturonService.listCinturon());
+        mav.addObject("usuario", empleadoService.getUserAuthenticated());
 
         return mav;
     }
 
     @PostMapping("/saveProfesor")
-    public String addProfesorMethod(@Valid @ModelAttribute("profesor") EmpleadoDto empleadoDto){
+    public String addProfesorMethod(@Valid @ModelAttribute("profesor") EmpleadoDto empleadoDto) {
         empleadoDto.setFechaNacimiento(Utility.stringToDate(empleadoDto.getFechaString()));
-
+        empleadoDto.setTipoUsuario("Profesor");
+        empleadoDto.setContrasenya(Utility.passwordEncoder(empleadoDto.getContrasenya()));
         empleadoDto = empleadoService.addEmpleado(empleadoDto);
 
         return "redirect:/profesor/profesor?id=" + empleadoDto.getId();
@@ -72,20 +76,24 @@ public class ProfesorController {
 
         mav.addObject("profesor", empleadoService.getEmpleadoById(id));
         mav.addObject("cinturones", cinturonService.listCinturon());
+        mav.addObject("usuario", empleadoService.getUserAuthenticated());
 
         return mav;
     }
 
     @PostMapping("/saveUpdatedProfesor")
-    public String saveUpdatedProfesorMethod(@Valid @ModelAttribute("profesor") EmpleadoDto empleadoDto){
+    public String saveUpdatedProfesorMethod(@Valid @ModelAttribute("profesor") EmpleadoDto empleadoDto) {
         if (empleadoDto.getFechaString().equals("")) {
             empleadoDto.setFechaNacimiento(empleadoService.getEmpleadoById(empleadoDto.getId()).getFechaNacimiento());
         } else {
             empleadoDto.setFechaNacimiento(Utility.stringToDate(empleadoDto.getFechaString()));
         }
 
-        if(empleadoDto.getContrasenya().equals(""))
+        if (empleadoDto.getContrasenya().equals("")) {
             empleadoDto.setContrasenya(empleadoService.getEmpleadoById(empleadoDto.getId()).getContrasenya());
+        } else {
+            empleadoDto.setContrasenya(Utility.passwordEncoder(empleadoDto.getContrasenya()));
+        }
 
         empleadoDto = empleadoService.addEmpleado(empleadoDto);
 
@@ -93,7 +101,7 @@ public class ProfesorController {
     }
 
     @GetMapping("/altaProfesor")
-    public RedirectView altaProfesorMethod(@RequestParam(value = "id") int id){
+    public RedirectView altaProfesorMethod(@RequestParam(value = "id") int id) {
         EmpleadoDto empleadoDto = empleadoService.getEmpleadoById(id);
 
         empleadoDto.setActivo("Activo");
@@ -103,7 +111,7 @@ public class ProfesorController {
     }
 
     @GetMapping("/bajaProfesor")
-    public RedirectView bajaProfesorMethod(@RequestParam(value = "id") int id){
+    public RedirectView bajaProfesorMethod(@RequestParam(value = "id") int id) {
         EmpleadoDto empleadoDto = empleadoService.getEmpleadoById(id);
 
         empleadoDto.setActivo("Inactivo");

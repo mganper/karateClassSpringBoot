@@ -1,7 +1,7 @@
 <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-  <a class="navbar-brand brand-logo" href="../../index.html">
+  <a class="navbar-brand brand-logo" hth:href="@{/}">
     <img alt="logo" th:src="@{/images/logo.svg}"/> </a>
-  <a class="navbar-brand brand-logo-mini" href="../../index.html">
+  <a class="navbar-brand brand-logo-mini" th:href="@{/}">
     <img alt="logo" th:src="@{/images/logo-mini.svg}"/> </a>
 </div>
 <div class="navbar-menu-wrapper d-flex align-items-center">
@@ -10,21 +10,18 @@
       <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown"
          aria-expanded="false">
         <img class="img-xs rounded-circle" alt="Profile image"
-             th:src="@{/images/faces-clipart/pic-3.png}">
+             th:src="@{/images/faces-clipart/__${usuario.sexo}__.png}">
       </a>
       <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
         <div class="dropdown-header text-center">
-          <img class="img-md rounded-circle" alt="Profile image"
-               th:src="@{/images/faces-clipart/pic-1.png}"/>
-          <p class="mb-1 mt-3 font-weight-semibold">Allen Moreno</p>
-          <p class="font-weight-light text-muted mb-0">allenmoreno@gmail.com</p>
+          <p class="mb-1 mt-3 font-weight-semibold"><span th:text="${usuario.nombre}">Allen</span>
+            <span th:text="${usuario.apellidos}">Moreno</span></p>
+          <p class="font-weight-light text-muted mb-0" th:text="${usuario.cargo}">Empleado</p>
         </div>
-        <a class="dropdown-item">My Profile <span class="badge badge-pill badge-danger">1</span><i
-                class="dropdown-item-icon ti-dashboard"></i></a>
-        <a class="dropdown-item">Messages<i class="dropdown-item-icon ti-comment-alt"></i></a>
-        <a class="dropdown-item">Activity<i class="dropdown-item-icon ti-location-arrow"></i></a>
-        <a class="dropdown-item">FAQ<i class="dropdown-item-icon ti-help-alt"></i></a>
-        <a class="dropdown-item">Sign Out<i class="dropdown-item-icon ti-power-off"></i></a>
+        <a class="dropdown-item" th:href="@{/empleado/empleado(id=${usuario.id})}">Perfil</a>
+        <form th:action="@{/logout}" method="post">
+          <button type="submit" class="dropdown-item">Cerrar sesión</button>
+        </form>
       </div>
     </li>
   </ul>

@@ -8,5 +8,7 @@ import java.io.Serializable;
 
 @Repository("empleadoJpaRepository")
 public interface EmpleadoJpaRepository extends JpaRepository<Empleado, Serializable> {
-    public Empleado findById(int id);
+    Empleado findById(int id);
+
+    Empleado findByDni(String dni);
 }

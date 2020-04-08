@@ -89,8 +89,8 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Fecha de Nacimiento</label>
                                                 <div class="col-sm-9">
-                                                    <input type="date" class="form-control" placeholder="YYYY-MM-DD"
-                                                           th:value="${alumno.fechaString}" th:name="*{fechaString}"/>
+                                                    <input type="date" class="form-control" th:placeholder="${alumno.fechaString}"
+                                                           th:value="${alumno.fechaString}" th:field="*{fechaString}"/>
                                                 </div>
                                             </div>
                                         </div>

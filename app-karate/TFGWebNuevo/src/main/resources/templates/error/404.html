@@ -1,21 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Star Admin Premium Bootstrap Admin Dashboard Template</title>
-    <!-- plugins:css -->
+    <title>Error 404 :: Application</title>
     <link rel="stylesheet" th:href="@{/vendors/iconfonts/mdi/css/materialdesignicons.min.css}"/>
     <link rel="stylesheet" th:href="@{/vendors/iconfonts/ionicons/css/ionicons.css}"/>
     <link rel="stylesheet" th:href="@{/vendors/iconfonts/typicons/src/font/typicons.css}"/>
     <link rel="stylesheet" th:href="@{/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css}"/>
     <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.base.css}"/>
     <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.addons.css}"/>
-    <!-- endinject -->
-    <!-- inject:css -->
     <link rel="stylesheet" th:href="@{/css/shared/style.css}"/>
-    <!-- endinject -->
     <link rel="shortcut icon" th:href="@{/images/favicon.png}"/>
   </head>
   <body>
@@ -33,36 +28,16 @@
                   <h3 class="font-weight-light">The page you’re looking for was not found.</h3>
                 </div>
               </div>
-              <div class="row mt-5">
-                <div class="col-12 text-center mt-xl-2">
-                  <a class="text-white font-weight-medium" href="../../index.html">Back to home</a>
-                </div>
-              </div>
-              <div class="row mt-5">
-                <div class="col-12 mt-xl-2">
-                  <p class="text-white font-weight-medium text-center">Copyright &copy;
-                    <script>
-                      let f = new Date();
-                      document.write(f.getFullYear());
-                    </script>
-                    All rights reserved.</p>
-                </div>
-              </div>
+              <nav th:insert="fragments/_footerError">
+              </nav>
             </div>
           </div>
         </div>
-        <!-- content-wrapper ends -->
       </div>
-      <!-- page-body-wrapper ends -->
     </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
     <script th:src="@{/js/vendor.bundle.base.js}"></script>
     <script th:src="@{/js/vendor.bundle.addons.js}"></script>
-    <!-- endinject -->
-    <!-- inject:js -->
     <script th:src="@{/js/shared/off-canvas.js}"></script>
     <script th:src="@{/js/shared/misc.js}"></script>
-    <!-- endinject -->
   </body>
 </html>

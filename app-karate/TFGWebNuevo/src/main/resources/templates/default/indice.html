@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>Application</title>
+    <link rel="stylesheet" th:href="@{/vendors/iconfonts/mdi/css/materialdesignicons.min.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/iconfonts/ionicons/css/ionicons.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/iconfonts/typicons/src/font/typicons.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.base.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.addons.css}"/>
+    <link rel="stylesheet" th:href="@{/css/shared/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/demo_1/style.css}"/>
+    <link rel="shortcut icon" th:href="@{/images/favicon.png}"/>
+</head>
+
+<body>
+<div class="container-scroller">
+    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row" th:insert="fragments/_navbar">
+    </nav>
+    <div class="container-fluid page-body-wrapper">
+        <nav class="sidebar sidebar-offcanvas" id="sidebar" th:insert="fragments/_sidebar">
+        </nav>
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-lg-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body div-main">
+                                <a th:href="@{/alumno/alumnos}">
+                                    <h3 class="font-weight-semibold mb-0">Información Alumnos</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body div-main">
+                                <a th:href="@{/clase/clases}">
+                                    <h3 class="font-weight-semibold mb-0">Información Clases</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body div-main">
+                                <a th:href="@{/centro/centros}">
+                                    <h3 class="font-weight-semibold mb-0">Información Centros</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body div-main">
+                                <a th:href="@{/profesor/profesores}">
+                                    <h3 class="font-weight-semibold mb-0">Información Profesores</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body div-main">
+                                <a th:href="@{/empleado/empleados}">
+                                    <h3 class="font-weight-semibold mb-0">Información Empleados</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer" th:insert="fragments/_footer"></footer>
+        </div>
+    </div>
+</div>
+<script th:src="@{/vendors/js/vendor.bundle.base.js}"></script>
+<script th:src="@{/vendors/js/vendor.bundle.addons.js}"></script>
+<script th:src="@{/js/shared/off-canvas.js}"></script>
+<script th:src="@{/js/shared/misc.js}"></script>
+</body>
+
+</html>

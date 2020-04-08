@@ -29,6 +29,7 @@ public class EmpleadoController {
     @GetMapping("/empleados")
     public String getEmpleadosMethod(Model model) {
         model.addAttribute("empleados", empleadoService.listEmpleados());
+        model.addAttribute("usuario", empleadoService.getUserAuthenticated());
 
         return "empleado/empleados";
     }
@@ -38,6 +39,7 @@ public class EmpleadoController {
         ModelAndView mav = new ModelAndView("empleado/empleado");
 
         mav.addObject("empleado", empleadoService.getEmpleadoById(id));
+        mav.addObject("usuario", empleadoService.getUserAuthenticated());
 
         return mav;
     }
@@ -47,14 +49,16 @@ public class EmpleadoController {
         ModelAndView mav = new ModelAndView("empleado/crearEmpleado");
 
         mav.addObject("empleado", new EmpleadoDto());
+        mav.addObject("usuario", empleadoService.getUserAuthenticated());
 
         return mav;
     }
 
     @PostMapping("/saveEmpleado")
-    public String addEmpleadoMethod(@Valid @ModelAttribute("empleado") EmpleadoDto empleadoDto){
+    public String addEmpleadoMethod(@Valid @ModelAttribute("empleado") EmpleadoDto empleadoDto) {
         empleadoDto.setFechaNacimiento(Utility.stringToDate(empleadoDto.getFechaString()));
-
+        empleadoDto.setTipoUsuario("Empleado");
+        empleadoDto.setContrasenya(Utility.passwordEncoder(empleadoDto.getContrasenya()));
         empleadoDto = empleadoService.addEmpleado(empleadoDto);
 
         return "redirect:/empleado/empleado?id=" + empleadoDto.getId();
@@ -65,20 +69,24 @@ public class EmpleadoController {
         ModelAndView mav = new ModelAndView("empleado/modificarEmpleado");
 
         mav.addObject("empleado", empleadoService.getEmpleadoById(id));
+        mav.addObject("usuario", empleadoService.getUserAuthenticated());
 
         return mav;
     }
 
     @PostMapping("/saveUpdatedEmpleado")
-    public String saveUpdatedEmpleadoMethod(@Valid @ModelAttribute("empleado") EmpleadoDto empleadoDto){
+    public String saveUpdatedEmpleadoMethod(@Valid @ModelAttribute("empleado") EmpleadoDto empleadoDto) {
         if (empleadoDto.getFechaString().equals("")) {
             empleadoDto.setFechaNacimiento(empleadoService.getEmpleadoById(empleadoDto.getId()).getFechaNacimiento());
         } else {
             empleadoDto.setFechaNacimiento(Utility.stringToDate(empleadoDto.getFechaString()));
         }
 
-        if(empleadoDto.getContrasenya().equals(""))
+        if (empleadoDto.getContrasenya().equals("")) {
             empleadoDto.setContrasenya(empleadoService.getEmpleadoById(empleadoDto.getId()).getContrasenya());
+        } else {
+            empleadoDto.setContrasenya(Utility.passwordEncoder(empleadoDto.getContrasenya()));
+        }
 
         empleadoDto = empleadoService.addEmpleado(empleadoDto);
 
@@ -86,7 +94,7 @@ public class EmpleadoController {
     }
 
     @GetMapping("/altaEmpleado")
-    public RedirectView altaEmpleadoMethod(@RequestParam(value = "id") int id){
+    public RedirectView altaEmpleadoMethod(@RequestParam(value = "id") int id) {
         EmpleadoDto empleadoDto = empleadoService.getEmpleadoById(id);
 
         empleadoDto.setActivo("Activo");
@@ -96,7 +104,7 @@ public class EmpleadoController {
     }
 
     @GetMapping("/bajaEmpleado")
-    public RedirectView bajaEmpleadoMethod(@RequestParam(value = "id") int id){
+    public RedirectView bajaEmpleadoMethod(@RequestParam(value = "id") int id) {
         EmpleadoDto empleadoDto = empleadoService.getEmpleadoById(id);
 
         empleadoDto.setActivo("Inactivo");

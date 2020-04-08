@@ -4,6 +4,8 @@ import es.upo.tfg.manuelgandul.appkarate.entity.common.Cinturon;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "empleado")
@@ -14,7 +16,7 @@ public class Empleado {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "dni")
+    @Column(name = "dni", unique = true, nullable = false, length = 9)
     private String dni;
 
     @Column(name = "nombre")
@@ -32,7 +34,7 @@ public class Empleado {
     @Column(name = "direccion")
     private String direccion;
 
-    @Column(name = "telefono")
+    @Column(name = "telefono", unique = true, length = 9)
     private String telefono;
 
     @Column(name = "sueldo")
@@ -47,13 +49,16 @@ public class Empleado {
     @Column(name = "cargo")
     private String cargo;
 
-    @Column(name = "tipo_usuario")
-    private boolean tipo_usuario;
+    @Column(name = "profesor")
+    private boolean empleado;
 
-    @Column(name = "activo")
+    @OneToMany(fetch = FetchType.EAGER)
+    private Set<TipoUsuario> tipo_usuario = new HashSet<>();
+
+    @Column(name = "activo", nullable = false)
     private boolean activo;
 
-    @Column(name = "contrasenya")
+    @Column(name = "contrasenya", nullable = false, length = 60)
     private String contrasenya;
 
     public Empleado() {
@@ -155,11 +160,19 @@ public class Empleado {
         this.cargo = cargo;
     }
 
-    public boolean isTipo_usuario() {
+    public boolean isEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(boolean empleado) {
+        this.empleado = empleado;
+    }
+
+    public Set<TipoUsuario> getTipo_usuario() {
         return tipo_usuario;
     }
 
-    public void setTipo_usuario(boolean tipo_usuario) {
+    public void setTipo_usuario(Set<TipoUsuario> tipo_usuario) {
         this.tipo_usuario = tipo_usuario;
     }
 

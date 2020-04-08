@@ -11,10 +11,12 @@ import es.upo.tfg.manuelgandul.appkarate.service.alumno.PagoService;
 import es.upo.tfg.manuelgandul.appkarate.service.clase.ClaseService;
 import es.upo.tfg.manuelgandul.appkarate.service.clase.FaltasService;
 import es.upo.tfg.manuelgandul.appkarate.service.common.CinturonService;
+import es.upo.tfg.manuelgandul.appkarate.service.empleado.EmpleadoService;
 import es.upo.tfg.manuelgandul.appkarate.service.relations.AlumnoClaseService;
 import es.upo.tfg.manuelgandul.appkarate.utility.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +28,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/alumno")
+//@PreAuthorize("hasRole('ROLE_EMPLEADO')")
 public class AlumnoController {
 
     @Autowired
@@ -56,6 +59,10 @@ public class AlumnoController {
     @Qualifier("faltasService")
     private FaltasService faltasService;
 
+    @Autowired
+    @Qualifier("empleadoService")
+    private EmpleadoService empleadoService;
+
     @GetMapping("/")
     public String redirect() {
         return "redirect:/alumno/alumnos";
@@ -66,6 +73,8 @@ public class AlumnoController {
         cinturonService.comprobarCinturones();
 
         model.addAttribute("alumnos", alumnoService.listAllAlumnos());
+        model.addAttribute("usuario", empleadoService.getUserAuthenticated());
+
         return "alumno/alumnos";
     }
 
@@ -83,6 +92,7 @@ public class AlumnoController {
         mav.addObject("alumno", alumnoDto);
         mav.addObject("listaObservaciones", observacionDtoList);
         mav.addObject("listaPagos", pagoDtoList);
+        mav.addObject("usuario", empleadoService.getUserAuthenticated());
 
         return mav;
     }
@@ -99,6 +109,7 @@ public class AlumnoController {
         mav.addObject("alumno", alumnoDto);
         mav.addObject("cinturones", cinturonService.listCinturon());
         mav.addObject("clases", claseService.listClases());
+        mav.addObject("usuario", empleadoService.getUserAuthenticated());
 
         return mav;
     }
@@ -129,6 +140,7 @@ public class AlumnoController {
         mav.addObject("alumno", alumnoDto);
         mav.addObject("cinturones", cinturonService.listCinturon());
         mav.addObject("clases", claseDtoList);
+        mav.addObject("usuario", empleadoService.getUserAuthenticated());
 
         return mav;
     }
@@ -146,7 +158,8 @@ public class AlumnoController {
         }
 
         if (alumnoDto.getFechaString() == null) {
-            alumnoDto.setFechaNac(alumnoService.getAlumnoById(alumnoDto.getId()).getFechaNac());
+            LocalDate date = alumnoService.getAlumnoById(alumnoDto.getId()).getFechaNac();
+            alumnoDto.setFechaNac(date);
         } else {
             alumnoDto.setFechaNac(Utility.stringToDate(alumnoDto.getFechaString()));
         }
@@ -161,6 +174,7 @@ public class AlumnoController {
         AlumnoDto alumnoDto = alumnoService.getAlumnoById(id);
 
         alumnoDto.setActivo("Activo");
+
         alumnoService.updateAlumno(alumnoDto);
 
         return "redirect:/alumno/alumno?id=" + alumnoDto.getId();
@@ -169,7 +183,6 @@ public class AlumnoController {
     @GetMapping("/bajaAlumno")
     public String bajaAlumnoMethod(@RequestParam(value = "id") int id) {
         AlumnoDto alumnoDto = alumnoService.getAlumnoById(id);
-
         alumnoDto.setActivo("Inactivo");
         alumnoService.updateAlumno(alumnoDto);
 
@@ -191,6 +204,7 @@ public class AlumnoController {
 
         mav.addObject("observacion", observacionDto);
         mav.addObject("listaObservaciones", observacionDtoList);
+        mav.addObject("usuario", empleadoService.getUserAuthenticated());
 
         return mav;
     }
@@ -229,6 +243,7 @@ public class AlumnoController {
 
         mav.addObject("faltas", faltasDtoList);
         mav.addObject("alumno", alumnoDto);
+        mav.addObject("usuario", empleadoService.getUserAuthenticated());
 
         return mav;
     }
