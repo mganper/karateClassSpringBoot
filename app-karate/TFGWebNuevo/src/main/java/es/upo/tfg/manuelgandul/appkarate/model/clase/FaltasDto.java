@@ -1,11 +1,12 @@
 package es.upo.tfg.manuelgandul.appkarate.model.clase;
 
+import es.upo.tfg.manuelgandul.appkarate.model.Dto;
 import es.upo.tfg.manuelgandul.appkarate.model.relations.AlumnoClaseDto;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class FaltasDto {
+public class FaltasDto extends Dto {
 
     private int id;
 

@@ -9,7 +9,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "alumno")
+@Table(name = "alumno", uniqueConstraints = @UniqueConstraint(columnNames = {"dni"}))
 public class Alumno implements Serializable {
 
     @Id

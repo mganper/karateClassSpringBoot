@@ -1,11 +1,12 @@
 package es.upo.tfg.manuelgandul.appkarate.model.alumno;
 
+import es.upo.tfg.manuelgandul.appkarate.model.Dto;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class ObservacionDto {
+public class ObservacionDto extends Dto {
 
     private int id;
 

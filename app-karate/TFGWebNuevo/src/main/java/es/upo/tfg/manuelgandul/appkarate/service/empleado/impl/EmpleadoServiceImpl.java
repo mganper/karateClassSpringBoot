@@ -6,6 +6,7 @@ import es.upo.tfg.manuelgandul.appkarate.entity.empleado.TipoUsuario;
 import es.upo.tfg.manuelgandul.appkarate.model.empleado.EmpleadoDto;
 import es.upo.tfg.manuelgandul.appkarate.repository.empleado.EmpleadoJpaRepository;
 import es.upo.tfg.manuelgandul.appkarate.service.empleado.EmpleadoService;
+import es.upo.tfg.manuelgandul.appkarate.utility.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
@@ -40,7 +41,7 @@ public class EmpleadoServiceImpl implements EmpleadoService, UserDetailsService 
         List<EmpleadoDto> empleadoDtoList = new ArrayList<>();
 
         empleadoJpaRepository.findAll().stream().forEach((empleado) -> {
-            if(empleado.isEmpleado() == true){
+            if(empleado.isProfesor() == true){
                 empleadoDtoList.add(empleadoConverter.entity2model(empleado));
             }
         });
@@ -53,7 +54,7 @@ public class EmpleadoServiceImpl implements EmpleadoService, UserDetailsService 
         List<EmpleadoDto> empleadoDtoList = new ArrayList<>();
 
         empleadoJpaRepository.findAll().stream().forEach((empleado) -> {
-            if(empleado.isEmpleado() == false) {
+            if(empleado.isProfesor() == false) {
                 empleadoDtoList.add(empleadoConverter.entity2model(empleado));
             }
         });
@@ -97,6 +98,23 @@ public class EmpleadoServiceImpl implements EmpleadoService, UserDetailsService 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         return getEmpleadoByDni(user.getUsername());
+    }
+
+    @Override
+    public EmpleadoDto loginRest(String user, String password) {
+        EmpleadoDto empleadoDto = null;
+        Empleado empleado = empleadoJpaRepository.findByDni(user);
+
+        if(Utility.matchPassword(password, empleado.getContrasenya())){
+            empleadoDto = empleadoConverter.entity2model(empleado);
+        }
+
+        return empleadoDto;
+    }
+
+    @Override
+    public boolean isLogged(String user, String token) {
+        return null != empleadoJpaRepository.findByDniAndToken(user, token);
     }
 
     @Override

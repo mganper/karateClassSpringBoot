@@ -31,12 +31,13 @@ public class EmpleadoConverter {
         empleadoDto.setGradoInstructor(empleado.getGrado_instructor());
         empleadoDto.setCargo(empleado.getCargo());
         empleadoDto.setContrasenya(empleado.getContrasenya());
+        empleadoDto.setToken(empleado.getToken());
 
         if (empleado.getCinturon() != null)
             empleadoDto.setCinturon(cinturonConverter.entity2model(empleado.getCinturon()));
 
         empleadoDto.setActivo((empleado.isActivo()) ? "Activo" : "Inactivo");
-        empleadoDto.setTipoUsuario((empleado.isEmpleado()) ? "Empleado" : "Profesor");
+        empleadoDto.setTipoUsuario((empleado.isProfesor()) ? "Empleado" : "Profesor");
 
         return empleadoDto;
     }
@@ -57,12 +58,13 @@ public class EmpleadoConverter {
         empleado.setGrado_instructor(empleadoDto.getGradoInstructor());
         empleado.setCargo(empleadoDto.getCargo());
         empleado.setContrasenya(empleadoDto.getContrasenya());
+        empleado.setToken(empleadoDto.getToken());
 
         if (empleadoDto.getCinturon() != null)
             empleado.setCinturon(cinturonConverter.model2entity(empleadoDto.getCinturon()));
 
         empleado.setActivo((empleadoDto.getActivo() == null || empleadoDto.getActivo().equals("Activo")) ? true : false);
-        empleado.setEmpleado((empleadoDto.getTipoUsuario() == null || empleadoDto.getTipoUsuario().equals("Empleado")) ? true : false);
+        empleado.setProfesor((empleadoDto.getTipoUsuario() == null || empleadoDto.getTipoUsuario().equals("Empleado")) ? true : false);
 
         return empleado;
     }

@@ -1,11 +1,12 @@
 package es.upo.tfg.manuelgandul.appkarate.model.empleado;
 
+import es.upo.tfg.manuelgandul.appkarate.model.Dto;
 import es.upo.tfg.manuelgandul.appkarate.model.common.CinturonDto;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class EmpleadoDto {
+public class EmpleadoDto extends Dto {
     private int id;
 
     private String dni;
@@ -37,6 +38,8 @@ public class EmpleadoDto {
     private String activo;
 
     private String contrasenya;
+
+    private String token;
 
     public EmpleadoDto() {
     }
@@ -167,6 +170,14 @@ public class EmpleadoDto {
 
     public void setContrasenya(String contrasenya) {
         this.contrasenya = contrasenya;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     @Override

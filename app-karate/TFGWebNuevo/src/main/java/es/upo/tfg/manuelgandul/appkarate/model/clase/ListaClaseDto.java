@@ -1,9 +1,12 @@
 package es.upo.tfg.manuelgandul.appkarate.model.clase;
 
+import es.upo.tfg.manuelgandul.appkarate.model.Dto;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListaClaseDto {
+public class ListaClaseDto extends Dto {
+
     private ClaseDto claseDto;
     private List<Integer> idAlumnoList;
 

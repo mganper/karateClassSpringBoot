@@ -1,8 +1,10 @@
 package es.upo.tfg.manuelgandul.appkarate.model.centro;
 
+import es.upo.tfg.manuelgandul.appkarate.model.Dto;
+
 import java.util.Objects;
 
-public class CentroDto {
+public class CentroDto extends Dto {
 
     private int id;
 

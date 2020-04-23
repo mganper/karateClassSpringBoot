@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "empleado")
+@Table(name = "empleado", uniqueConstraints = @UniqueConstraint(columnNames = {"dni"}))
 public class Empleado {
 
     @Id
@@ -50,7 +50,7 @@ public class Empleado {
     private String cargo;
 
     @Column(name = "profesor")
-    private boolean empleado;
+    private boolean profesor;
 
     @OneToMany(fetch = FetchType.EAGER)
     private Set<TipoUsuario> tipo_usuario = new HashSet<>();
@@ -60,6 +60,9 @@ public class Empleado {
 
     @Column(name = "contrasenya", nullable = false, length = 60)
     private String contrasenya;
+
+    @Column(name = "token")
+    private String token;
 
     public Empleado() {
     }
@@ -160,12 +163,12 @@ public class Empleado {
         this.cargo = cargo;
     }
 
-    public boolean isEmpleado() {
-        return empleado;
+    public boolean isProfesor() {
+        return profesor;
     }
 
-    public void setEmpleado(boolean empleado) {
-        this.empleado = empleado;
+    public void setProfesor(boolean empleado) {
+        this.profesor = empleado;
     }
 
     public Set<TipoUsuario> getTipo_usuario() {
@@ -190,5 +193,13 @@ public class Empleado {
 
     public void setContrasenya(String contrasenya) {
         this.contrasenya = contrasenya;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

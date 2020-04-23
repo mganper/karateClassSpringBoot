@@ -1,11 +1,12 @@
 package es.upo.tfg.manuelgandul.appkarate.model.clase;
 
+import es.upo.tfg.manuelgandul.appkarate.model.Dto;
 import es.upo.tfg.manuelgandul.appkarate.model.centro.CentroDto;
 import es.upo.tfg.manuelgandul.appkarate.model.empleado.EmpleadoDto;
 
 import java.util.Objects;
 
-public class ClaseDto {
+public class ClaseDto extends Dto {
 
     private int id;
 

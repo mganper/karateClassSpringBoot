@@ -1,5 +1,6 @@
 package es.upo.tfg.manuelgandul.appkarate.model.alumno;
 
+import es.upo.tfg.manuelgandul.appkarate.model.Dto;
 import es.upo.tfg.manuelgandul.appkarate.model.clase.ClaseDto;
 import es.upo.tfg.manuelgandul.appkarate.model.common.CinturonDto;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -10,7 +11,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
 
-public class AlumnoDto {
+public class AlumnoDto extends Dto {
 
     private int id;
 

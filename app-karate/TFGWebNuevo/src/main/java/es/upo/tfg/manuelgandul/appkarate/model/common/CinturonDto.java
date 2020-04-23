@@ -1,9 +1,11 @@
 package es.upo.tfg.manuelgandul.appkarate.model.common;
 
 
+import es.upo.tfg.manuelgandul.appkarate.model.Dto;
+
 import java.util.Objects;
 
-public class CinturonDto {
+public class CinturonDto extends Dto {
 
     private int id;
 

@@ -1,11 +1,5 @@
 package es.upo.tfg.manuelgandul.appkarate.utility;
 
-import es.upo.tfg.manuelgandul.appkarate.model.empleado.EmpleadoDto;
-import es.upo.tfg.manuelgandul.appkarate.service.empleado.EmpleadoService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
@@ -14,10 +8,6 @@ import java.time.LocalDate;
  * Esta clase contiene métodos útiles para el resto de las clases.
  */
 public class Utility {
-
-    @Autowired
-    @Qualifier("empleadoService")
-    private static EmpleadoService empleadoService;
 
     /**
      * Devuelve un objeto LocalDate a partir del String que recibe por parámetro.
@@ -38,5 +28,10 @@ public class Utility {
     public static String passwordEncoder(String password) {
         BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
         return pe.encode(password);
+    }
+
+    public static boolean matchPassword(String password, String encodedPassword){
+        BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
+        return pe.matches(password, encodedPassword);
     }
 }

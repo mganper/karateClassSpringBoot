@@ -11,4 +11,8 @@ public interface EmpleadoJpaRepository extends JpaRepository<Empleado, Serializa
     Empleado findById(int id);
 
     Empleado findByDni(String dni);
+
+    Empleado findByDniAndToken(String dni, String token);
+
+    Empleado findByDniAndContrasenya(String dni, String contrasenya);
 }

@@ -1,9 +1,10 @@
-package es.upo.tfg.manuelgandul.appkarate.controller;
+package es.upo.tfg.manuelgandul.appkarate.controller.index;
 
 import es.upo.tfg.manuelgandul.appkarate.service.empleado.EmpleadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,12 +19,17 @@ public class DefaultController {
     private EmpleadoService empleadoService;
 
     @GetMapping("/")
-    public ModelAndView indexMethod(){
-        ModelAndView mav = new ModelAndView("default/indice");
+    public String indexMethod(Model model){
+        String str;
 
-        mav.addObject("usuario", empleadoService.getUserAuthenticated());
+        if(empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")){
+            model.addAttribute("usuario", empleadoService.getUserAuthenticated());
+            str = "default/indice";
+        } else {
+            str = "error/403";
+        }
 
-        return mav;
+        return str;
     }
 
     @GetMapping("/login")
