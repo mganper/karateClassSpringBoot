@@ -28,7 +28,28 @@
                             <h3 class="font-weight-light">You don't have permission to access here.</h3>
                         </div>
                     </div>
-                    <nav th:insert="fragments/_footerError">
+                    <nav>
+                        <div class="row mt-5">
+                            <div class="col-12 text-center mt-xl-2">
+                                <form th:action="@{/logout}" method="post">
+                                    <button type="submit"
+                                            class="btn btn-inverse-link btn-rounded btn-fw text-white font-weight-medium">
+                                        Back
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row mt-5">
+                            <div class="col-12 mt-xl-2">
+                                <p class="text-white font-weight-medium text-center">Copyright &copy;
+                                    <script>
+                                        let f = new Date();
+                                        document.write(f.getFullYear());
+                                    </script>
+                                    All rights reserved.
+                                </p>
+                            </div>
+                        </div>
                     </nav>
                 </div>
             </div>
