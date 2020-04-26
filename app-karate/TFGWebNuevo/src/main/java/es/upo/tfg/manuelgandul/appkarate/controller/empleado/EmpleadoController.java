@@ -47,10 +47,16 @@ public class EmpleadoController {
         ModelAndView mav;
 
         if (empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
-            mav = new ModelAndView("empleado/empleado");
+            EmpleadoDto empleadoDto = empleadoService.getEmpleadoById(id);
 
-            mav.addObject("empleado", empleadoService.getEmpleadoById(id));
-            mav.addObject("usuario", empleadoService.getUserAuthenticated());
+            if (null != empleadoDto) {
+                mav = new ModelAndView("empleado/empleado");
+
+                mav.addObject("empleado", empleadoDto);
+                mav.addObject("usuario", empleadoService.getUserAuthenticated());
+            } else {
+                mav = new ModelAndView("error/404");
+            }
         } else {
             mav = new ModelAndView("error/403");
         }
@@ -97,10 +103,16 @@ public class EmpleadoController {
         ModelAndView mav;
 
         if(empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
-            mav = new ModelAndView("empleado/modificarEmpleado");
+            EmpleadoDto empleadoDto = empleadoService.getEmpleadoById(id);
 
-            mav.addObject("empleado", empleadoService.getEmpleadoById(id));
-            mav.addObject("usuario", empleadoService.getUserAuthenticated());
+            if (null != empleadoDto) {
+                mav = new ModelAndView("empleado/modificarEmpleado");
+
+                mav.addObject("empleado", empleadoDto);
+                mav.addObject("usuario", empleadoService.getUserAuthenticated());
+            } else {
+                mav = new ModelAndView("error/404");
+            }
         } else {
             mav = new ModelAndView("error/403");
         }
@@ -142,10 +154,14 @@ public class EmpleadoController {
         if(empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
             EmpleadoDto empleadoDto = empleadoService.getEmpleadoById(id);
 
-            empleadoDto.setActivo("Activo");
-            empleadoService.updateEmpleado(empleadoDto);
+            if (null != empleadoDto) {
+                empleadoDto.setActivo("Activo");
+                empleadoService.updateEmpleado(empleadoDto);
 
-            str = "redirect:/empleado/empleado?id=" + empleadoDto.getId();
+                str = "redirect:/empleado/empleado?id=" + empleadoDto.getId();
+            } else {
+                str = "error/404";
+            }
         } else {
             str = "error/403";
         }
@@ -160,10 +176,14 @@ public class EmpleadoController {
         if(empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
             EmpleadoDto empleadoDto = empleadoService.getEmpleadoById(id);
 
-            empleadoDto.setActivo("Inactivo");
-            empleadoService.updateEmpleado(empleadoDto);
+            if (null != empleadoDto) {
+                empleadoDto.setActivo("Inactivo");
+                empleadoService.updateEmpleado(empleadoDto);
 
-            str = "redirect:/empleado/empleado?id=" + empleadoDto.getId();
+                str = "redirect:/empleado/empleado?id=" + empleadoDto.getId();
+            } else {
+                str = "error/404";
+            }
         } else {
             str = "error/403";
         }

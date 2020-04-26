@@ -59,7 +59,7 @@ public class ClaseController {
     public String getClasesMethod(Model model) {
         String str;
 
-        if(empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
+        if (empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
             model.addAttribute("clases", claseService.listClases());
             model.addAttribute("usuario", empleadoService.getUserAuthenticated());
 
@@ -75,16 +75,19 @@ public class ClaseController {
     public ModelAndView viewClaseMethod(@RequestParam(value = "id") int id) {
         ModelAndView mav;
 
-        if(empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
-            mav = new ModelAndView("clase/clase");
-
+        if (empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
             ClaseDto claseDto = claseService.getClaseById(id);
-            int numAlumnos = alumnoClaseService.getNumeroAlumnosByClase(claseDto);
 
-            claseDto.setNumAlumnos(numAlumnos);
+            if (null != claseDto) {
+                int numAlumnos = alumnoClaseService.getNumeroAlumnosByClase(claseDto);
+                claseDto.setNumAlumnos(numAlumnos);
 
-            mav.addObject("clase", claseDto);
-            mav.addObject("usuario", empleadoService.getUserAuthenticated());
+                mav = new ModelAndView("clase/clase");
+                mav.addObject("clase", claseDto);
+                mav.addObject("usuario", empleadoService.getUserAuthenticated());
+            } else {
+                mav = new ModelAndView("error/404");
+            }
         } else {
             mav = new ModelAndView("error/403");
         }
@@ -96,7 +99,7 @@ public class ClaseController {
     public ModelAndView addClaseMethod() {
         ModelAndView mav;
 
-        if(empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
+        if (empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
             mav = new ModelAndView("clase/crearClase");
 
             mav.addObject("clase", new ClaseDto());
@@ -114,7 +117,7 @@ public class ClaseController {
     public String addClaseMethod(@Valid @ModelAttribute("clase") ClaseDto claseDto) {
         String str;
 
-        if(empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
+        if (empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
             if (claseDto.getProfesor().getId() == -1) {
                 claseDto.setProfesor(null);
             }
@@ -133,13 +136,19 @@ public class ClaseController {
     public ModelAndView updateClaseMethod(@RequestParam(value = "id") int id) {
         ModelAndView mav;
 
-        if(empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
-            mav = new ModelAndView("clase/modificarClase");
+        if (empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
+            ClaseDto claseDto = claseService.getClaseById(id);
 
-            mav.addObject("clase", claseService.getClaseById(id));
-            mav.addObject("centros", centroService.listCentros());
-            mav.addObject("profesores", empleadoService.listProfesores());
-            mav.addObject("usuario", empleadoService.getUserAuthenticated());
+            if (null != claseDto) {
+                mav = new ModelAndView("clase/modificarClase");
+
+                mav.addObject("clase", claseDto);
+                mav.addObject("centros", centroService.listCentros());
+                mav.addObject("profesores", empleadoService.listProfesores());
+                mav.addObject("usuario", empleadoService.getUserAuthenticated());
+            } else {
+                mav = new ModelAndView("error/404");
+            }
         } else {
             mav = new ModelAndView("error/403");
         }
@@ -151,7 +160,7 @@ public class ClaseController {
     public String saveUpdatedClaseMethod(@Valid @ModelAttribute("clase") ClaseDto claseDto) {
         String str;
 
-        if(empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
+        if (empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
             if (claseDto.getProfesor().getId() == -1) {
                 claseDto.setProfesor(null);
             }
@@ -170,16 +179,20 @@ public class ClaseController {
     public String altaClaseMethod(@RequestParam(value = "id") int id) {
         String str;
 
-        if(empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
+        if (empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
             ClaseDto claseDto = claseService.getClaseById(id);
 
-            if (claseDto.getCentro().getActivo().equals("Activo")) {
-                claseDto.setActivo("Activo");
-                claseService.updateClase(claseDto);
+            if (null != claseDto) {
+
+                if (claseDto.getCentro().getActivo().equals("Activo")) {
+                    claseDto.setActivo("Activo");
+                    claseService.updateClase(claseDto);
+                }
+
+                str = "redirect:/clase/clase?id=" + claseDto.getId();
+            } else {
+                str = "error/404";
             }
-
-            str = "redirect:/clase/clase?id=" + claseDto.getId();
-
         } else {
             str = "error/403";
         }
@@ -191,15 +204,19 @@ public class ClaseController {
     public String bajaClaseMethod(@RequestParam(value = "id") int id) {
         String str;
 
-        if(empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
+        if (empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
             ClaseDto claseDto = claseService.getClaseById(id);
 
-            claseDto.setActivo("Inactivo");
-            claseService.updateClase(claseDto);
+            if (null != claseDto) {
+                claseDto.setActivo("Inactivo");
+                claseService.updateClase(claseDto);
 
-            alumnoClaseService.removeAllAlumnosByClase(claseDto);
+                alumnoClaseService.removeAllAlumnosByClase(claseDto);
 
-            str = "redirect:/clase/clase?id=" + claseDto.getId();
+                str = "redirect:/clase/clase?id=" + claseDto.getId();
+            } else {
+                str = "error/404";
+            }
         } else {
             str = "error/403";
         }
@@ -211,15 +228,19 @@ public class ClaseController {
     public ModelAndView listaClaseMethod(@RequestParam(value = "id") int id) {
         ModelAndView mav;
 
-        if(empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
-            mav = new ModelAndView("clase/listaClase");
-
+        if (empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
             ClaseDto claseDto = claseService.getClaseById(id);
 
-            List<AlumnoDto> alumnoDtoList = alumnoClaseService.listAlumnosByClase(claseDto);
-            mav.addObject("alumnos", alumnoDtoList);
-            mav.addObject("clase", claseDto);
-            mav.addObject("usuario", empleadoService.getUserAuthenticated());
+            if (null != claseDto) {
+                mav = new ModelAndView("clase/listaClase");
+
+                List<AlumnoDto> alumnoDtoList = alumnoClaseService.listAlumnosByClase(claseDto);
+                mav.addObject("alumnos", alumnoDtoList);
+                mav.addObject("clase", claseDto);
+                mav.addObject("usuario", empleadoService.getUserAuthenticated());
+            } else {
+                mav = new ModelAndView("error/404");
+            }
         } else {
             mav = new ModelAndView("error/403");
         }
@@ -231,31 +252,37 @@ public class ClaseController {
     public ModelAndView updateListaClaseMethod(@RequestParam(value = "id") int id) {
         ModelAndView mav;
 
-        if(empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
-            mav = new ModelAndView("clase/modificarListaClase");
-
+        if (empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
             ClaseDto claseDto = claseService.getClaseById(id);
-            ListaClaseDto listaClaseDto = new ListaClaseDto(claseDto);
-            List<AlumnoDto> alumnosDtoList = new ArrayList<>();
-            List<AlumnoDto> allAlumnosDtoList = alumnoService.listAllAlumnosActivos();
-            List<AlumnoClaseDto> alumnoClaseDtoList = alumnoClaseService.listAllAlumnoClase();
 
-            List<AlumnoDto> alumnosConClase = new ArrayList<>();
+            if (null != claseDto) {
+                mav = new ModelAndView("clase/modificarListaClase");
 
-            alumnoClaseDtoList.stream().forEach(alumnoClaseDto -> {
-                if (alumnoClaseDto.getClase().equals(claseDto)) {
-                    listaClaseDto.getIdAlumnoList().add(alumnoClaseDto.getAlumno().getId());
-                    allAlumnosDtoList.add(alumnoClaseDto.getAlumno());
-                }
 
-                allAlumnosDtoList.remove(alumnoClaseDto.getAlumno());
-            });
+                ListaClaseDto listaClaseDto = new ListaClaseDto(claseDto);
+                List<AlumnoDto> alumnosDtoList = new ArrayList<>();
+                List<AlumnoDto> allAlumnosDtoList = alumnoService.listAllAlumnosActivos();
+                List<AlumnoClaseDto> alumnoClaseDtoList = alumnoClaseService.listAllAlumnoClase();
 
-            alumnosDtoList.addAll(allAlumnosDtoList);
+                List<AlumnoDto> alumnosConClase = new ArrayList<>();
 
-            mav.addObject("alumnos", alumnosDtoList);
-            mav.addObject("lista", listaClaseDto);
-            mav.addObject("usuario", empleadoService.getUserAuthenticated());
+                alumnoClaseDtoList.stream().forEach(alumnoClaseDto -> {
+                    if (alumnoClaseDto.getClase().equals(claseDto)) {
+                        listaClaseDto.getIdAlumnoList().add(alumnoClaseDto.getAlumno().getId());
+                        allAlumnosDtoList.add(alumnoClaseDto.getAlumno());
+                    }
+
+                    allAlumnosDtoList.remove(alumnoClaseDto.getAlumno());
+                });
+
+                alumnosDtoList.addAll(allAlumnosDtoList);
+
+                mav.addObject("alumnos", alumnosDtoList);
+                mav.addObject("lista", listaClaseDto);
+                mav.addObject("usuario", empleadoService.getUserAuthenticated());
+            } else {
+                mav = new ModelAndView("error/404");
+            }
         } else {
             mav = new ModelAndView("error/403");
         }
@@ -267,7 +294,7 @@ public class ClaseController {
     public String saveUpdatedListaClaseMethod(@Valid @ModelAttribute("lista") ListaClaseDto listaClaseDto) {
         String str;
 
-        if(empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
+        if (empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
             listaClaseDto.setClaseDto(claseService.getClaseById(listaClaseDto.getClaseDto().getId()));
             alumnoClaseService.updateListaAlumnos(listaClaseDto);
 
@@ -283,15 +310,22 @@ public class ClaseController {
     public ModelAndView viewFaltasMethod(@RequestParam(value = "id") int id) {
         ModelAndView mav;
 
-        if(empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
-            mav = new ModelAndView("clase/faltasClase");
-
+        if (empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
             ClaseDto claseDto = claseService.getClaseById(id);
-            List<FaltasDto> faltasDtoList = faltasService.listFaltasByClase(claseDto);
 
-            mav.addObject("faltas", faltasDtoList);
-            mav.addObject("clase", claseDto);
-            mav.addObject("usuario", empleadoService.getUserAuthenticated());
+            if (null != claseDto) {
+
+                mav = new ModelAndView("clase/faltasClase");
+
+
+                List<FaltasDto> faltasDtoList = faltasService.listFaltasByClase(claseDto);
+
+                mav.addObject("faltas", faltasDtoList);
+                mav.addObject("clase", claseDto);
+                mav.addObject("usuario", empleadoService.getUserAuthenticated());
+            } else {
+                mav = new ModelAndView("error/404");
+            }
         } else {
             mav = new ModelAndView("error/403");
         }

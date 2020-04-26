@@ -14,27 +14,37 @@ public class ResponsableConverter {
     private CentroConverter centroConverter;
 
     public ResponsableDto entity2model(Responsable responsable) {
-        ResponsableDto responsableDto = new ResponsableDto();
+        ResponsableDto responsableDto = null;
 
-        responsableDto.setId(responsable.getId());
-        responsableDto.setNombre(responsable.getNombre());
-        responsableDto.setApellidos(responsable.getApellidos());
-        responsableDto.setCargo(responsable.getCargo());
-        responsableDto.setCorreo(responsable.getCorreo());
-        responsableDto.setTelefono(responsable.getTelefono());
+        if (null != responsable) {
+            responsableDto = new ResponsableDto();
+
+            responsableDto.setId(responsable.getId());
+            responsableDto.setNombre(responsable.getNombre());
+            responsableDto.setApellidos(responsable.getApellidos());
+            responsableDto.setCargo(responsable.getCargo());
+            responsableDto.setCorreo(responsable.getCorreo());
+            responsableDto.setTelefono(responsable.getTelefono());
+
+        }
 
         return responsableDto;
     }
 
     public Responsable model2entity(ResponsableDto responsableDto) {
-        Responsable responsable = new Responsable();
+        Responsable responsable = null;
 
-        responsable.setId(responsableDto.getId());
-        responsable.setNombre(responsableDto.getNombre());
-        responsable.setApellidos(responsableDto.getApellidos());
-        responsable.setCargo(responsableDto.getCargo());
-        responsable.setCorreo(responsableDto.getCorreo());
-        responsable.setTelefono(responsableDto.getTelefono());
+        if (null != responsableDto) {
+
+            responsable = new Responsable();
+
+            responsable.setId(responsableDto.getId());
+            responsable.setNombre(responsableDto.getNombre());
+            responsable.setApellidos(responsableDto.getApellidos());
+            responsable.setCargo(responsableDto.getCargo());
+            responsable.setCorreo(responsableDto.getCorreo());
+            responsable.setTelefono(responsableDto.getTelefono());
+        }
 
         return responsable;
     }

@@ -69,11 +69,15 @@ public class CentroController {
         ModelAndView mav;
 
         if (empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
-            mav = new ModelAndView("centro/centro");
             CentroDto centroDto = centroService.getCentroById(id);
 
-            mav.addObject("centro", centroDto);
-            mav.addObject("usuario", empleadoService.getUserAuthenticated());
+            if (null != centroDto) {
+                mav = new ModelAndView("centro/centro");
+                mav.addObject("centro", centroDto);
+                mav.addObject("usuario", empleadoService.getUserAuthenticated());
+            } else {
+                mav = new ModelAndView("error/404");
+            }
         } else {
             mav = new ModelAndView("error/403");
         }
@@ -85,7 +89,7 @@ public class CentroController {
     public ModelAndView addCentroMethod() {
         ModelAndView mav;
 
-        if(empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
+        if (empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
             mav = new ModelAndView("centro/crearCentro");
 
             CentroDto centroDto = new CentroDto();
@@ -104,7 +108,7 @@ public class CentroController {
     public String addCentroMethod(@Valid @ModelAttribute("centro") CentroDto centroDto) {
         String str;
 
-        if(empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
+        if (empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
             centroDto = centroService.addCentro(centroDto);
             str = "redirect:/centro/centro?id=" + centroDto.getId();
         } else {
@@ -118,11 +122,16 @@ public class CentroController {
     public ModelAndView updateCentroMethod(@RequestParam(value = "id") int id) {
         ModelAndView mav;
 
-        if(empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
-            mav = new ModelAndView("centro/modificarCentro");
+        if (empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
+            CentroDto centroDto = centroService.getCentroById(id);
 
-            mav.addObject("centro", centroService.getCentroById(id));
-            mav.addObject("usuario", empleadoService.getUserAuthenticated());
+            if (null != centroDto) {
+                mav = new ModelAndView("centro/modificarCentro");
+                mav.addObject("centro", centroDto);
+                mav.addObject("usuario", empleadoService.getUserAuthenticated());
+            } else {
+                mav = new ModelAndView("error/404");
+            }
         } else {
             mav = new ModelAndView("error/403");
         }
@@ -134,7 +143,7 @@ public class CentroController {
     public String saveUpdatedCentroMethod(@Valid @ModelAttribute("centro") CentroDto centroDto) {
         String str;
 
-        if(empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
+        if (empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
             centroDto = centroService.addCentro(centroDto);
             str = "redirect:/centro/centro?id=" + centroDto.getId();
         } else {
@@ -148,13 +157,18 @@ public class CentroController {
     public String altaCentroMethod(@RequestParam(value = "id") int id) {
         String str;
 
-        if(empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
+        if (empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
             CentroDto centroDto = centroService.getCentroById(id);
 
-            centroDto.setActivo("Activo");
-            centroService.updateCentro(centroDto);
+            if (null != centroDto) {
 
-            str = "redirect:/centro/centro?id=" + centroDto.getId();
+                centroDto.setActivo("Activo");
+                centroService.updateCentro(centroDto);
+
+                str = "redirect:/centro/centro?id=" + centroDto.getId();
+            } else {
+                str = "error/404";
+            }
         } else {
             str = "error/403";
         }
@@ -166,15 +180,18 @@ public class CentroController {
     public String bajaCentroMethod(@RequestParam(value = "id") int id) {
         String str;
 
-        if(empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
+        if (empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
             CentroDto centroDto = centroService.getCentroById(id);
 
-            centroDto.setActivo("Inactivo");
-            centroService.updateCentro(centroDto);
-            claseService.setBajaAllClasesByCentro(centroDto);
-            alumnoClaseService.removeAllAlumnosByCentro(centroDto);
+            if (null != centroDto) {
 
-            str = "redirect:/centro/centro?id=" + centroDto.getId();
+                centroDto.setActivo("Inactivo");
+                centroService.updateCentro(centroDto);
+
+                str = "redirect:/centro/centro?id=" + centroDto.getId();
+            } else {
+                str = "error/404";
+            }
         } else {
             str = "error/403";
         }

@@ -21,21 +21,29 @@ public class AlumnoClaseConverter {
     }
 
     public AlumnoClaseDto entity2model(AlumnoClase alumnoClase){
-        AlumnoClaseDto alumnoClaseDto = new AlumnoClaseDto();
+        AlumnoClaseDto alumnoClaseDto = null;
 
-        //alumnoClaseDto.setId(alumnoClase.getId());
-        alumnoClaseDto.setAlumno(alumnoConverter.entity2Model(alumnoClase.getAlumno()));
-        alumnoClaseDto.setClase(claseConverter.entity2model(alumnoClase.getClase()));
+        if (null != alumnoClase) {
+            alumnoClaseDto = new AlumnoClaseDto();
+
+            alumnoClaseDto.setId(alumnoClase.getId());
+            alumnoClaseDto.setAlumno(alumnoConverter.entity2Model(alumnoClase.getAlumno()));
+            alumnoClaseDto.setClase(claseConverter.entity2model(alumnoClase.getClase()));
+        }
 
         return alumnoClaseDto;
     }
 
     public AlumnoClase model2entity(AlumnoClaseDto alumnoClaseDto){
-        AlumnoClase alumnoClase = new AlumnoClase();
+        AlumnoClase alumnoClase = null;
 
-        //alumnoClase.setId(alumnoClaseDto.getId());
-        alumnoClase.setAlumno(alumnoConverter.model2Entity(alumnoClaseDto.getAlumno()));
-        alumnoClase.setClase(claseConverter.model2entity(alumnoClaseDto.getClase()));
+        if (null != alumnoClaseDto) {
+            alumnoClase = new AlumnoClase();
+
+            alumnoClase.setId(alumnoClaseDto.getId());
+            alumnoClase.setAlumno(alumnoConverter.model2Entity(alumnoClaseDto.getAlumno()));
+            alumnoClase.setClase(claseConverter.model2entity(alumnoClaseDto.getClase()));
+        }
 
         return alumnoClase;
     }

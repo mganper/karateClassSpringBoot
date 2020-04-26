@@ -14,43 +14,52 @@ public class CentroConverter {
     private ResponsableConverter responsableConverter;
 
     public CentroDto entity2model(Centro centro) {
-        CentroDto centroDto = new CentroDto();
+        CentroDto centroDto = null;
 
-        centroDto.setId(centro.getId());
-        centroDto.setNombre(centro.getNombre());
-        centroDto.setDireccion(centro.getDireccion());
-        centroDto.setHoraMaximaInicio(centro.getHora_maxima_inicio());
-        centroDto.setHoraMaximaFin(centro.getHora_maxima_fin());
-        centroDto.setMaxClases(centro.getMax_clases());
-        centroDto.setPrecioMes(centro.getPrecio_mes());
+        if(null != centro) {
+            centroDto = new CentroDto();
 
-        if (centro.getResponsable() != null)
-            centroDto.setResponsable(responsableConverter.entity2model(centro.getResponsable()));
+            centroDto.setId(centro.getId());
+            centroDto.setNombre(centro.getNombre());
+            centroDto.setDireccion(centro.getDireccion());
+            centroDto.setHoraMaximaInicio(centro.getHora_maxima_inicio());
+            centroDto.setHoraMaximaFin(centro.getHora_maxima_fin());
+            centroDto.setMaxClases(centro.getMax_clases());
+            centroDto.setPrecioMes(centro.getPrecio_mes());
 
-        String activo = (centro.isActivo()) ? "Activo" : "Inactivo";
+            if (centro.getResponsable() != null)
+                centroDto.setResponsable(responsableConverter.entity2model(centro.getResponsable()));
 
-        centroDto.setActivo(activo);
+            String activo = (centro.isActivo()) ? "Activo" : "Inactivo";
+
+            centroDto.setActivo(activo);
+        }
 
         return centroDto;
     }
 
     public Centro model2entity(CentroDto centroDto) {
-        Centro centro = new Centro();
+        Centro centro = null;
 
-        centro.setId(centroDto.getId());
-        centro.setNombre(centroDto.getNombre());
-        centro.setDireccion(centroDto.getDireccion());
-        centro.setHora_maxima_inicio(centroDto.getHoraMaximaInicio());
-        centro.setHora_maxima_fin(centroDto.getHoraMaximaFin());
-        centro.setMax_clases(centroDto.getMaxClases());
-        centro.setPrecio_mes(centroDto.getPrecioMes());
+        if(null != centroDto) {
 
-        if (centroDto.getResponsable() != null)
-            centro.setResponsable(responsableConverter.model2entity(centroDto.getResponsable()));
+            centro = new Centro();
 
-        Boolean activo = (centroDto.getActivo() == null || centroDto.getActivo().equals("Activo")) ? true : false;
+            centro.setId(centroDto.getId());
+            centro.setNombre(centroDto.getNombre());
+            centro.setDireccion(centroDto.getDireccion());
+            centro.setHora_maxima_inicio(centroDto.getHoraMaximaInicio());
+            centro.setHora_maxima_fin(centroDto.getHoraMaximaFin());
+            centro.setMax_clases(centroDto.getMaxClases());
+            centro.setPrecio_mes(centroDto.getPrecioMes());
 
-        centro.setActivo(activo);
+            if (centroDto.getResponsable() != null)
+                centro.setResponsable(responsableConverter.model2entity(centroDto.getResponsable()));
+
+            Boolean activo = (centroDto.getActivo() == null || centroDto.getActivo().equals("Activo")) ? true : false;
+
+            centro.setActivo(activo);
+        }
 
         return centro;
     }

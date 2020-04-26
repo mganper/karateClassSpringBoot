@@ -8,19 +8,27 @@ import org.springframework.stereotype.Component;
 public class CinturonConverter {
 
     public CinturonDto entity2model(Cinturon cinturon){
-        CinturonDto cinturonDto = new CinturonDto();
+        CinturonDto cinturonDto = null;
 
-        cinturonDto.setId(cinturon.getId());
-        cinturonDto.setNomnbre(cinturon.getNomnbre());
+        if(null != cinturon) {
+            cinturonDto = new CinturonDto();
+
+            cinturonDto.setId(cinturon.getId());
+            cinturonDto.setNomnbre(cinturon.getNomnbre());
+        }
 
         return cinturonDto;
     }
 
     public Cinturon model2entity(CinturonDto cinturonDto){
-        Cinturon cinturon = new Cinturon();
+        Cinturon cinturon = null;
 
-        cinturon.setId(cinturonDto.getId());
-        cinturon.setNomnbre(cinturonDto.getNomnbre());
+        if (null != cinturonDto) {
+            cinturon = new Cinturon();
+
+            cinturon.setId(cinturonDto.getId());
+            cinturon.setNomnbre(cinturonDto.getNomnbre());
+        }
 
         return cinturon;
     }

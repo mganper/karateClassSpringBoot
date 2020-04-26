@@ -52,10 +52,17 @@ public class ProfesorController {
         ModelAndView mav;
 
         if (empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
-            mav = new ModelAndView("profesor/profesor");
+            EmpleadoDto empleadoDto = empleadoService.getEmpleadoById(id);
 
-            mav.addObject("profesor", empleadoService.getEmpleadoById(id));
-            mav.addObject("usuario", empleadoService.getUserAuthenticated());
+            if (null != empleadoDto) {
+
+                mav = new ModelAndView("profesor/profesor");
+
+                mav.addObject("profesor", empleadoDto);
+                mav.addObject("usuario", empleadoService.getUserAuthenticated());
+            } else {
+                mav = new ModelAndView("error/404");
+            }
         } else {
             mav = new ModelAndView("error/403");
         }
@@ -103,11 +110,18 @@ public class ProfesorController {
         ModelAndView mav;
 
         if (empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
-            mav = new ModelAndView("profesor/modificarProfesor");
+            EmpleadoDto empleadoDto = empleadoService.getEmpleadoById(id);
 
-            mav.addObject("profesor", empleadoService.getEmpleadoById(id));
-            mav.addObject("cinturones", cinturonService.listCinturon());
-            mav.addObject("usuario", empleadoService.getUserAuthenticated());
+            if (null != empleadoDto) {
+
+                mav = new ModelAndView("profesor/modificarProfesor");
+
+                mav.addObject("profesor", empleadoDto);
+                mav.addObject("cinturones", cinturonService.listCinturon());
+                mav.addObject("usuario", empleadoService.getUserAuthenticated());
+            } else {
+                mav = new ModelAndView("error/404");
+            }
         } else {
             mav = new ModelAndView("error/403");
         }
@@ -150,10 +164,14 @@ public class ProfesorController {
         if(empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
             EmpleadoDto empleadoDto = empleadoService.getEmpleadoById(id);
 
-            empleadoDto.setActivo("Activo");
-            empleadoService.updateEmpleado(empleadoDto);
+            if(null != empleadoDto) {
+                empleadoDto.setActivo("Activo");
+                empleadoService.updateEmpleado(empleadoDto);
 
-            str = "redirect:/empleado/empleado?id=" + empleadoDto.getId();
+                str = "redirect:/empleado/empleado?id=" + empleadoDto.getId();
+            } else {
+                str = "error/404";
+            }
         } else {
             str = "error/403";
         }
@@ -168,10 +186,14 @@ public class ProfesorController {
         if(empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado")) {
             EmpleadoDto empleadoDto = empleadoService.getEmpleadoById(id);
 
-            empleadoDto.setActivo("Inactivo");
-            empleadoService.updateEmpleado(empleadoDto);
+            if (null != empleadoDto) {
+                empleadoDto.setActivo("Inactivo");
+                empleadoService.updateEmpleado(empleadoDto);
 
-            str = "redirect:/empleado/empleado?id=" + empleadoDto.getId();
+                str = "redirect:/empleado/empleado?id=" + empleadoDto.getId();
+            } else {
+                str = "error/404";
+            }
         } else {
             str = "error/403";
         }

@@ -16,24 +16,32 @@ public class ObservacionConverter {
     private AlumnoConverter alumnoConverter;
 
     public ObservacionDto entity2Model(Observacion observacion){
-        ObservacionDto observacionDto = new ObservacionDto();
+        ObservacionDto observacionDto = null;
 
-        observacionDto.setId(observacion.getId());
-        observacionDto.setAlumno(alumnoConverter.entity2Model(observacion.getAlumno()));
-        observacionDto.setDato(observacion.getDato());
-        observacionDto.setFecha(observacion.getFecha());
+        if(null != observacion) {
+            observacionDto = new ObservacionDto();
+
+            observacionDto.setId(observacion.getId());
+            observacionDto.setAlumno(alumnoConverter.entity2Model(observacion.getAlumno()));
+            observacionDto.setDato(observacion.getDato());
+            observacionDto.setFecha(observacion.getFecha());
+        }
 
         return observacionDto;
     }
 
     public Observacion model2Entity(ObservacionDto observacionDto){
-        Observacion observacion = new Observacion();
-        LocalDate date = observacionDto.getFecha().plusDays(1);
+        Observacion observacion = null;
 
-        observacion.setId(observacionDto.getId());
-        observacion.setAlumno(alumnoConverter.model2Entity(observacionDto.getAlumno()));
-        observacion.setDato(observacionDto.getDato());
-        observacion.setFecha(date);
+        if(null != observacionDto) {
+            observacion = new Observacion();
+            LocalDate date = observacionDto.getFecha().plusDays(1);
+
+            observacion.setId(observacionDto.getId());
+            observacion.setAlumno(alumnoConverter.model2Entity(observacionDto.getAlumno()));
+            observacion.setDato(observacionDto.getDato());
+            observacion.setFecha(date);
+        }
 
         return observacion;
     }

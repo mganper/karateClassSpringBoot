@@ -19,42 +19,50 @@ public class AlumnoConverter {
     private CinturonConverter cinturonConverter;
 
     public AlumnoDto entity2Model(Alumno alumno) {
-        AlumnoDto alumnoDto = new AlumnoDto();
+        AlumnoDto alumnoDto = null;
 
-        alumnoDto.setId(alumno.getId());
-        alumnoDto.setDni(alumno.getDni());
-        alumnoDto.setNombre(alumno.getNombre());
-        alumnoDto.setApellidos(alumno.getApellidos());
-        alumnoDto.setTlf(alumno.getTelefono_contacto());
-        alumnoDto.setSexo(alumno.getSexo());
-        alumnoDto.setDir(alumno.getDireccion());
-        alumnoDto.setFechaNac(alumno.getFecha_nacimiento().toLocalDate());
-        alumnoDto.setCint(cinturonConverter.entity2model(alumno.getCinturon()));
+        if(null != alumno) {
+            alumnoDto = new AlumnoDto();
 
-        String activo = (alumno.isActivo()) ? "Activo" : "Inactivo";
+            alumnoDto.setId(alumno.getId());
+            alumnoDto.setDni(alumno.getDni());
+            alumnoDto.setNombre(alumno.getNombre());
+            alumnoDto.setApellidos(alumno.getApellidos());
+            alumnoDto.setTlf(alumno.getTelefono_contacto());
+            alumnoDto.setSexo(alumno.getSexo());
+            alumnoDto.setDir(alumno.getDireccion());
+            alumnoDto.setFechaNac(alumno.getFecha_nacimiento().toLocalDate());
+            alumnoDto.setCint(cinturonConverter.entity2model(alumno.getCinturon()));
 
-        alumnoDto.setActivo(activo);
+            String activo = (alumno.isActivo()) ? "Activo" : "Inactivo";
+
+            alumnoDto.setActivo(activo);
+        }
 
         return alumnoDto;
     }
 
     public Alumno model2Entity(AlumnoDto alumnoDto) {
-        Alumno alumno = new Alumno();
-        LocalDate date = alumnoDto.getFechaNac().plusDays(1);
+        Alumno alumno = null;
 
-        alumno.setId(alumnoDto.getId());
-        alumno.setDni(alumnoDto.getDni());
-        alumno.setNombre(alumnoDto.getNombre());
-        alumno.setApellidos(alumnoDto.getApellidos());
-        alumno.setTelefono_contacto(alumnoDto.getTlf());
-        alumno.setSexo(alumnoDto.getSexo());
-        alumno.setDireccion(alumnoDto.getDir());
-        alumno.setFecha_nacimiento(Date.valueOf(date));
-        alumno.setCinturon(cinturonConverter.model2entity(alumnoDto.getCint()));
+        if(null != alumnoDto) {
+            alumno = new Alumno();
+            LocalDate date = alumnoDto.getFechaNac().plusDays(1);
 
-        Boolean activo = (alumnoDto.getActivo() == null || alumnoDto.getActivo().equals("Activo")) ? true : false;
+            alumno.setId(alumnoDto.getId());
+            alumno.setDni(alumnoDto.getDni());
+            alumno.setNombre(alumnoDto.getNombre());
+            alumno.setApellidos(alumnoDto.getApellidos());
+            alumno.setTelefono_contacto(alumnoDto.getTlf());
+            alumno.setSexo(alumnoDto.getSexo());
+            alumno.setDireccion(alumnoDto.getDir());
+            alumno.setFecha_nacimiento(Date.valueOf(date));
+            alumno.setCinturon(cinturonConverter.model2entity(alumnoDto.getCint()));
 
-        alumno.setActivo(activo);
+            Boolean activo = (alumnoDto.getActivo() == null || alumnoDto.getActivo().equals("Activo")) ? true : false;
+
+            alumno.setActivo(activo);
+        }
 
         return alumno;
     }
