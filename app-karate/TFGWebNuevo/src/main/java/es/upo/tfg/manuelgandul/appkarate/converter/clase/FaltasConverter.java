@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 @Component("faltasConverter")
 public class FaltasConverter {
 
@@ -26,9 +28,10 @@ public class FaltasConverter {
 
     public Faltas model2entity(FaltasDto faltasDto){
         Faltas faltas = new Faltas();
+        LocalDate date = faltasDto.getFecha().plusDays(1);
 
         faltas.setId(faltasDto.getId());
-        faltas.setFecha(faltasDto.getFecha());
+        faltas.setFecha(date);
         faltas.setAlumnoClase(alumnoClaseConverter.model2entity(faltasDto.getAlumnoClase()));
 
         return faltas;

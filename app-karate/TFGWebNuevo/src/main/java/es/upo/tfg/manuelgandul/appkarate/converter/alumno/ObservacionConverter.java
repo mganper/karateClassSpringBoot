@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 @Component("observacionConverter")
 public class ObservacionConverter {
 
@@ -26,11 +28,12 @@ public class ObservacionConverter {
 
     public Observacion model2Entity(ObservacionDto observacionDto){
         Observacion observacion = new Observacion();
+        LocalDate date = observacionDto.getFecha().plusDays(1);
 
         observacion.setId(observacionDto.getId());
         observacion.setAlumno(alumnoConverter.model2Entity(observacionDto.getAlumno()));
         observacion.setDato(observacionDto.getDato());
-        observacion.setFecha(observacionDto.getFecha());
+        observacion.setFecha(date);
 
         return observacion;
     }

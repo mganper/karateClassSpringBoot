@@ -86,6 +86,11 @@ public class AlumnoClaseServiceImpl implements AlumnoClaseService {
     }
 
     @Override
+    public AlumnoClaseDto getAlumnoClaseByAlumno(AlumnoDto alumnoDto) {
+        return alumnoClaseConverter.entity2model(alumnoClaseJpaRepository.findByAlumno_Id(alumnoDto.getId()));
+    }
+
+    @Override
     public AlumnoClaseDto addAlumnoLista(AlumnoDto alumnoDto, ClaseDto claseDto) {
         AlumnoClaseDto alumnoClaseDto = new AlumnoClaseDto();
 
@@ -128,7 +133,7 @@ public class AlumnoClaseServiceImpl implements AlumnoClaseService {
     public void removeAllAlumnosByCentro(CentroDto centroDto) {
         List<ClaseDto> claseDtoList = claseService.listClases();
 
-        claseDtoList.stream().forEach(clase -> {
+        claseDtoList.forEach(clase -> {
             if (clase.getCentro().equals(centroDto)) {
                 alumnoClaseJpaRepository.removeAllByClase(claseConverter.model2entity(clase));
             }
@@ -142,15 +147,15 @@ public class AlumnoClaseServiceImpl implements AlumnoClaseService {
         List<AlumnoDto> alumnoListaNuevaDto = new ArrayList<>();
         List<AlumnoDto> alumnoListaAntiguaDto = new ArrayList<>();
 
-        idAlumnos.stream().forEach(id -> {
+        idAlumnos.forEach(id -> {
             alumnoListaNuevaDto.add(alumnoService.getAlumnoById(id));
         });
 
-        alumnoClaseDtoList.stream().forEach(alumnoClaseDto -> {
+        alumnoClaseDtoList.forEach(alumnoClaseDto -> {
             alumnoListaAntiguaDto.add(alumnoClaseDto.getAlumno());
         });
 
-        alumnoListaNuevaDto.stream().forEach(alumnoDto -> {
+        alumnoListaNuevaDto.forEach(alumnoDto -> {
             if(!alumnoListaAntiguaDto.contains(alumnoDto)){
                 this.addAlumnoLista(alumnoDto, listaClaseDto.getClaseDto());
             } else {
@@ -158,7 +163,7 @@ public class AlumnoClaseServiceImpl implements AlumnoClaseService {
             }
         });
 
-        alumnoListaAntiguaDto.stream().forEach(alumnoDto -> {
+        alumnoListaAntiguaDto.forEach(alumnoDto -> {
             this.removeAlumnoCentro(alumnoDto);
         });
 

@@ -30,6 +30,13 @@ public class Utility {
         return pe.encode(password);
     }
 
+    /**
+     * Método que se encarga de comprobar si la contraseña concuerda con la contraseña codificada.
+     *
+     * @param password Contraseña sin codificar.
+     * @param encodedPassword Contraseña codificada.
+     * @return true si concuerda.
+     */
     public static boolean matchPassword(String password, String encodedPassword){
         BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
         return pe.matches(password, encodedPassword);

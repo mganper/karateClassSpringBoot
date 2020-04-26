@@ -32,7 +32,7 @@ public class AlumnoServiceImpl implements AlumnoService {
     public List<AlumnoDto> listAllAlumnos() {
         List<AlumnoDto> listAlumnoDto = new ArrayList<>();
 
-        alumnoJpaRepository.findAll().stream().forEach((al) ->{
+        alumnoJpaRepository.findAll().stream().forEach((al) -> {
             listAlumnoDto.add(alumnoConverter.entity2Model(al));
         });
 
@@ -43,7 +43,7 @@ public class AlumnoServiceImpl implements AlumnoService {
     public List<AlumnoDto> listAllAlumnosActivos() {
         List<AlumnoDto> listAlumnoDto = new ArrayList<>();
 
-        alumnoJpaRepository.findAllByActivo(true).stream().forEach((al) ->{
+        alumnoJpaRepository.findAllByActivo(true).stream().forEach((al) -> {
             listAlumnoDto.add(alumnoConverter.entity2Model(al));
         });
 

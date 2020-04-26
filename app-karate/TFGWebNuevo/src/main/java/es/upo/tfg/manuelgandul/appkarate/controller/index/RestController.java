@@ -17,12 +17,12 @@ import java.util.List;
 public class RestController extends Api {
 
     @Override
-    public Dto get(int id) {
+    public ResponseEntity<Dto> get(int id, String user, String token) {
         return null;
     }
 
     @Override
-    public List list() {
+    public ResponseEntity<List> list(String user, String token) {
         return null;
     }
 

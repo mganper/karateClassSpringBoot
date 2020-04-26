@@ -48,4 +48,9 @@ public class PagoServiceImpl implements PagoService {
 
         return pagoConverter.entity2Model(pago);
     }
+
+    @Override
+    public PagoDto savePago(PagoDto pagoDto) {
+        return pagoConverter.entity2Model(pagoJpaRepository.save(pagoConverter.model2Entity(pagoDto)));
+    }
 }

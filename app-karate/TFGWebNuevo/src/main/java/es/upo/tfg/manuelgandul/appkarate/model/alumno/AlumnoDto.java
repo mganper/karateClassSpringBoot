@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 import java.util.Objects;
 
 public class AlumnoDto extends Dto {
@@ -29,7 +30,6 @@ public class AlumnoDto extends Dto {
 
     int edad;
 
-//    @NotNull
     private String fechaString;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -43,6 +43,8 @@ public class AlumnoDto extends Dto {
     private CinturonDto cint;
 
     private ClaseDto claseDto;
+
+    private List<ObservacionDto> observacionDtoList;
 
     private String activo;
 
@@ -146,6 +148,14 @@ public class AlumnoDto extends Dto {
 
     public void setClaseDto(ClaseDto claseDto) {
         this.claseDto = claseDto;
+    }
+
+    public List<ObservacionDto> getObservacionDtoList() {
+        return observacionDtoList;
+    }
+
+    public void setObservacionDtoList(List<ObservacionDto> observacionDtoList) {
+        this.observacionDtoList = observacionDtoList;
     }
 
     public String getActivo() {

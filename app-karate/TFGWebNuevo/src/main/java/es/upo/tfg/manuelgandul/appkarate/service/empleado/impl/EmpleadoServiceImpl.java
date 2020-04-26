@@ -114,7 +114,14 @@ public class EmpleadoServiceImpl implements EmpleadoService, UserDetailsService 
 
     @Override
     public boolean isLogged(String user, String token) {
-        return null != empleadoJpaRepository.findByDniAndToken(user, token);
+        Empleado empleado = empleadoJpaRepository.findByDni(user);
+        boolean resp = false;
+
+        if(empleado.getToken().equals(token)){
+            resp = true;
+        }
+
+        return resp;
     }
 
     @Override

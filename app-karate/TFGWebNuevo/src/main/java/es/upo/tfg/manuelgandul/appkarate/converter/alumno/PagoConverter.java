@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 @Component("pagoConverter")
 public class PagoConverter {
 
@@ -27,11 +29,13 @@ public class PagoConverter {
 
     public Pago model2Entity(PagoDto pagoDto){
         Pago pago = new Pago();
+        LocalDate mesPagado = pagoDto.getMesPagado().plusDays(1);
+        LocalDate fechaPago = pagoDto.getFecha().plusDays(1);
 
         pago.setId(pagoDto.getId());
         pago.setAlumno(alumnoConverter.model2Entity(pagoDto.getAlumno()));
-        pago.setFecha(pagoDto.getFecha());
-        pago.setMes_pagado(pagoDto.getMesPagado());
+        pago.setFecha(fechaPago);
+        pago.setMes_pagado(mesPagado);
         pago.setCantidad(pagoDto.getCantidad());
 
         return pago;

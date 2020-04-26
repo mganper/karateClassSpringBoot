@@ -7,6 +7,7 @@ import es.upo.tfg.manuelgandul.appkarate.model.alumno.AlumnoDto;
 import es.upo.tfg.manuelgandul.appkarate.model.clase.ClaseDto;
 import es.upo.tfg.manuelgandul.appkarate.model.clase.FaltasDto;
 import es.upo.tfg.manuelgandul.appkarate.repository.clase.FaltasJpaRepository;
+import es.upo.tfg.manuelgandul.appkarate.service.clase.ClaseService;
 import es.upo.tfg.manuelgandul.appkarate.service.clase.FaltasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

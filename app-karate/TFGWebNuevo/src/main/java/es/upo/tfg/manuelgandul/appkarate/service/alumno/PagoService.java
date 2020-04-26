@@ -6,9 +6,11 @@ import es.upo.tfg.manuelgandul.appkarate.model.alumno.PagoDto;
 import java.util.List;
 
 public interface PagoService {
-    public List<PagoDto> listPagosAlumno(AlumnoDto alumnoDto);
+    List<PagoDto> listPagosAlumno(AlumnoDto alumnoDto);
 
-    public void removePago(PagoDto pagoDto);
+    void removePago(PagoDto pagoDto);
 
-    public PagoDto getPagoById(int id);
+    PagoDto getPagoById(int id);
+
+    PagoDto savePago(PagoDto pagoDto);
 }
