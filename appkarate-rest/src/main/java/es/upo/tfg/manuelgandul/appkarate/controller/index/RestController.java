@@ -19,12 +19,12 @@ import java.util.List;
 public class RestController extends Api {
 
     @Override
-    public ResponseEntity get(IdToken idToken) {
+    public ResponseEntity get(int id) {
         return null;
     }
 
     @Override
-    public ResponseEntity<List> list(Token token) {
+    public ResponseEntity<List> list() {
         return null;
     }
 
@@ -33,51 +33,17 @@ public class RestController extends Api {
         return new ResponseEntity<>("Hello World!", HttpStatus.OK);
     }
 
-    @GetMapping("/loginRest")
-    public ResponseEntity<EmpleadoDto> loginRestMethod(@RequestParam(name = "user") String user,
-                                                       @RequestParam(name = "password") String password) {
-        ResponseEntity<EmpleadoDto> loginResponseEntity;
-        EmpleadoDto empleadoDto = empleadoService.loginRest(user, password);
+    @GetMapping("/login")
+    public ResponseEntity<Boolean> loginRestMethod() {
+        ResponseEntity<Boolean> loginResponseEntity;
 
-        if (null != empleadoDto && empleadoDto.getTipoUsuario().equalsIgnoreCase("Profesor")
-                && empleadoDto.getActivo().equalsIgnoreCase("Activo")){
-
-            empleadoDto.setToken(generateToken(empleadoDto));
-
-            empleadoService.updateEmpleado(empleadoDto);
-            empleadoDto.setContrasenya("");
-
-            loginResponseEntity = new ResponseEntity<>(empleadoDto, HttpStatus.OK);
+        if (super.isProfesor()){
+            loginResponseEntity = new ResponseEntity<>(true, HttpStatus.OK);
         } else {
-            loginResponseEntity = new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            loginResponseEntity = new ResponseEntity<>(false, HttpStatus.FORBIDDEN);
         }
-
 
         return loginResponseEntity;
-    }
-
-    @GetMapping("/logoutRest")
-    public ResponseEntity<Boolean> logOutRestMethod(@RequestParam(name = "user") String user,
-                                                    @RequestParam(name = "token") String token){
-        ResponseEntity<Boolean> logOutResponseEntity;
-        EmpleadoDto empleadoDto = empleadoService.getEmpleadoByDni(user);
-
-        if(null != empleadoDto && empleadoDto.getToken().equals(token)){
-            empleadoDto.setToken("");
-            empleadoService.updateEmpleado(empleadoDto);
-            logOutResponseEntity = new ResponseEntity<>(true, HttpStatus.OK);
-        } else {
-            logOutResponseEntity = new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
-        }
-
-        return  logOutResponseEntity;
-    }
-
-    private String generateToken(EmpleadoDto empleadoDto){
-        BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
-        String str = empleadoDto.getId() + empleadoDto.getDni() + empleadoDto.getTipoUsuario();
-
-        return pe.encode(str);
     }
 
 }

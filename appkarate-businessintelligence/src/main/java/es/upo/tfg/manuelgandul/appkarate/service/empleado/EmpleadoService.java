@@ -27,6 +27,4 @@ public interface EmpleadoService {
     EmpleadoDto getUserAuthenticated();
 
     EmpleadoDto loginRest(String user, String password);
-
-    boolean isLogged(String user, String token);
 }

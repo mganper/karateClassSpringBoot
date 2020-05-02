@@ -3,8 +3,7 @@ package es.upo.tfg.manuelgandul.appkarate.controller.empleado;
 import es.upo.tfg.manuelgandul.appkarate.controller.father.Api;
 import es.upo.tfg.manuelgandul.appkarate.model.empleado.EmpleadoDto;
 import es.upo.tfg.manuelgandul.appkarate.utility.Utility;
-import es.upo.tfg.manuelgandul.appkarate.webservicedto.common.IdToken;
-import es.upo.tfg.manuelgandul.appkarate.webservicedto.common.Token;
+import es.upo.tfg.manuelgandul.appkarate.webservicedto.common.PasswordJson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +16,11 @@ public class ProfesorRestController extends Api {
 
     @Override
     @GetMapping("/get")
-    public ResponseEntity<EmpleadoDto> get(@RequestBody IdToken idToken) {
+    public ResponseEntity<EmpleadoDto> get(@RequestParam(name = "id") int id) {
         ResponseEntity<EmpleadoDto> empleadoDtoResponseEntity;
 
-        if (super.isLoged(idToken.getUser(), idToken.getToken())) {
-            EmpleadoDto empleadoDto = super.empleadoService.getEmpleadoById(idToken.getId());
+        if (super.isProfesor()) {
+            EmpleadoDto empleadoDto = super.empleadoService.getEmpleadoById(id);
             empleadoDto.setContrasenya("");
 
             empleadoDtoResponseEntity = new ResponseEntity<>(empleadoDto, HttpStatus.OK);
@@ -34,10 +33,10 @@ public class ProfesorRestController extends Api {
 
     @Override
     @GetMapping("/list")
-    public ResponseEntity<List<EmpleadoDto>> list(@RequestBody Token token) {
+    public ResponseEntity<List<EmpleadoDto>> list() {
         ResponseEntity<List<EmpleadoDto>> listResponseEntity;
 
-        if (super.isLoged(token.getUser(), token.getToken())) {
+        if (super.isProfesor()) {
             List<EmpleadoDto> empleadoDtoList = super.empleadoService.listProfesores();
 
             empleadoDtoList.parallelStream().forEach(e -> {
@@ -52,18 +51,15 @@ public class ProfesorRestController extends Api {
         return listResponseEntity;
     }
 
-    @GetMapping("/changePassword")
-    public ResponseEntity<Boolean> changePassword(@RequestParam(name = "oldPassword") String oldPassword,
-                                                  @RequestParam(name = "newPassword") String newPassword,
-                                                  @RequestParam(name = "user") String user,
-                                                  @RequestParam(name = "token") String token) {
+    @PutMapping("/changePassword")
+    public ResponseEntity<Boolean> changePassword(@RequestBody PasswordJson passwordJson) {
         ResponseEntity<Boolean> booleanResponseEntity;
 
-        if (super.isLoged(user, token)) {
-            EmpleadoDto empleadoDto = super.empleadoService.getEmpleadoByDni(user);
+        if (super.isProfesor()) {
+            EmpleadoDto empleadoDto = super.empleadoService.getEmpleadoByDni(empleadoService.getUserAuthenticated().getDni());
 
-            if(Utility.matchPassword(oldPassword, empleadoDto.getContrasenya())){
-                empleadoDto.setContrasenya(Utility.passwordEncoder(newPassword));
+            if (Utility.matchPassword(passwordJson.getOldPassword(), empleadoDto.getContrasenya())) {
+                empleadoDto.setContrasenya(Utility.passwordEncoder(passwordJson.getNewPassword()));
                 super.empleadoService.updateEmpleado(empleadoDto);
 
                 booleanResponseEntity = new ResponseEntity<>(true, HttpStatus.OK);

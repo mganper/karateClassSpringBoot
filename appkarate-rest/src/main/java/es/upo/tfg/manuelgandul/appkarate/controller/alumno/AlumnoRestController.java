@@ -6,12 +6,10 @@ import es.upo.tfg.manuelgandul.appkarate.model.alumno.PagoDto;
 import es.upo.tfg.manuelgandul.appkarate.service.alumno.AlumnoService;
 import es.upo.tfg.manuelgandul.appkarate.service.alumno.ObservacionService;
 import es.upo.tfg.manuelgandul.appkarate.service.alumno.PagoService;
-import es.upo.tfg.manuelgandul.appkarate.webservicedto.common.IdToken;
-import es.upo.tfg.manuelgandul.appkarate.webservicedto.common.Token;
+import es.upo.tfg.manuelgandul.appkarate.webservicedto.common.PagoJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,12 +33,12 @@ public class AlumnoRestController extends Api {
     private PagoService pagoService;
 
     @Override
-    @PostMapping(value = "/get", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AlumnoDto> get(@RequestBody IdToken idToken) {
+    @GetMapping("/get")
+    public ResponseEntity<AlumnoDto> get(@RequestParam(name = "id") int id) {
         ResponseEntity<AlumnoDto> alumnoDtoResponseEntity;
 
-        if (super.isLoged(idToken.getUser(), idToken.getToken())) {
-            AlumnoDto alumnoDto = alumnoService.getAlumnoById(idToken.getId());
+        if (super.isProfesor()) {
+            AlumnoDto alumnoDto = alumnoService.getAlumnoById(id);
             alumnoDto.setObservacionDtoList(observacionService.listObservacionAlumno(alumnoDto));
 
             alumnoDtoResponseEntity = new ResponseEntity<>(alumnoDto, HttpStatus.OK);
@@ -52,11 +50,11 @@ public class AlumnoRestController extends Api {
     }
 
     @Override
-    @RequestMapping(name = "/list", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<AlumnoDto>> list(@RequestBody Token token) {
+    @GetMapping("/list")
+    public ResponseEntity<List<AlumnoDto>> list() {
         ResponseEntity<List<AlumnoDto>> listResponseEntity;
 
-        if (super.isLoged(token.getUser(), token.getToken())) {
+        if (super.isProfesor()) {
             List<AlumnoDto> alumnoDtoList = alumnoService.listAllAlumnos();
 
             listResponseEntity = new ResponseEntity<>(alumnoDtoList, HttpStatus.OK);
@@ -67,21 +65,17 @@ public class AlumnoRestController extends Api {
         return listResponseEntity;
     }
 
-    @GetMapping("/addPago")
-    public ResponseEntity<Boolean> addPagoMethod(@RequestParam(name = "id") int id,
-                                                 @RequestParam(name = "mes") int mes,
-                                                 @RequestParam(name = "cantidad") double cantidad,
-                                                 @RequestParam(name = "user") String user,
-                                                 @RequestParam(name = "token") String token) {
+    @PutMapping("/addPago")
+    public ResponseEntity<Boolean> addPagoMethod(@RequestBody PagoJson pagoJson) {
         ResponseEntity<Boolean> listResponseEntity;
 
-        if (super.isLoged(user, token)) {
-            AlumnoDto alumnoDto = alumnoService.getAlumnoById(id);
+        if (super.isProfesor()) {
+            AlumnoDto alumnoDto = alumnoService.getAlumnoById(pagoJson.getId());
             PagoDto pagoDto = new PagoDto();
 
             pagoDto.setAlumno(alumnoDto);
-            pagoDto.setMesPagado(LocalDate.of(LocalDate.now().getYear(), mes, 1));
-            pagoDto.setCantidad(cantidad);
+            pagoDto.setMesPagado(LocalDate.of(LocalDate.now().getYear(), pagoJson.getMes(), 1));
+            pagoDto.setCantidad(pagoJson.getCantidad());
             pagoDto.setFecha(LocalDate.now());
 
             pagoService.savePago(pagoDto);
