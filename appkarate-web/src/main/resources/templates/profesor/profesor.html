@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>Información Profesor :: Shoki</title>
+    <link rel="stylesheet" th:href="@{/vendors/iconfonts/mdi/css/materialdesignicons.min.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/iconfonts/ionicons/css/ionicons.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/iconfonts/typicons/src/font/typicons.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.base.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.addons.css}"/>
+    <link rel="stylesheet" th:href="@{/css/shared/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/demo_1/style.css}"/>
+    <link rel="shortcut icon" th:href="@{/images/favicon.png}"/>
+</head>
+<body>
+<div class="container-scroller">
+    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row" th:insert="fragments/_navbar">
+    </nav>
+    <div class="container-fluid page-body-wrapper">
+        <nav class="sidebar sidebar-offcanvas" id="sidebar" th:insert="fragments/_sidebar">
+        </nav>
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-lg-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Información del profesor</h4>
+                                <form class="form-sample">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">DNI</label>
+                                                <div class="col-sm-9">
+                                                    <label class="col-sm-12 col-form-label" th:text="${profesor.dni}">
+                                                        11111111A</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Nombre</label>
+                                                <div class="col-sm-9">
+                                                    <label label class="col-sm-12 col-form-label"
+                                                           th:text="${profesor.nombre}"> Alumno1 </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Apellidos</label>
+                                                <div class="col-sm-9">
+                                                    <label label class="col-sm-12 col-form-label"
+                                                           th:text="${profesor.apellidos}">Apellido1</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Sexo</label>
+                                                <div class="col-sm-9">
+                                                    <label label class="col-sm-12 col-form-label"
+                                                           th:text="${profesor.sexo}">Masculino</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Fecha de Nacimiento</label>
+                                                <div class="col-sm-9">
+                                                    <label label class="col-sm-12 col-form-label"
+                                                           th:text="${profesor.fechaNacimiento}">01/01/1977</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Teléfono de Contacto</label>
+                                                <div class="col-sm-9">
+                                                    <label label class="col-sm-12 col-form-label"
+                                                           th:text="${profesor.telefono}">955111111</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Dirección</label>
+                                                <div class="col-sm-9">
+                                                    <label label class="col-sm-12 col-form-label"
+                                                           th:text="${profesor.direccion}">Calle 1, nº 1</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Cinturón</label>
+                                                <div class="col-sm-9">
+                                                    <label label class="col-sm-12 col-form-label"
+                                                           th:text="${profesor.cinturon.nomnbre}">Negro 1 Dan</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Grado Instructor</label>
+                                                <div class="col-sm-9">
+                                                    <label label class="col-sm-12 col-form-label">Grado <span
+                                                            th:text="${profesor.gradoInstructor}">1</span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Sueldo</label>
+                                                <div class="col-sm-9">
+                                                    <label label class="col-sm-12 col-form-label"><span
+                                                            th:text="${profesor.sueldo}">400</span> €</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <div class="col-sm-9">
+                                                    <span th:if="${profesor.activo.equals('Inactivo')}">
+                                                        <a th:href="@{/profesor/altaProfesor(id=${profesor.id})}">
+                                                        <button type="button"
+                                                                class="btn btn-success btn-fw">Dar Alta</button>
+                                                    </a>
+                                                    </span>
+                                                    <span th:unless="${profesor.activo.equals('Inactivo')}">
+                                                        <a th:href="@{/profesor/editProfesor(id=${profesor.id})}">
+                                                            <button type="button" class="btn btn-primary btn-fw">Editar
+                                                            </button>
+                                                        </a>
+                                                        <a th:href="@{/profesor/bajaProfesor(id=${profesor.id})}">
+                                                            <button type="button"
+                                                                    class="btn btn-danger btn-fw">Dar Baja</button>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer" th:insert="fragments/_footer"></footer>
+        </div>
+    </div>
+</div>
+<script th:src="@{/vendors/js/vendor.bundle.base.js}"></script>
+<script th:src="@{/vendors/js/vendor.bundle.addons.js}"></script>
+<script th:src="@{/js/shared/off-canvas.js}"></script>
+<script th:src="@{/js/shared/misc.js}"></script>
+</body>
+
+</html>

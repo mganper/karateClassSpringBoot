@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>Modificar Centro :: Shoki</title>
+    <link rel="stylesheet" th:href="@{/vendors/iconfonts/mdi/css/materialdesignicons.min.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/iconfonts/ionicons/css/ionicons.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/iconfonts/typicons/src/font/typicons.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.base.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.addons.css}"/>
+    <link rel="stylesheet" th:href="@{/css/shared/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/demo_1/style.css}"/>
+    <link rel="shortcut icon" th:href="@{/images/favicon.png}"/>
+</head>
+<body>
+<div class="container-scroller">
+    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row" th:insert="fragments/_navbar">
+    </nav>
+    <div class="container-fluid page-body-wrapper">
+        <nav class="sidebar sidebar-offcanvas" id="sidebar" th:insert="fragments/_sidebar">
+        </nav>
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-lg-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Modificar Clase</h4>
+                                <form class="form-sample" th:object="${clase}" th:action="@{/clase/saveUpdatedClase}"
+                                      method="post">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Identificador</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" th:value="${clase.id}"
+                                                           th:field="*{id}"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Precio</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" th:value="${clase.precio}"
+                                                           th:field="*{precio}"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Hora Inicio</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control"
+                                                           th:value="${clase.horaInicio}" th:field="*{horaInicio}"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Hora Fin</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" th:value="${clase.horaFin}"
+                                                           th:field="*{horaFin}"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Edad mínima</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control"
+                                                           th:value="${clase.edadMinima}" th:field="*{edadMinima}"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Edad máxima</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control"
+                                                           th:value="${clase.edadMaxima}" th:field="*{edadMaxima}"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Máximo de alumnos</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control"
+                                                           th:value="${clase.maxAlumnos}" th:field="*{maxAlumnos}"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Centro</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" th:field="*{centro.id}">
+                                                        <option th:value="-1"
+                                                                th:text="'Seleccione Centro'"></option>
+                                                        <span th:each="centro : ${centros}">
+                                                            <span th:if="${clase.centro.id == centro.id}">
+                                                                <option th:value="${centro.id}"
+                                                                        th:text="${centro.nombre}"
+                                                                        selected="true"></option>
+                                                            </span>
+                                                            <span th:unless="${clase.centro.id == centro.id}">
+                                                                <option th:value="${centro.id}"
+                                                                        th:text="${centro.nombre}"></option>
+                                                            </span>
+                                                        </span>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Profesor</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" th:field="*{profesor.id}">
+                                                        <option th:value="-1">Seleccione Profesor</option>
+                                                        <span th:each="profesor : ${profesores}">
+                                                            <span th:if="${clase.profesor.id == profesor.id}">
+                                                                <option th:value="${profesor.id}"
+                                                                        th:text="${profesor.nombre}"
+                                                                        selected="true"></option>
+                                                            </span>
+                                                            <span th:unless="${clase.profesor.id == profesor.id}">
+                                                                <option th:value="${profesor.id}"
+                                                                        th:text="${profesor.nombre}"></option>
+                                                            </span>
+                                                        </span>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <div class="col-sm-9">
+                                                    <button type="submit" class="btn btn-success btn-fw">Enviar</button>
+                                                    <button type="reset" class="btn btn-primary btn-fw">Limpiar</button>
+                                                    <a th:href="@{/clase/clase(id=${clase.id})}">
+                                                        <button type="reset" class="btn btn-danger btn-fw">Cancelar</button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer" th:insert="fragments/_footer"></footer>
+        </div>
+    </div>
+</div>
+<script th:src="@{/vendors/js/vendor.bundle.base.js}"></script>
+<script th:src="@{/vendors/js/vendor.bundle.addons.js}"></script>
+<script th:src="@{/js/shared/off-canvas.js}"></script>
+<script th:src="@{/js/shared/misc.js}"></script>
+</body>
+
+</html>
