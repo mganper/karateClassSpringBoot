@@ -17,6 +17,8 @@ public interface AlumnoClaseService {
 
     AlumnoClaseDto getAlumnoClaseByAlumno(AlumnoDto alumnoDto);
 
+    AlumnoClaseDto getAlumnoClaseByAlumnoId(int idAlumnoDto);
+
     AlumnoClaseDto addAlumnoLista(AlumnoDto alumnoDto, ClaseDto claseDto);
 
     void removeAlumnoCentro(AlumnoDto alumnoDto);

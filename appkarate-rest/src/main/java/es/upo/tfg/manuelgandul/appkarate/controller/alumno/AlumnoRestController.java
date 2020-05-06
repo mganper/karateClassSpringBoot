@@ -2,10 +2,13 @@ package es.upo.tfg.manuelgandul.appkarate.controller.alumno;
 
 import es.upo.tfg.manuelgandul.appkarate.controller.father.Api;
 import es.upo.tfg.manuelgandul.appkarate.model.alumno.AlumnoDto;
+import es.upo.tfg.manuelgandul.appkarate.model.alumno.ObservacionDto;
 import es.upo.tfg.manuelgandul.appkarate.model.alumno.PagoDto;
+import es.upo.tfg.manuelgandul.appkarate.model.clase.ClaseDto;
 import es.upo.tfg.manuelgandul.appkarate.service.alumno.AlumnoService;
 import es.upo.tfg.manuelgandul.appkarate.service.alumno.ObservacionService;
 import es.upo.tfg.manuelgandul.appkarate.service.alumno.PagoService;
+import es.upo.tfg.manuelgandul.appkarate.service.relations.AlumnoClaseService;
 import es.upo.tfg.manuelgandul.appkarate.webservicedto.common.PagoJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -32,6 +35,10 @@ public class AlumnoRestController extends Api {
     @Qualifier("pagoService")
     private PagoService pagoService;
 
+    @Autowired
+    @Qualifier("alumnoClaseService")
+    private AlumnoClaseService alumnoClaseService;
+
     @Override
     @GetMapping("/get")
     public ResponseEntity<AlumnoDto> get(@RequestParam(name = "id") int id) {
@@ -39,7 +46,15 @@ public class AlumnoRestController extends Api {
 
         if (super.isProfesor()) {
             AlumnoDto alumnoDto = alumnoService.getAlumnoById(id);
-            alumnoDto.setObservacionDtoList(observacionService.listObservacionAlumno(alumnoDto));
+            List<ObservacionDto> observacionList = observacionService.listObservacionAlumno(alumnoDto);
+            ClaseDto claseDto = alumnoClaseService.getClaseByAlumno(alumnoDto);
+
+            observacionList.forEach(observacionDto -> {
+                observacionDto.setAlumno(null);
+            });
+
+            alumnoDto.setObservacionDtoList(observacionList);
+            alumnoDto.setClaseDto(claseDto);
 
             alumnoDtoResponseEntity = new ResponseEntity<>(alumnoDto, HttpStatus.OK);
         } else {
@@ -56,6 +71,12 @@ public class AlumnoRestController extends Api {
 
         if (super.isProfesor()) {
             List<AlumnoDto> alumnoDtoList = alumnoService.listAllAlumnos();
+
+            alumnoDtoList.forEach(alumnoDto -> {
+                ClaseDto claseDto = alumnoClaseService.getClaseByAlumno(alumnoDto);
+
+                alumnoDto.setClaseDto(claseDto);
+            });
 
             listResponseEntity = new ResponseEntity<>(alumnoDtoList, HttpStatus.OK);
         } else {
@@ -74,13 +95,13 @@ public class AlumnoRestController extends Api {
             PagoDto pagoDto = new PagoDto();
 
             pagoDto.setAlumno(alumnoDto);
-            pagoDto.setMesPagado(LocalDate.of(LocalDate.now().getYear(), pagoJson.getMes(), 1));
+            pagoDto.setMesPagado(LocalDate.of(pagoJson.getAnyo(), pagoJson.getMes(), 1));
             pagoDto.setCantidad(pagoJson.getCantidad());
             pagoDto.setFecha(LocalDate.now());
 
             pagoService.savePago(pagoDto);
 
-            listResponseEntity = new ResponseEntity<>(true, HttpStatus.OK);
+            listResponseEntity = new ResponseEntity<>(true, HttpStatus.CREATED);
         } else {
             listResponseEntity = new ResponseEntity<>(false, HttpStatus.FORBIDDEN);
         }

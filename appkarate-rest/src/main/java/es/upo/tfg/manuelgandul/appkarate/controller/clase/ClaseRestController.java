@@ -83,14 +83,14 @@ public class ClaseRestController extends Api {
     }
 
     @PutMapping("/setFaltas")
-    public ResponseEntity<Boolean> setListaClase(@RequestBody List<AlumnoDto> alumnoDtoList){
+    public ResponseEntity<Boolean> setListaClase(@RequestBody List<Integer> idList){
         ResponseEntity<Boolean> booleanResponseEntity;
 
         if(super.isProfesor()){
             List<AlumnoClaseDto> alumnoClaseDtoFaltalist = new ArrayList<>();
 
-            alumnoDtoList.forEach(alumnoDto -> {
-                alumnoClaseDtoFaltalist.add(alumnoClaseService.getAlumnoClaseByAlumno(alumnoDto));
+            idList.forEach(id -> {
+                alumnoClaseDtoFaltalist.add(alumnoClaseService.getAlumnoClaseByAlumnoId(id));
             });
 
             alumnoClaseDtoFaltalist.forEach(alumnoClaseDto -> {
@@ -101,7 +101,7 @@ public class ClaseRestController extends Api {
                 faltasService.addFalta(faltasDto);
             });
 
-            booleanResponseEntity = new ResponseEntity<>(true, HttpStatus.OK);
+            booleanResponseEntity = new ResponseEntity<>(true, HttpStatus.CREATED);
         } else {
             booleanResponseEntity = new ResponseEntity<>(false, HttpStatus.FORBIDDEN);
         }

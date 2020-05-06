@@ -19,6 +19,6 @@ public abstract class Api <D extends Dto> {
     public abstract ResponseEntity<List<D>> list();
 
     public boolean isProfesor(){
-        return empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Empleado");
+        return empleadoService.getUserAuthenticated().getTipoUsuario().equalsIgnoreCase("Profesor");
     }
 }
